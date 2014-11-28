@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsi_file type="CompoundNode" name="VDB LevelSet Boolean Operations" tasks="Open VDB/Math" formatversion="1.4" compoundversion="1.0" backgroundcolor="13158600">
+	<definition>
+		<nodes>
+			<node type="VDB_CSG" index="0">
+				<param name="Function" type="3" value="0"></param>
+				<portdef name="inVDBA" type="65536" structure="1" group="0" instance="0" port="0" supportedblob="2"></portdef>
+				<portdef name="inVDBB" type="65536" structure="1" group="0" instance="0" port="1" supportedblob="2"></portdef>
+				<portdef name="Function" type="2" structure="1" group="0" instance="0" port="2"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">865</prop>
+					<prop name="posy">150</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+				<comment type="node" state="maximized" wordwrap="true" autoresize="true" background="0" background_alpha="0.000000" title="14876671" title_text="0" offsetx="129" offsety="138" sizex="212" sizey="32"><![CDATA[performs typical boolean operation, for better result bandwidth should be equal in both grids]]></comment>
+			</node>
+		</nodes>
+		<exposed_ports>
+			<port index="0" portname="inVDBA" username="VDBGrid_A" basename="VDBGrid A" portlabel="VDBGrid A" exposetype="single"> </port>
+			<port index="0" portname="inVDBB" username="VDBGrid_B" basename="VDBGrid B" portlabel="VDBGrid B" exposetype="single"> </port>
+			<port index="0" portname="outVDBGrid" username="VDBGrid" basename="VDBGrid" portlabel="VDBGrid" exposetype="single"> </port>
+			<port index="0" portname="Function" username="Function" basename="Function" portlabel="Function" exposetype="single"> </port>
+		</exposed_ports>
+		<connections>
+		</connections>
+		<layout>
+			<item type="input" name="VDBGrid_A"> </item>
+			<item type="input" name="VDBGrid_B"> </item>
+			<item type="input" name="Function" min="0" max="0">
+				<enum value="0"><![CDATA[Union]]></enum>
+				<enum value="1"><![CDATA[A-B]]></enum>
+				<enum value="2"><![CDATA[B-A]]></enum>
+				<enum value="3"><![CDATA[Intersection]]></enum>
+			</item>
+			<item type="output" name="VDBGrid"> </item>
+		</layout>
+		<blob_dictionary>
+			<dict_entry index="2" color="2631870">
+				<typename><![CDATA[VDBGridRef]]></typename>
+				<displayname><![CDATA[VDBGridRef]]></displayname>
+				<description><![CDATA[VDBGrid reference]]></description>
+			</dict_entry>
+		</blob_dictionary>
+	</definition>
+</xsi_file>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsi_file type="CompoundNode" name="VDB Advection" tasks="Open VDB/Processing" formatversion="1.4" compoundversion="1.0" backgroundcolor="13158600">
+	<definition>
+		<nodes>
+			<node type="VDB_AdvectLevelSet" index="0">
+				<param name="Multithreaded" type="11" value="true"></param>
+				<param name="AdvectionTimeStep" type="4" value="0.040000"></param>
+				<param name="AdvectionSpatialScheme" type="3" value="1"></param>
+				<param name="AdvectionTemporalScheme" type="3" value="1"></param>
+				<param name="RenormSteps" type="3" value="3"></param>
+				<param name="RenormSpatialScheme" type="3" value="1"></param>
+				<param name="RenormTemporalScheme" type="3" value="1"></param>
+				<portdef name="inVDBLSGrid" type="65536" structure="1" group="0" instance="0" port="0" supportedblob="2"></portdef>
+				<portdef name="inVDBVELGrid" type="65536" structure="1" group="0" instance="0" port="1" supportedblob="2"></portdef>
+				<portdef name="Multithreaded" type="1" structure="1" group="0" instance="0" port="2"></portdef>
+				<portdef name="AdvectionTimeStep" type="4" structure="1" group="0" instance="0" port="3"></portdef>
+				<portdef name="AdvectionSpatialScheme" type="2" structure="1" group="0" instance="0" port="4"></portdef>
+				<portdef name="AdvectionTemporalScheme" type="2" structure="1" group="0" instance="0" port="5"></portdef>
+				<portdef name="RenormSteps" type="2" structure="1" group="0" instance="0" port="6"></portdef>
+				<portdef name="RenormSpatialScheme" type="2" structure="1" group="0" instance="0" port="7"></portdef>
+				<portdef name="RenormTemporalScheme" type="2" structure="1" group="0" instance="0" port="8"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">-224</prop>
+					<prop name="posy">-177</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+			<comment type="node" state="maximized" wordwrap="true" autoresize="false" background="0" background_alpha="0.000000" title="16777215" title_text="0" offsetx="-468" offsety="152" sizex="536" sizey="126"><![CDATA[Advects ( moves ) level set by velocity
+
+You'd better do not know what all that mathematical crap mean :)
+Multhitreading right now is not deterministic, i.e. on each evaluation can produce little jittering, disable for predictable result and use MT only for tuning purposes]]></comment>
+		</nodes>
+		<exposed_ports>
+			<port index="0" portname="inVDBLSGrid" username="In_VDB_LevelSet_Grid" basename="In VDB LevelSet Grid" portlabel="In VDB LevelSet Grid" exposetype="single"> </port>
+			<port index="0" portname="inVDBVELGrid" username="In_VDB_Velocity_Grid" basename="In VDB Velocity Grid" portlabel="In VDB Velocity Grid" exposetype="single"> </port>
+			<port index="0" portname="outVDBGrid" username="Out_VDB_Grid" basename="Out VDB Grid" portlabel="Out VDB Grid" exposetype="single"> </port>
+			<port index="0" portname="Multithreaded" username="Multithreaded" basename="Multithreaded" portlabel="Multithreaded" exposetype="single"> </port>
+			<port index="0" portname="AdvectionTimeStep" username="AdvectToTime" basename="AdvectToTime" portlabel="AdvectToTime" exposetype="single"> </port>
+			<port index="0" portname="AdvectionSpatialScheme" username="AdvectionSpatialScheme" basename="AdvectionSpatialScheme" portlabel="AdvectionSpatialScheme" exposetype="single"> </port>
+			<port index="0" portname="AdvectionTemporalScheme" username="AdvectionTemporalScheme" basename="AdvectionTemporalScheme" portlabel="AdvectionTemporalScheme" exposetype="single"> </port>
+			<port index="0" portname="RenormSteps" username="RenormSteps" basename="RenormSteps" portlabel="RenormSteps" exposetype="single"> </port>
+			<port index="0" portname="RenormSpatialScheme" username="RenormSpatialScheme" basename="RenormSpatialScheme" portlabel="RenormSpatialScheme" exposetype="single"> </port>
+			<port index="0" portname="RenormTemporalScheme" username="RenormTemporalScheme" basename="RenormTemporalScheme" portlabel="RenormTemporalScheme" exposetype="single"> </port>
+		</exposed_ports>
+		<connections>
+		</connections>
+		<layout>
+			<item type="input" name="In_VDB_LevelSet_Grid"> </item>
+			<item type="input" name="In_VDB_Velocity_Grid"> </item>
+			<item type="input" name="Multithreaded"> </item>
+			<item type="input" name="AdvectToTime"> </item>
+			<item type="input" name="AdvectionSpatialScheme" min="0" max="0">
+				<enum value="0"><![CDATA[First Bias]]></enum>
+				<enum value="1"><![CDATA[Second Bias]]></enum>
+				<enum value="2"><![CDATA[Third Bias]]></enum>
+				<enum value="3"><![CDATA[WENO-5 Bias]]></enum>
+				<enum value="4"><![CDATA[HJ-WENO-5 Bias]]></enum>
+			</item>
+			<item type="input" name="AdvectionTemporalScheme" min="0" max="0">
+				<enum value="0"><![CDATA[Runge-Kutta 1]]></enum>
+				<enum value="1"><![CDATA[Runge-Kutta 2]]></enum>
+				<enum value="2"><![CDATA[Runge-Kutta 3]]></enum>
+			</item>
+			<item type="input" name="RenormSteps"> </item>
+			<item type="input" name="RenormSpatialScheme" min="0" max="0">
+				<enum value="0"><![CDATA[First Bias]]></enum>
+				<enum value="1"><![CDATA[Second Bias]]></enum>
+				<enum value="2"><![CDATA[Third Bias]]></enum>
+				<enum value="3"><![CDATA[WENO-5 Bias]]></enum>
+				<enum value="4"><![CDATA[HJ-WENO-5 Bias]]></enum>
+			</item>
+			<item type="input" name="RenormTemporalScheme" min="0" max="0">
+				<enum value="0"><![CDATA[Runge-Kutta 1]]></enum>
+				<enum value="1"><![CDATA[Runge-Kutta 2]]></enum>
+				<enum value="2"><![CDATA[Runge-Kutta 3]]></enum>
+			</item>
+			<item type="output" name="Out_VDB_Grid"> </item>
+		</layout>
+		<blob_dictionary>
+			<dict_entry index="2" color="2631870">
+				<typename><![CDATA[VDBGridRef]]></typename>
+				<displayname><![CDATA[VDBGridRef]]></displayname>
+				<description><![CDATA[VDBGrid reference]]></description>
+			</dict_entry>
+		</blob_dictionary>
+	</definition>
+</xsi_file>

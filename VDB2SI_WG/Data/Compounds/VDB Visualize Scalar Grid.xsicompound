@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsi_file type="CompoundNode" name="VDB Visualize Scalar Grid" tasks="Open VDB/Utils" formatversion="1.4" compoundversion="1.0" backgroundcolor="13158600">
+	<definition>
+		<nodes>
+			<node type="ScalarNode" index="0">
+				<param name="value" type="4" value="0.500000"></param>
+				<portdef name="value" type="4" structure="1" group="0" instance="0" port="0"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">-659</prop>
+					<prop name="posy">374</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+			<node type="MultiplyNode" index="1">
+				<param name="value1" type="4" value="1.000000"></param>
+				<param name="value2" type="4" value="1.000000"></param>
+				<param name="value3" type="4" value="1.000000"></param>
+				<portdef name="value1" type="4" structure="1" group="0" instance="0" port="0"></portdef>
+				<portdef name="value2" type="4" structure="1" group="0" instance="1" port="0"></portdef>
+				<portdef name="value3" type="4" structure="1" group="0" instance="2" port="0"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">-489</prop>
+					<prop name="posy">365</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+			<node type="VDB_GetGridData" index="2">
+				<portdef name="VDBGrid" type="65536" structure="1" group="0" instance="0" port="0" supportedblob="2"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">-1402</prop>
+					<prop name="posy">126</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+			<node type="AddPointNode" index="3">
+				<param name="reference" type="31" value="Self"></param>
+				<param name="positions1.positions1_x" type="4" value="0.000000"></param>
+				<param name="positions1.positions1_y" type="4" value="0.000000"></param>
+				<param name="positions1.positions1_z" type="4" value="0.000000"></param>
+				<param_ext name="reference" type="31" value="Self"></param_ext>
+				<portdef name="positions1" type="16" structure="2" group="1" instance="0" port="0"></portdef>
+				<portdef name="inname" type="8192" structure="1" group="3" instance="0" port="0"></portdef>
+				<portdef name="oncreation1" type="4096" structure="1" group="4" instance="0" port="0"></portdef>
+				<portdef name="oncreation2" type="4096" structure="1" group="4" instance="1" port="0"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">-69</prop>
+					<prop name="posy">183</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+			<node type="Set Particle Color" version="1.0" index="4">
+				<param name="Reference" type="31" value="Self.Color"></param>
+				<param name="Color.Color_red" type="4" value="0.000000"></param>
+				<param name="Color.Color_green" type="4" value="0.000000"></param>
+				<param name="Color.Color_blue" type="4" value="1.000000"></param>
+				<param name="Color.Color_alpha" type="4" value="1.000000"></param>
+				<param_ext name="Reference" type="31" value="Self.Color"></param_ext>
+				<portdef name="Color" type="512" structure="1" group="-1" instance="-1" port="-1"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">-109</prop>
+					<prop name="posy">460</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+			<node type="Set Particle Shape" version="1.0" index="5">
+				<param name="Reference" type="31" value="Self.Shape"></param>
+				<param name="Shape" type="3" value="5"></param>
+				<param_ext name="Reference" type="31" value="Self.Shape"></param_ext>
+				<portdef name="Shape" type="32768" structure="1" group="-1" instance="-1" port="-1"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">-311</prop>
+					<prop name="posy">258</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+			<node type="Set Particle Size" version="1.0" index="6">
+				<param name="Reference" type="31" value="Self.Size"></param>
+				<param name="Size" type="4" value="0.189000"></param>
+				<param_ext name="Reference" type="31" value="Self.Size"></param_ext>
+				<portdef name="Size" type="4" structure="1" group="-1" instance="-1" port="-1"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">-242</prop>
+					<prop name="posy">342</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+			<node type="SelectInArrayNode" index="7">
+				<param name="index" type="3" value="0"></param>
+				<param name="array" type="4" value="0.000000"></param>
+				<portdef name="index" type="2" structure="1" group="0" instance="0" port="0"></portdef>
+				<portdef name="array" type="4" structure="2" group="0" instance="0" port="1"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">-1063</prop>
+					<prop name="posy">414</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+			<node type="ExecuteNode" index="8">
+				<portdef name="port1" type="4096" structure="1" group="0" instance="0" port="0"></portdef>
+				<portdef name="port2" type="4096" structure="1" group="0" instance="1" port="0"></portdef>
+				<portdef name="port3" type="4096" structure="1" group="0" instance="2" port="0"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">195</prop>
+					<prop name="posy">335</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+			<node type="RGBAToColorNode" index="9">
+				<param name="red" type="4" value="0.000000"></param>
+				<param name="green" type="4" value="0.000000"></param>
+				<param name="blue" type="4" value="0.000000"></param>
+				<param name="alpha" type="4" value="1.000000"></param>
+				<portdef name="red" type="4" structure="1" group="0" instance="0" port="0"></portdef>
+				<portdef name="green" type="4" structure="1" group="0" instance="0" port="1"></portdef>
+				<portdef name="blue" type="4" structure="1" group="0" instance="0" port="2"></portdef>
+				<portdef name="alpha" type="4" structure="1" group="0" instance="0" port="3"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">-279</prop>
+					<prop name="posy">433</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+			<node type="ScalarNode" index="10">
+				<param name="value" type="4" value="1.000000"></param>
+				<portdef name="value" type="4" structure="1" group="0" instance="0" port="0"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">-641</prop>
+					<prop name="posy">576</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+			<node type="MultiplyByScalarNode" index="11">
+				<param name="value" type="4" value="0.000000"></param>
+				<param name="factor" type="4" value="1.000000"></param>
+				<portdef name="value" type="4" structure="1" group="0" instance="0" port="0"></portdef>
+				<portdef name="factor" type="4" structure="1" group="0" instance="0" port="1"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">-741</prop>
+					<prop name="posy">469</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+			<node type="3DVectorToScalarNode" index="12">
+				<param name="vector.vector_x" type="4" value="0.000000"></param>
+				<param name="vector.vector_y" type="4" value="0.000000"></param>
+				<param name="vector.vector_z" type="4" value="0.000000"></param>
+				<portdef name="vector" type="16" structure="1" group="0" instance="0" port="0"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">-749</prop>
+					<prop name="posy">267</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+			<node type="Set Data" version="1.0" index="13">
+				<param name="Reference" type="31" value="self.minvalscalar"></param>
+				<param name="Reference1" type="31" value="self.maxvalscalar"></param>
+				<param name="Value" type="4" value="0.000000"></param>
+				<param name="Value1" type="4" value="0.000000"></param>
+				<param_ext name="Reference" type="31" value="self.minvalscalar"></param_ext>
+				<param_ext name="Reference1" type="31" value="self.maxvalscalar"></param_ext>
+				<portdef name="Value" type="4" structure="1" group="2" instance="0" port="0" groupname="Value"></portdef>
+				<portdef name="Value1" type="4" structure="1" group="2" instance="1" port="0" groupname="Value"></portdef>
+				<portdef name="In_Name" type="8192" structure="1" group="-1" instance="-1" port="-1"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">-541</prop>
+					<prop name="posy">159</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+				<datablob category="vis_1">
+					<prop name="displaymode">0</prop>
+					<prop name="enable">1</prop>
+					<prop name="label">maxval=</prop>
+					<prop name="offsetx">-100</prop>
+					<prop name="offsety">100</prop>
+					<prop name="port">Value1</prop>
+				</datablob>
+				<datablob category="vis_2">
+					<prop name="displaymode">0</prop>
+					<prop name="enable">1</prop>
+					<prop name="label">minval=</prop>
+					<prop name="offsetx">-100</prop>
+					<prop name="offsety">-100</prop>
+					<prop name="port">Value</prop>
+				</datablob>
+			</node>
+			<node type="Get Point ID" version="1.0" index="14">
+				<param name="In_Name_Reference" type="31" value="Self"></param>
+				<param_ext name="In_Name_Reference" type="31" value="Self"></param_ext>
+				<portdef name="In_Name" type="8192" structure="1" group="-1" instance="-1" port="-1"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">-1237</prop>
+					<prop name="posy">474</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+			<node type="IfNode" index="15">
+				<param name="condition" type="11" value="true"></param>
+				<param name="iftrue" type="4" value="0.000000"></param>
+				<param name="iffalse" type="4" value="0.000000"></param>
+				<portdef name="condition" type="1" structure="1" group="0" instance="0" port="0"></portdef>
+				<portdef name="iftrue" type="4" structure="1" group="0" instance="0" port="1"></portdef>
+				<portdef name="iffalse" type="4" structure="1" group="0" instance="0" port="2"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">-385</prop>
+					<prop name="posy">539</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+			<node type="RescaleNode" index="16">
+				<param name="value" type="4" value="0.000000"></param>
+				<param name="sourcestart" type="4" value="0.000000"></param>
+				<param name="sourceend" type="4" value="1.000000"></param>
+				<param name="targetstart" type="4" value="0.000000"></param>
+				<param name="targetend" type="4" value="1.000000"></param>
+				<param name="clamp" type="11" value="false"></param>
+				<portdef name="value" type="4" structure="1" group="0" instance="0" port="0"></portdef>
+				<portdef name="sourcestart" type="4" structure="1" group="0" instance="0" port="1"></portdef>
+				<portdef name="sourceend" type="4" structure="1" group="0" instance="0" port="2"></portdef>
+				<portdef name="targetstart" type="4" structure="1" group="0" instance="0" port="3"></portdef>
+				<portdef name="targetend" type="4" structure="1" group="0" instance="0" port="4"></portdef>
+				<portdef name="clamp" type="1" structure="1" group="0" instance="0" port="5"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">-892</prop>
+					<prop name="posy">486</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+			<node type="GetMaximumInSetNode" index="17">
+				<param name="value" type="4" value="0.000000"></param>
+				<portdef name="value" type="4" structure="1" group="0" instance="0" port="0"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">-878</prop>
+					<prop name="posy">176</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+			<node type="GetMinimumInSetNode" index="18">
+				<param name="value" type="4" value="0.000000"></param>
+				<portdef name="value" type="4" structure="1" group="0" instance="0" port="0"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">-862</prop>
+					<prop name="posy">232</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+		</nodes>
+		<exposed_ports>
+			<port index="1" portname="value3" username="ShapeSize" basename="ShapeSize" portlabel="ShapeSize" exposetype="single"> </port>
+			<port index="2" portname="VDBGrid" username="VDBGrid" basename="VDBGrid" portlabel="VDBGrid" exposetype="single"> </port>
+			<port index="5" portname="Shape" username="ShapeType" basename="ShapeType" portlabel="ShapeType" exposetype="single"> </port>
+			<port index="8" portname="execute" username="Perform" basename="Perform" portlabel="Perform" exposetype="single"> </port>
+			<port index="11" portname="factor" username="BrightnessMultiplier" basename="BrightnessMultiplier" portlabel="BrightnessMultiplier" exposetype="single"> </port>
+			<port index="15" portname="condition" username="AffectsOnAlpha" basename="AffectsOnAlpha" portlabel="AffectsOnAlpha" exposetype="single"> </port>
+			<port index="16" portname="sourcestart" username="Source_Start" basename="Source Start" portlabel="Source Start" exposetype="single"> </port>
+			<port index="16" portname="sourceend" username="Source_End" basename="Source End" portlabel="Source End" exposetype="single"> </port>
+			<port index="16" portname="targetstart" username="Target_Start" basename="Target Start" portlabel="Target Start" exposetype="single"> </port>
+			<port index="16" portname="targetend" username="Target_End" basename="Target End" portlabel="Target End" exposetype="single"> </port>
+		</exposed_ports>
+		<connections>
+			<cnx from_node="3" from_port="add" to_node="8" to_port="port1"> </cnx>
+			<cnx from_node="1" from_port="result" to_node="6" to_port="Size"> </cnx>
+			<cnx from_node="0" from_port="result" to_node="1" to_port="value2"> </cnx>
+			<cnx from_node="7" from_port="value" to_node="16" to_port="value"> </cnx>
+			<cnx from_node="7" from_port="value" to_node="17" to_port="value"> </cnx>
+			<cnx from_node="7" from_port="value" to_node="18" to_port="value"> </cnx>
+			<cnx from_node="9" from_port="color" to_node="4" to_port="Color"> </cnx>
+			<cnx from_node="10" from_port="result" to_node="15" to_port="iffalse"> </cnx>
+			<cnx from_node="11" from_port="result" to_node="9" to_port="red"> </cnx>
+			<cnx from_node="11" from_port="result" to_node="9" to_port="green"> </cnx>
+			<cnx from_node="11" from_port="result" to_node="9" to_port="blue"> </cnx>
+			<cnx from_node="11" from_port="result" to_node="15" to_port="iftrue"> </cnx>
+			<cnx from_node="12" from_port="x" to_node="1" to_port="value1"> </cnx>
+			<cnx from_node="13" from_port="Execute" to_node="8" to_port="port2"> </cnx>
+			<cnx from_node="2" from_port="ActiveVoxelsPosition" to_node="3" to_port="positions1"> </cnx>
+			<cnx from_node="2" from_port="VoxelSize" to_node="12" to_port="vector"> </cnx>
+			<cnx from_node="2" from_port="FloatData" to_node="7" to_port="array"> </cnx>
+			<cnx from_node="14" from_port="Point_ID" to_node="7" to_port="index"> </cnx>
+			<cnx from_node="4" from_port="Execute" to_node="8" to_port="port3"> </cnx>
+			<cnx from_node="5" from_port="Execute" to_node="3" to_port="oncreation1"> </cnx>
+			<cnx from_node="6" from_port="Execute" to_node="3" to_port="oncreation2"> </cnx>
+			<cnx from_node="15" from_port="result" to_node="9" to_port="alpha"> </cnx>
+			<cnx from_node="16" from_port="result" to_node="11" to_port="value"> </cnx>
+			<cnx from_node="17" from_port="max" to_node="13" to_port="Value1"> </cnx>
+			<cnx from_node="18" from_port="min" to_node="13" to_port="Value"> </cnx>
+		</connections>
+		<layout>
+			<item type="input" name="VDBGrid"> </item>
+			<item type="input" name="ShapeType"> </item>
+			<item type="input" name="ShapeSize"> </item>
+			<item type="input" name="AffectsOnAlpha"> </item>
+			<item type="input" name="BrightnessMultiplier" min="0" max="1"> </item>
+			<item type="input" name="Source_Start"> </item>
+			<item type="input" name="Source_End"> </item>
+			<item type="input" name="Target_Start"> </item>
+			<item type="input" name="Target_End"> </item>
+			<item type="output" name="Perform"> </item>
+		</layout>
+		<blob_dictionary>
+			<dict_entry index="2" color="2631870">
+				<typename><![CDATA[VDBGridRef]]></typename>
+				<displayname><![CDATA[VDBGridRef]]></displayname>
+				<description><![CDATA[VDBGrid reference]]></description>
+			</dict_entry>
+		</blob_dictionary>
+	</definition>
+</xsi_file>

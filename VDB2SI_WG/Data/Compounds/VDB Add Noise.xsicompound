@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsi_file type="CompoundNode" name="VDB Add Noise" tasks="Open VDB/Math" formatversion="1.4" compoundversion="1.0" backgroundcolor="13158600">
+	<definition>
+		<nodes>
+			<node type="ScalarNode" index="0">
+				<param name="value" type="4" value="1.000000"></param>
+				<portdef name="value" type="4" structure="1" group="0" instance="0" port="0"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">-198</prop>
+					<prop name="posy">367</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+			<node type="VDB_Noise" index="1">
+				<param name="NoiseType" type="3" value="0"></param>
+				<param name="Seed" type="3" value="12345"></param>
+				<param name="Scale.Scale_x" type="4" value="1.000000"></param>
+				<param name="Scale.Scale_y" type="4" value="1.000000"></param>
+				<param name="Scale.Scale_z" type="4" value="1.000000"></param>
+				<param name="Amount" type="4" value="1.000000"></param>
+				<param name="Time" type="4" value="0.000000"></param>
+				<param name="Lacunarity" type="4" value="2.000000"></param>
+				<param name="Persistence" type="4" value="0.600000"></param>
+				<param name="NbOctaves" type="3" value="1"></param>
+				<portdef name="inVDBGrid" type="65536" structure="1" group="0" instance="0" port="0" supportedblob="2"></portdef>
+				<portdef name="NoiseType" type="2" structure="1" group="0" instance="0" port="1"></portdef>
+				<portdef name="Seed" type="2" structure="1" group="0" instance="0" port="2"></portdef>
+				<portdef name="Scale" type="16" structure="1" group="0" instance="0" port="3"></portdef>
+				<portdef name="Amount" type="4" structure="1" group="0" instance="0" port="4"></portdef>
+				<portdef name="Time" type="4" structure="1" group="0" instance="0" port="5"></portdef>
+				<portdef name="Lacunarity" type="4" structure="1" group="0" instance="0" port="6"></portdef>
+				<portdef name="Persistence" type="4" structure="1" group="0" instance="0" port="7"></portdef>
+				<portdef name="NbOctaves" type="2" structure="1" group="0" instance="0" port="8"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">445</prop>
+					<prop name="posy">175</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+			<node type="IfNode" index="2">
+				<param name="condition" type="11" value="false"></param>
+				<param name="iftrue" type="4" value="0.000000"></param>
+				<param name="iffalse" type="4" value="0.000000"></param>
+				<portdef name="condition" type="1" structure="1" group="0" instance="0" port="0"></portdef>
+				<portdef name="iftrue" type="4" structure="1" group="0" instance="0" port="1"></portdef>
+				<portdef name="iffalse" type="4" structure="1" group="0" instance="0" port="2"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">95</prop>
+					<prop name="posy">352</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+			<node type="ScalarTo3DVectorNode" index="3">
+				<param name="x" type="4" value="0.000000"></param>
+				<param name="y" type="4" value="0.000000"></param>
+				<param name="z" type="4" value="0.000000"></param>
+				<portdef name="x" type="4" structure="1" group="0" instance="0" port="0"></portdef>
+				<portdef name="y" type="4" structure="1" group="0" instance="0" port="1"></portdef>
+				<portdef name="z" type="4" structure="1" group="0" instance="0" port="2"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">238</prop>
+					<prop name="posy">283</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+			<node type="PassThroughNode" index="4">
+				<param name="in" type="4" value="1.000000"></param>
+				<portdef name="in" type="4" structure="1" group="0" instance="0" port="0"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">-234</prop>
+					<prop name="posy">443</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+			<node type="DivideByScalarNode" index="5">
+				<param name="value" type="4" value="0.000000"></param>
+				<param name="divideby" type="4" value="1.000000"></param>
+				<portdef name="value" type="4" structure="1" group="0" instance="0" port="0"></portdef>
+				<portdef name="divideby" type="4" structure="1" group="0" instance="0" port="1"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">-77</prop>
+					<prop name="posy">365</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+			<node type="ScalarNode" index="6">
+				<param name="value" type="4" value="0.000000"></param>
+				<portdef name="value" type="4" structure="1" group="0" instance="0" port="0"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">-5</prop>
+					<prop name="posy">468</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+			<comment type="node" state="maximized" wordwrap="true" autoresize="true" background="0" background_alpha="0.000000" title="16777215" title_text="0" offsetx="213" offsety="425" sizex="202" sizey="290"><![CDATA[// cellular noise - generates big white cellsm also known as Worley noise;  
+//fractal noise - simplex( advansed perlin ) noise, the most famous type of noise, generates continuous blurry splats, also known as turbulence noise
+
+
+Octaves - multiple layers of noise with different scale summed up. Lacunarity defines the scaling on each new ocatve, persistence defines influence of each new octave on result summing.
+
+Use time to animate noises and seed for different random patterns
+
+Amount is a simple multiplier of result noise. Fractal noise is typically in range [-1;1] while cellular is shifted to something [-0.1;1]
+
+Supports scalar grids ( simple adding the noise ) and vec3 ( calculating the noised direction vector at voxel position )]]></comment>
+		</nodes>
+		<exposed_ports>
+			<port index="1" portname="inVDBGrid" username="In_VDB_Grid" basename="In VDB Grid" portlabel="In VDB Grid" exposetype="single"> </port>
+			<port index="1" portname="outVDBGrid" username="Out_VDB_Grid" basename="Out VDB Grid" portlabel="Out VDB Grid" exposetype="single"> </port>
+			<port index="1" portname="NoiseType" username="Noise_Type" basename="Noise Type" portlabel="Noise Type" exposetype="single"> </port>
+			<port index="1" portname="Seed" username="Seed" basename="Seed" portlabel="Seed" exposetype="single"> </port>
+			<port index="1" portname="Amount" username="Amount" basename="Amount" portlabel="Amount" exposetype="single"> </port>
+			<port index="1" portname="Time" username="Time" basename="Time" portlabel="Time" exposetype="single"> </port>
+			<port index="1" portname="Lacunarity" username="Lacunarity" basename="Lacunarity" portlabel="Lacunarity" exposetype="single"> </port>
+			<port index="1" portname="Persistence" username="Persistence" basename="Persistence" portlabel="Persistence" exposetype="single"> </port>
+			<port index="1" portname="NbOctaves" username="NbOctaves" basename="NbOctaves" portlabel="NbOctaves" exposetype="single"> </port>
+			<port index="4" portname="in" username="Scale" basename="Scale" portlabel="Scale" exposetype="single"> </port>
+		</exposed_ports>
+		<connections>
+			<cnx from_node="2" from_port="result" to_node="3" to_port="x"> </cnx>
+			<cnx from_node="2" from_port="result" to_node="3" to_port="y"> </cnx>
+			<cnx from_node="2" from_port="result" to_node="3" to_port="z"> </cnx>
+			<cnx from_node="3" from_port="vector" to_node="1" to_port="Scale"> </cnx>
+			<cnx from_node="4" from_port="out" to_node="5" to_port="divideby"> </cnx>
+			<cnx from_node="5" from_port="valid" to_node="2" to_port="condition"> </cnx>
+			<cnx from_node="5" from_port="result" to_node="2" to_port="iftrue"> </cnx>
+			<cnx from_node="6" from_port="result" to_node="2" to_port="iffalse"> </cnx>
+			<cnx from_node="0" from_port="result" to_node="5" to_port="value"> </cnx>
+		</connections>
+		<layout>
+			<item type="input" name="In_VDB_Grid"> </item>
+			<item type="input" name="Noise_Type" min="0" max="0">
+				<enum value="0"><![CDATA[Cellular ( Worley )]]></enum>
+				<enum value="1"><![CDATA[Fractal ( Simplex )]]></enum>
+			</item>
+			<item type="input" name="Seed"> </item>
+			<item type="input" name="Scale"> </item>
+			<item type="input" name="Amount"> </item>
+			<item type="input" name="Time"> </item>
+			<item type="input" name="Lacunarity"> </item>
+			<item type="input" name="Persistence"> </item>
+			<item type="input" name="NbOctaves"> </item>
+			<item type="output" name="Out_VDB_Grid"> </item>
+		</layout>
+		<blob_dictionary>
+			<dict_entry index="2" color="2631870">
+				<typename><![CDATA[VDBGridRef]]></typename>
+				<displayname><![CDATA[VDBGridRef]]></displayname>
+				<description><![CDATA[VDBGrid reference]]></description>
+			</dict_entry>
+		</blob_dictionary>
+	</definition>
+</xsi_file>

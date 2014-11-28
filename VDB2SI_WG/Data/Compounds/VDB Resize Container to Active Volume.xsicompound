@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsi_file type="CompoundNode" name="VDB Resize Container to Active Volume" tasks="Open VDB/Utils" formatversion="1.4" compoundversion="1.0" constructionmode="Current" backgroundcolor="13158600">
+	<definition>
+		<nodes>
+			<node type="VDB_GetGridData" index="1">
+				<portdef name="VDBGrid" type="65536" structure="1" group="0" instance="0" port="0" supportedblob="2"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">-554</prop>
+					<prop name="posy">438</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+			<node type="3x3MatrixToVectorNode" index="2">
+				<param name="roworcolumn" type="3" value="0"></param>
+				<param name="matrix.matrix_00" type="4" value="1.000000"></param>
+				<param name="matrix.matrix_01" type="4" value="0.000000"></param>
+				<param name="matrix.matrix_02" type="4" value="0.000000"></param>
+				<param name="matrix.matrix_10" type="4" value="0.000000"></param>
+				<param name="matrix.matrix_11" type="4" value="1.000000"></param>
+				<param name="matrix.matrix_12" type="4" value="0.000000"></param>
+				<param name="matrix.matrix_20" type="4" value="0.000000"></param>
+				<param name="matrix.matrix_21" type="4" value="0.000000"></param>
+				<param name="matrix.matrix_22" type="4" value="1.000000"></param>
+				<portdef name="matrix" type="128" structure="1" group="0" instance="0" port="0"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">-361</prop>
+					<prop name="posy">471</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+			<node type="[embedded_0]" index="3">
+				<param name="minp.minp_x" type="4" value="0.000000"></param>
+				<param name="minp.minp_y" type="4" value="0.000000"></param>
+				<param name="minp.minp_z" type="4" value="0.000000"></param>
+				<param name="maxp.maxp_x" type="4" value="1.000000"></param>
+				<param name="maxp.maxp_y" type="4" value="1.000000"></param>
+				<param name="maxp.maxp_z" type="4" value="1.000000"></param>
+				<portdef name="maxp" type="16" structure="1" group="-1" instance="-1" port="-1"></portdef>
+				<portdef name="minp" type="16" structure="1" group="-1" instance="-1" port="-1"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">-136</prop>
+					<prop name="posy">482</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+				<comment type="node" state="maximized" wordwrap="true" autoresize="true" background="0" background_alpha="0.000000" title="14876671" title_text="0" offsetx="-5" offsety="-144" sizex="267" sizey="84"><![CDATA[ONLY standard box with 8 corners with XYZ order is allowed]]></comment>
+			</node>
+			<node type="ExecuteNode" index="6">
+				<portdef name="port1" type="4096" structure="1" group="0" instance="0" port="0"></portdef>
+				<portdef name="port2" type="4096" structure="1" group="0" instance="1" port="0"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">68</prop>
+					<prop name="posy">473</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+		</nodes>
+		<exposed_ports>
+			<port index="1" portname="VDBGrid" username="VDBGrid" basename="VDBGrid" portlabel="VDBGrid" exposetype="single"> </port>
+			<port index="6" portname="execute" username="Perform" basename="Perform" portlabel="Perform" exposetype="single"> </port>
+		</exposed_ports>
+		<connections>
+			<cnx from_node="1" from_port="BoundingBox" to_node="2" to_port="matrix"> </cnx>
+			<cnx from_node="2" from_port="vector1" to_node="3" to_port="minp"> </cnx>
+			<cnx from_node="2" from_port="vector3" to_node="3" to_port="maxp"> </cnx>
+			<cnx from_node="3" from_port="Perform" to_node="6" to_port="port2"> </cnx>
+		</connections>
+		<layout>
+			<item type="input" name="VDBGrid"> </item>
+			<item type="output" name="Perform"> </item>
+		</layout>
+		<blob_dictionary>
+			<dict_entry index="2" color="2631870">
+				<typename><![CDATA[VDBGridRef]]></typename>
+				<displayname><![CDATA[VDBGridRef]]></displayname>
+				<description><![CDATA[VDBGrid reference]]></description>
+			</dict_entry>
+		</blob_dictionary>
+	</definition>
+	<embedded_0 name="Update Fluid AABB" formatversion="1.4" compoundversion="1.0" constructionmode="Modeling" backgroundcolor="6732954">
+		<nodes>
+			<node type="Get Point ID" version="1.0" index="0">
+				<param name="In_Name_Reference" type="31" value="Self"></param>
+				<param_ext name="In_Name_Reference" type="31" value="Self"></param_ext>
+				<portdef name="In_Name" type="8192" structure="1" group="-1" instance="-1" port="-1"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">-362</prop>
+					<prop name="posy">352</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+			<node type="Set Data" version="1.0" index="1">
+				<param name="Reference" type="31" value="self.pointposition"></param>
+				<param name="Value.Value_x" type="4" value="0.000000"></param>
+				<param name="Value.Value_y" type="4" value="0.000000"></param>
+				<param name="Value.Value_z" type="4" value="0.000000"></param>
+				<param_ext name="Reference" type="31" value="self.pointposition"></param_ext>
+				<portdef name="Value" type="16" structure="1" group="2" instance="0" port="0" groupname="Value"></portdef>
+				<portdef name="In_Name" type="8192" structure="1" group="-1" instance="-1" port="-1"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">96</prop>
+					<prop name="posy">333</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+			<node type="3DVectorNode" index="2">
+				<param name="value.value_x" type="4" value="0.000000"></param>
+				<param name="value.value_y" type="4" value="0.000000"></param>
+				<param name="value.value_z" type="4" value="0.000000"></param>
+				<portdef name="value" type="16" structure="1" group="0" instance="0" port="0"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">-969</prop>
+					<prop name="posy">545</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+				<comment type="node" state="maximized" wordwrap="true" autoresize="true" background="0" background_alpha="0.000000" title="14876671" title_text="0" offsetx="-109" offsety="6" sizex="55" sizey="19"><![CDATA[min point]]></comment>
+			</node>
+			<node type="3DVectorNode" index="3">
+				<param name="value.value_x" type="4" value="1.000000"></param>
+				<param name="value.value_y" type="4" value="1.000000"></param>
+				<param name="value.value_z" type="4" value="1.000000"></param>
+				<portdef name="value" type="16" structure="1" group="0" instance="0" port="0"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">-976</prop>
+					<prop name="posy">616</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+				<comment type="node" state="maximized" wordwrap="true" autoresize="true" background="0" background_alpha="0.000000" title="14876671" title_text="0" offsetx="-113" offsety="3" sizex="59" sizey="19"><![CDATA[max point]]></comment>
+			</node>
+			<node type="ScalarTo3DVectorNode" index="4">
+				<param name="x" type="4" value="0.000000"></param>
+				<param name="y" type="4" value="0.000000"></param>
+				<param name="z" type="4" value="0.000000"></param>
+				<portdef name="x" type="4" structure="1" group="0" instance="0" port="0"></portdef>
+				<portdef name="y" type="4" structure="1" group="0" instance="0" port="1"></portdef>
+				<portdef name="z" type="4" structure="1" group="0" instance="0" port="2"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">-575</prop>
+					<prop name="posy">464</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+			<node type="ScalarTo3DVectorNode" index="5">
+				<param name="x" type="4" value="0.000000"></param>
+				<param name="y" type="4" value="0.000000"></param>
+				<param name="z" type="4" value="0.000000"></param>
+				<portdef name="x" type="4" structure="1" group="0" instance="0" port="0"></portdef>
+				<portdef name="y" type="4" structure="1" group="0" instance="0" port="1"></portdef>
+				<portdef name="z" type="4" structure="1" group="0" instance="0" port="2"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">-580</prop>
+					<prop name="posy">369</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+			<node type="3DVectorToScalarNode" index="6">
+				<param name="vector.vector_x" type="4" value="0.000000"></param>
+				<param name="vector.vector_y" type="4" value="0.000000"></param>
+				<param name="vector.vector_z" type="4" value="0.000000"></param>
+				<portdef name="vector" type="16" structure="1" group="0" instance="0" port="0"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">-805</prop>
+					<prop name="posy">468</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+			<node type="BuildArrayNode" index="7">
+				<param name="value1.value1_x" type="4" value="0.000000"></param>
+				<param name="value1.value1_y" type="4" value="0.000000"></param>
+				<param name="value1.value1_z" type="4" value="0.000000"></param>
+				<param name="value2.value2_x" type="4" value="0.000000"></param>
+				<param name="value2.value2_y" type="4" value="0.000000"></param>
+				<param name="value2.value2_z" type="4" value="0.000000"></param>
+				<param name="value3.value3_x" type="4" value="0.000000"></param>
+				<param name="value3.value3_y" type="4" value="0.000000"></param>
+				<param name="value3.value3_z" type="4" value="0.000000"></param>
+				<param name="value4.value4_x" type="4" value="0.000000"></param>
+				<param name="value4.value4_y" type="4" value="0.000000"></param>
+				<param name="value4.value4_z" type="4" value="0.000000"></param>
+				<param name="value5.value5_x" type="4" value="0.000000"></param>
+				<param name="value5.value5_y" type="4" value="0.000000"></param>
+				<param name="value5.value5_z" type="4" value="0.000000"></param>
+				<param name="value6.value6_x" type="4" value="0.000000"></param>
+				<param name="value6.value6_y" type="4" value="0.000000"></param>
+				<param name="value6.value6_z" type="4" value="0.000000"></param>
+				<param name="value7.value7_x" type="4" value="0.000000"></param>
+				<param name="value7.value7_y" type="4" value="0.000000"></param>
+				<param name="value7.value7_z" type="4" value="0.000000"></param>
+				<param name="value8.value8_x" type="4" value="0.000000"></param>
+				<param name="value8.value8_y" type="4" value="0.000000"></param>
+				<param name="value8.value8_z" type="4" value="0.000000"></param>
+				<portdef name="value1" type="16" structure="1" group="0" instance="0" port="0"></portdef>
+				<portdef name="value2" type="16" structure="1" group="0" instance="1" port="0"></portdef>
+				<portdef name="value3" type="16" structure="1" group="0" instance="2" port="0"></portdef>
+				<portdef name="value4" type="16" structure="1" group="0" instance="3" port="0"></portdef>
+				<portdef name="value5" type="16" structure="1" group="0" instance="4" port="0"></portdef>
+				<portdef name="value6" type="16" structure="1" group="0" instance="5" port="0"></portdef>
+				<portdef name="value7" type="16" structure="1" group="0" instance="6" port="0"></portdef>
+				<portdef name="value8" type="16" structure="1" group="0" instance="7" port="0"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">-359</prop>
+					<prop name="posy">492</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+			<node type="ScalarTo3DVectorNode" index="8">
+				<param name="x" type="4" value="0.000000"></param>
+				<param name="y" type="4" value="0.000000"></param>
+				<param name="z" type="4" value="0.000000"></param>
+				<portdef name="x" type="4" structure="1" group="0" instance="0" port="0"></portdef>
+				<portdef name="y" type="4" structure="1" group="0" instance="0" port="1"></portdef>
+				<portdef name="z" type="4" structure="1" group="0" instance="0" port="2"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">-559</prop>
+					<prop name="posy">617</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+			<node type="ScalarTo3DVectorNode" index="9">
+				<param name="x" type="4" value="0.000000"></param>
+				<param name="y" type="4" value="0.000000"></param>
+				<param name="z" type="4" value="0.000000"></param>
+				<portdef name="x" type="4" structure="1" group="0" instance="0" port="0"></portdef>
+				<portdef name="y" type="4" structure="1" group="0" instance="0" port="1"></portdef>
+				<portdef name="z" type="4" structure="1" group="0" instance="0" port="2"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">-563</prop>
+					<prop name="posy">729</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+			<node type="ScalarTo3DVectorNode" index="10">
+				<param name="x" type="4" value="0.000000"></param>
+				<param name="y" type="4" value="0.000000"></param>
+				<param name="z" type="4" value="0.000000"></param>
+				<portdef name="x" type="4" structure="1" group="0" instance="0" port="0"></portdef>
+				<portdef name="y" type="4" structure="1" group="0" instance="0" port="1"></portdef>
+				<portdef name="z" type="4" structure="1" group="0" instance="0" port="2"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">-561</prop>
+					<prop name="posy">822</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+			<node type="SelectInArrayNode" index="11">
+				<param name="index" type="3" value="0"></param>
+				<param name="array.array_x" type="4" value="0.000000"></param>
+				<param name="array.array_y" type="4" value="0.000000"></param>
+				<param name="array.array_z" type="4" value="0.000000"></param>
+				<portdef name="index" type="2" structure="1" group="0" instance="0" port="0"></portdef>
+				<portdef name="array" type="16" structure="2" group="0" instance="0" port="1"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">-221</prop>
+					<prop name="posy">364</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+			<node type="3DVectorToScalarNode" index="12">
+				<param name="vector.vector_x" type="4" value="0.000000"></param>
+				<param name="vector.vector_y" type="4" value="0.000000"></param>
+				<param name="vector.vector_z" type="4" value="0.000000"></param>
+				<portdef name="vector" type="16" structure="1" group="0" instance="0" port="0"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">-810</prop>
+					<prop name="posy">622</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+			<node type="ScalarTo3DVectorNode" index="13">
+				<param name="x" type="4" value="0.000000"></param>
+				<param name="y" type="4" value="0.000000"></param>
+				<param name="z" type="4" value="0.000000"></param>
+				<portdef name="x" type="4" structure="1" group="0" instance="0" port="0"></portdef>
+				<portdef name="y" type="4" structure="1" group="0" instance="0" port="1"></portdef>
+				<portdef name="z" type="4" structure="1" group="0" instance="0" port="2"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">-574</prop>
+					<prop name="posy">276</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+		</nodes>
+		<exposed_ports>
+			<port index="1" portname="Execute" username="Perform" basename="Perform" portlabel="Perform" exposetype="single"> </port>
+			<port index="2" portname="value" username="minp" basename="minp" portlabel="minp" exposetype="single"> </port>
+			<port index="3" portname="value" username="maxp" basename="maxp" portlabel="maxp" exposetype="single"> </port>
+		</exposed_ports>
+		<connections>
+			<cnx from_node="3" from_port="result" to_node="12" to_port="vector"> </cnx>
+			<cnx from_node="3" from_port="result" to_node="7" to_port="value8"> </cnx>
+			<cnx from_node="2" from_port="result" to_node="6" to_port="vector"> </cnx>
+			<cnx from_node="2" from_port="result" to_node="7" to_port="value1"> </cnx>
+			<cnx from_node="8" from_port="vector" to_node="7" to_port="value5"> </cnx>
+			<cnx from_node="5" from_port="vector" to_node="7" to_port="value3"> </cnx>
+			<cnx from_node="6" from_port="x" to_node="5" to_port="x"> </cnx>
+			<cnx from_node="6" from_port="x" to_node="8" to_port="x"> </cnx>
+			<cnx from_node="6" from_port="x" to_node="10" to_port="x"> </cnx>
+			<cnx from_node="6" from_port="y" to_node="13" to_port="y"> </cnx>
+			<cnx from_node="6" from_port="y" to_node="8" to_port="y"> </cnx>
+			<cnx from_node="6" from_port="y" to_node="9" to_port="y"> </cnx>
+			<cnx from_node="6" from_port="z" to_node="13" to_port="z"> </cnx>
+			<cnx from_node="6" from_port="z" to_node="5" to_port="z"> </cnx>
+			<cnx from_node="6" from_port="z" to_node="4" to_port="z"> </cnx>
+			<cnx from_node="4" from_port="vector" to_node="7" to_port="value4"> </cnx>
+			<cnx from_node="9" from_port="vector" to_node="7" to_port="value6"> </cnx>
+			<cnx from_node="10" from_port="vector" to_node="7" to_port="value7"> </cnx>
+			<cnx from_node="11" from_port="value" to_node="1" to_port="Value"> </cnx>
+			<cnx from_node="12" from_port="x" to_node="13" to_port="x"> </cnx>
+			<cnx from_node="12" from_port="x" to_node="4" to_port="x"> </cnx>
+			<cnx from_node="12" from_port="x" to_node="9" to_port="x"> </cnx>
+			<cnx from_node="12" from_port="y" to_node="5" to_port="y"> </cnx>
+			<cnx from_node="12" from_port="y" to_node="4" to_port="y"> </cnx>
+			<cnx from_node="12" from_port="y" to_node="10" to_port="y"> </cnx>
+			<cnx from_node="12" from_port="z" to_node="8" to_port="z"> </cnx>
+			<cnx from_node="12" from_port="z" to_node="9" to_port="z"> </cnx>
+			<cnx from_node="12" from_port="z" to_node="10" to_port="z"> </cnx>
+			<cnx from_node="13" from_port="vector" to_node="7" to_port="value2"> </cnx>
+			<cnx from_node="7" from_port="array" to_node="11" to_port="array"> </cnx>
+			<cnx from_node="0" from_port="Point_ID" to_node="11" to_port="index"> </cnx>
+		</connections>
+		<layout>
+			<item type="input" name="minp"> </item>
+			<item type="input" name="maxp"> </item>
+			<item type="output" name="Perform"> </item>
+		</layout>
+	</embedded_0>
+</xsi_file>

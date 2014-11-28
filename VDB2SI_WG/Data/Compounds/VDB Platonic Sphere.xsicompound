@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsi_file type="CompoundNode" name="VDB Platonic Sphere" tasks="Open VDB/Utils" formatversion="1.4" compoundversion="1.0" constructionmode="Current" backgroundcolor="13158600">
+	<definition>
+		<nodes>
+			<node type="VDB_Platonic" index="0">
+				<param name="Center.Center_x" type="4" value="0.000000"></param>
+				<param name="Center.Center_y" type="4" value="0.000000"></param>
+				<param name="Center.Center_z" type="4" value="0.000000"></param>
+				<param name="Radius" type="4" value="5.000000"></param>
+				<param name="voxelSize" type="4" value="0.500000"></param>
+				<param name="BandWidth" type="4" value="1.500000"></param>
+				<param name="ConvertToFogvolume" type="11" value="true"></param>
+				<portdef name="Center" type="16" structure="1" group="0" instance="0" port="0"></portdef>
+				<portdef name="Radius" type="4" structure="1" group="0" instance="0" port="1"></portdef>
+				<portdef name="voxelSize" type="4" structure="1" group="0" instance="0" port="2"></portdef>
+				<portdef name="BandWidth" type="4" structure="1" group="0" instance="0" port="3"></portdef>
+				<portdef name="ConvertToFogvolume" type="1" structure="1" group="0" instance="0" port="4"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">-15</prop>
+					<prop name="posy">197</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+				<comment type="node" state="maximized" wordwrap="true" autoresize="true" background="0" background_alpha="0.000000" title="16777215" title_text="0" offsetx="-194" offsety="-121" sizex="152" sizey="84"><![CDATA[This node simply creates a signle sphere volume eqither sdf of gof for demonstration purposes.
+ NOTE: bandwith is in voxels on this example]]></comment>
+			</node>
+			<comment type="node" state="maximized" wordwrap="true" autoresize="false" background="0" background_alpha="0.000000" title="16777215" title_text="0" offsetx="-215" offsety="364" sizex="896" sizey="106"><![CDATA[ConvertToFogvolume = when enabled, converts levelset grid ( Signed Distance Field  - SDF ) to filled volume which interior is 1 and exterior has a falloff with width of bandwidth.
+NOTE: levelset is not intented to be rendered, you should convert it to volumefog before any render. levelset is only for processing tasks
+
+for more details please visit:
+http://en.wikipedia.org/wiki/Level_set_method
+http://en.wikipedia.org/wiki/Signed_distance_function]]></comment>
+		</nodes>
+		<exposed_ports>
+			<port index="0" portname="Center" username="Center" basename="Center" portlabel="Center" exposetype="single"> </port>
+			<port index="0" portname="Radius" username="Radius" basename="Radius" portlabel="Radius" exposetype="single"> </port>
+			<port index="0" portname="voxelSize" username="Voxel_Size" basename="Voxel Size" portlabel="Voxel Size" exposetype="single"> </port>
+			<port index="0" portname="BandWidth" username="BandWidth" basename="BandWidth" portlabel="BandWidth" exposetype="single"> </port>
+			<port index="0" portname="ConvertToFogvolume" username="Densify" basename="Densify" portlabel="Densify" exposetype="single"> </port>
+			<port index="0" portname="outVDBGrid" username="VDB_Grid" basename="VDB Grid" portlabel="VDB Grid" exposetype="single"> </port>
+		</exposed_ports>
+		<connections>
+		</connections>
+		<layout>
+			<item type="input" name="Center"> </item>
+			<item type="input" name="Radius"> </item>
+			<item type="input" name="Voxel_Size"> </item>
+			<item type="input" name="BandWidth"> </item>
+			<item type="input" name="Densify"> </item>
+			<item type="output" name="VDB_Grid"> </item>
+		</layout>
+	</definition>
+</xsi_file>

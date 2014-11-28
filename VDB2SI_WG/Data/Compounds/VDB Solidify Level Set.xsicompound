@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsi_file type="CompoundNode" name="VDB Solidify Level Set" tasks="Open VDB/Conversion" formatversion="1.4" compoundversion="1.0" backgroundcolor="13158600">
+	<definition>
+		<nodes>
+			<node type="VDB_ChangeGridClass" index="0">
+				<param name="SDFtoFOG" type="11" value="true"></param>
+				<portdef name="inVDBGrid" type="65536" structure="1" group="0" instance="0" port="0" supportedblob="2"></portdef>
+				<portdef name="SDFtoFOG" type="1" structure="1" group="0" instance="0" port="1"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">-191</prop>
+					<prop name="posy">52</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+			<node type="BooleanNode" index="1">
+				<param name="value" type="11" value="true"></param>
+				<portdef name="value" type="1" structure="1" group="0" instance="0" port="0"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">-307</prop>
+					<prop name="posy">103</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+		</nodes>
+		<exposed_ports>
+			<port index="0" portname="inVDBGrid" username="In_VDB_Grid" basename="In VDB Grid" portlabel="In VDB Grid" exposetype="single"> </port>
+			<port index="0" portname="outVDBGrid" username="Out_VDB_Grid" basename="Out VDB Grid" portlabel="Out VDB Grid" exposetype="single"> </port>
+		</exposed_ports>
+		<connections>
+			<cnx from_node="1" from_port="result" to_node="0" to_port="SDFtoFOG"> </cnx>
+		</connections>
+		<layout>
+			<item type="input" name="In_VDB_Grid"> </item>
+			<item type="output" name="Out_VDB_Grid"> </item>
+		</layout>
+		<blob_dictionary>
+			<dict_entry index="2" color="2631870">
+				<typename><![CDATA[VDBGridRef]]></typename>
+				<displayname><![CDATA[VDBGridRef]]></displayname>
+				<description><![CDATA[VDBGrid reference]]></description>
+			</dict_entry>
+		</blob_dictionary>
+	</definition>
+</xsi_file>

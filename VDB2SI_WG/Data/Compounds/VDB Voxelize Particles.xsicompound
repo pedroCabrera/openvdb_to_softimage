@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsi_file type="CompoundNode" name="VDB Voxelize Particles" tasks="Open VDB/Conversion" formatversion="1.4" compoundversion="1.0" constructionmode="Current" backgroundcolor="13158600">
+	<definition>
+		<nodes>
+			<node type="GetDataNode" index="0">
+				<param name="reference" type="31" value="size"></param>
+				<param_ext name="reference" type="31" value="size"></param_ext>
+				<portdef name="source" type="2048" structure="1" group="1" instance="0" port="0"></portdef>
+				<portdef name="inname" type="8192" structure="1" group="3" instance="0" port="0"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">-222</prop>
+					<prop name="posy">-151</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+			<node type="VDB_ParticlesToGrid" index="1">
+				<param name="gridName.gridName_string" type="8" value="density"></param>
+				<param name="gridName.gridName_uimode" type="8" value=""></param>
+				<param name="gridName.gridName_filepathseq" type="8" value=""></param>
+				<param name="gridName.gridName_filename" type="8" value=""></param>
+				<param name="voxelSize" type="4" value="0.100000"></param>
+				<param name="BandWidth" type="4" value="2.000000"></param>
+				<param name="BandWidthInVoxels" type="11" value="true"></param>
+				<param name="ConvertToFogvolume" type="11" value="false"></param>
+				<param name="PointPosition.PointPosition_x" type="4" value="0.000000"></param>
+				<param name="PointPosition.PointPosition_y" type="4" value="0.000000"></param>
+				<param name="PointPosition.PointPosition_z" type="4" value="0.000000"></param>
+				<param name="PointRadius" type="4" value="0.000000"></param>
+				<param name="PointVelocity.PointVelocity_x" type="4" value="0.000000"></param>
+				<param name="PointVelocity.PointVelocity_y" type="4" value="0.000000"></param>
+				<param name="PointVelocity.PointVelocity_z" type="4" value="0.000000"></param>
+				<param name="RasterizeVelocity" type="11" value="false"></param>
+				<param name="VelocitySpacing" type="4" value="2.000000"></param>
+				<portdef name="gridName" type="131072" structure="1" group="0" instance="0" port="0"></portdef>
+				<portdef name="voxelSize" type="4" structure="1" group="0" instance="0" port="1"></portdef>
+				<portdef name="BandWidth" type="4" structure="1" group="0" instance="0" port="2"></portdef>
+				<portdef name="BandWidthInVoxels" type="1" structure="1" group="0" instance="0" port="3"></portdef>
+				<portdef name="ConvertToFogvolume" type="1" structure="1" group="0" instance="0" port="4"></portdef>
+				<portdef name="PointPosition" type="16" structure="1" group="0" instance="0" port="5"></portdef>
+				<portdef name="PointRadius" type="4" structure="1" group="0" instance="0" port="6"></portdef>
+				<portdef name="PointVelocity" type="16" structure="1" group="0" instance="0" port="7"></portdef>
+				<portdef name="RasterizeVelocity" type="1" structure="1" group="0" instance="0" port="8"></portdef>
+				<portdef name="VelocitySpacing" type="4" structure="1" group="0" instance="0" port="9"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">165</prop>
+					<prop name="posy">-335</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+			<node type="PassThroughNode" index="2">
+				<portdef name="in" type="8192" structure="1" group="0" instance="0" port="0"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">-594</prop>
+					<prop name="posy">24</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+			<node type="GetDataNode" index="3">
+				<param name="reference" type="31" value="pointposition"></param>
+				<param_ext name="reference" type="31" value="pointposition"></param_ext>
+				<portdef name="source" type="2048" structure="1" group="1" instance="0" port="0"></portdef>
+				<portdef name="inname" type="8192" structure="1" group="3" instance="0" port="0"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">-334</prop>
+					<prop name="posy">84</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+			<node type="GetDataNode" index="4">
+				<param name="reference" type="31" value="pointvelocity"></param>
+				<param_ext name="reference" type="31" value="pointvelocity"></param_ext>
+				<portdef name="source" type="2048" structure="1" group="1" instance="0" port="0"></portdef>
+				<portdef name="inname" type="8192" structure="1" group="3" instance="0" port="0"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">-301</prop>
+					<prop name="posy">198</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+			<node type="GetDataNode" index="5">
+				<param name="reference" type="31" value=""></param>
+				<param_ext name="reference" type="31" value=""></param_ext>
+				<portdef name="source" type="2048" structure="1" group="1" instance="0" port="0"></portdef>
+				<portdef name="inname" type="8192" structure="1" group="3" instance="0" port="0"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">-369</prop>
+					<prop name="posy">-81</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+			<node type="MultiplyNode" index="6">
+				<param name="value1" type="4" value="1.000000"></param>
+				<param name="value2" type="4" value="1.000000"></param>
+				<portdef name="value1" type="4" structure="1" group="0" instance="0" port="0"></portdef>
+				<portdef name="value2" type="4" structure="1" group="0" instance="1" port="0"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">-93</prop>
+					<prop name="posy">-103</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+			<node type="MultiplyByScalarNode" index="7">
+				<param name="value.value_x" type="4" value="0.000000"></param>
+				<param name="value.value_y" type="4" value="0.000000"></param>
+				<param name="value.value_z" type="4" value="0.000000"></param>
+				<param name="factor" type="4" value="1.000000"></param>
+				<portdef name="value" type="16" structure="1" group="0" instance="0" port="0"></portdef>
+				<portdef name="factor" type="4" structure="1" group="0" instance="0" port="1"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">-106</prop>
+					<prop name="posy">16</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+			<node type="BooleanNode" index="8">
+				<param name="value" type="11" value="false"></param>
+				<portdef name="value" type="1" structure="1" group="0" instance="0" port="0"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">30</prop>
+					<prop name="posy">123</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+				<comment type="node" state="maximized" wordwrap="true" autoresize="true" background="0" background_alpha="0.000000" title="14876671" title_text="0"><![CDATA[not tested yet]]></comment>
+			</node>
+		</nodes>
+		<exposed_ports>
+			<port index="1" portname="gridName" username="Grid_Name" basename="Grid Name" portlabel="Grid Name" exposetype="single"> </port>
+			<port index="1" portname="voxelSize" username="Voxel_Size" basename="Voxel Size" portlabel="Voxel Size" exposetype="single"> </port>
+			<port index="1" portname="BandWidth" username="BandWidth" basename="BandWidth" portlabel="BandWidth" exposetype="single"> </port>
+			<port index="1" portname="ConvertToFogvolume" username="ConvertToFogvolume" basename="ConvertToFogvolume" portlabel="ConvertToFogvolume" exposetype="single"> </port>
+			<port index="1" portname="VelocitySpacing" username="VelocitySpacing" basename="VelocitySpacing" portlabel="VelocitySpacing" exposetype="single"> </port>
+			<port index="1" portname="outVDBGrid" username="VDB_Grid" basename="VDB Grid" portlabel="VDB Grid" exposetype="single"> </port>
+			<port index="1" portname="BandWidthInVoxels" username="BandWidthInVoxels" basename="BandWidthInVoxels" portlabel="BandWidthInVoxels" exposetype="single"> </port>
+			<port index="2" portname="in" username="PointCloundName" basename="PointCloundName" portlabel="PointCloundName" exposetype="single"> </port>
+			<port index="5" portname="reference" username="Reference" basename="Reference" portlabel="Reference" exposetype="single"> </port>
+			<port index="6" portname="value2" username="RadiusMult" basename="RadiusMult" portlabel="RadiusMult" exposetype="single"> </port>
+			<port index="7" portname="factor" username="VelocityMult" basename="VelocityMult" portlabel="VelocityMult" exposetype="single"> </port>
+		</exposed_ports>
+		<connections>
+			<cnx from_node="0" from_port="value" to_node="6" to_port="value1"> </cnx>
+			<cnx from_node="6" from_port="result" to_node="1" to_port="PointRadius"> </cnx>
+			<cnx from_node="2" from_port="out" to_node="5" to_port="inname"> </cnx>
+			<cnx from_node="7" from_port="result" to_node="1" to_port="PointVelocity"> </cnx>
+			<cnx from_node="8" from_port="result" to_node="1" to_port="RasterizeVelocity"> </cnx>
+			<cnx from_node="3" from_port="value" to_node="1" to_port="PointPosition"> </cnx>
+			<cnx from_node="4" from_port="value" to_node="7" to_port="value"> </cnx>
+			<cnx from_node="5" from_port="outname" to_node="3" to_port="inname"> </cnx>
+			<cnx from_node="5" from_port="outname" to_node="0" to_port="inname"> </cnx>
+			<cnx from_node="5" from_port="outname" to_node="4" to_port="inname"> </cnx>
+		</connections>
+		<layout>
+			<item type="input" name="PointCloundName"> </item>
+			<item type="input" name="Reference"> </item>
+			<item type="input" name="Grid_Name"> </item>
+			<item type="input" name="Voxel_Size"> </item>
+			<item type="input" name="BandWidth"> </item>
+			<item type="input" name="BandWidthInVoxels"> </item>
+			<item type="input" name="ConvertToFogvolume"> </item>
+			<item type="input" name="VelocitySpacing"> </item>
+			<item type="input" name="VelocityMult"> </item>
+			<item type="input" name="RadiusMult"> </item>
+			<item type="output" name="VDB_Grid"> </item>
+		</layout>
+	</definition>
+</xsi_file>

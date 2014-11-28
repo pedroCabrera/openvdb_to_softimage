@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsi_file type="CompoundNode" name="VDB File Grid IO" tasks="Open VDB/IO" formatversion="1.4" compoundversion="1.0" constructionmode="Current" backgroundcolor="13158600">
+	<definition>
+		<nodes>
+			<node type="LogValuesNode" index="0">
+				<param name="debugprinttag" type="31" value=""></param>
+				<param name="log" type="11" value="false"></param>
+				<param name="allelements" type="11" value="false"></param>
+				<param name="firstelement" type="3" value="0"></param>
+				<param name="lastelement" type="3" value="0"></param>
+				<portdef name="in" type="65536" structure="1" group="0" instance="0" port="0" supportedblob="2"></portdef>
+				<portdef name="log" type="1" structure="1" group="0" instance="0" port="1"></portdef>
+				<portdef name="allelements" type="1" structure="1" group="0" instance="0" port="2"></portdef>
+				<portdef name="firstelement" type="2" structure="1" group="0" instance="0" port="3"></portdef>
+				<portdef name="lastelement" type="2" structure="1" group="0" instance="0" port="4"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">-691</prop>
+					<prop name="posy">-46</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+				<comment type="node" state="maximized" wordwrap="true" autoresize="true" background="0" background_alpha="0.000000" title="16777215" title_text="0" offsetx="37" offsety="-53" sizex="93" sizey="19"><![CDATA[force evaluation]]></comment>
+			</node>
+			<node type="VDB_GridIO" index="1">
+				<param name="FilePath.FilePath_string" type="8" value="[Project Path]/VDB_Grids/[Scene]"></param>
+				<param name="FilePath.FilePath_uimode" type="8" value=""></param>
+				<param name="FilePath.FilePath_filepathseq" type="8" value=""></param>
+				<param name="FilePath.FilePath_filename" type="8" value=""></param>
+				<param name="FileName.FileName_string" type="8" value="VDBGrids$F4"></param>
+				<param name="FileName.FileName_uimode" type="8" value=""></param>
+				<param name="FileName.FileName_filepathseq" type="8" value=""></param>
+				<param name="FileName.FileName_filename" type="8" value=""></param>
+				<param name="GridName.GridName_string" type="8" value="density"></param>
+				<param name="GridName.GridName_uimode" type="8" value=""></param>
+				<param name="GridName.GridName_filepathseq" type="8" value=""></param>
+				<param name="GridName.GridName_filename" type="8" value=""></param>
+				<param name="OverrideNameOnWriting" type="11" value="true"></param>
+				<param name="Frame" type="3" value="0"></param>
+				<param name="Mode" type="3" value="0"></param>
+				<portdef name="inVDBGrid" type="65536" structure="1" group="0" instance="0" port="0" supportedblob="2"></portdef>
+				<portdef name="FilePath" type="131072" structure="1" group="0" instance="0" port="1"></portdef>
+				<portdef name="FileName" type="131072" structure="1" group="0" instance="0" port="2"></portdef>
+				<portdef name="GridName" type="131072" structure="1" group="0" instance="0" port="3"></portdef>
+				<portdef name="OverrideNameOnWriting" type="1" structure="1" group="0" instance="0" port="4"></portdef>
+				<portdef name="Frame" type="2" structure="1" group="0" instance="0" port="5"></portdef>
+				<portdef name="Mode" type="2" structure="1" group="0" instance="0" port="6"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">-874</prop>
+					<prop name="posy">-45</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+				<comment type="node" state="maximized" wordwrap="true" autoresize="true" background="0" background_alpha="0.000000" title="16777215" title_text="0" offsetx="-219" offsety="201" sizex="448" sizey="149"><![CDATA[vdb file ( file.vdb ) can contains multiple grids of any type and topology.On writing, each grid will be writed with its name on creation, and on reading, grid with the specified by ReadingGridName name will be searched in returned on success.
+
+Filename and ReadGridName ports support Houdini $F and $F(0-9) variable syntaxis. $F is intendet to be replaced by frame nubmer, and first digit after that (if is) states for padding zeros count. e.g. if currentframe = 1337, and digit=6, then the result is "gridname001337". The same is for all shaders, because of lack currentFrame node in RT use expression "Fc" on frame port instead
+
+OverrideNameOnWiritng - each grid has its own name which can be overrided on writing ( and restored then ) for handy
+
+NOTE: Possible error on writing the file is non-existing folder]]></comment>
+			</node>
+		</nodes>
+		<exposed_ports>
+			<port index="0" portname="out" username="Out" basename="Out" portlabel="Out" exposetype="single"> </port>
+			<port index="1" portname="inVDBGrid" username="In_VDB_Grid" basename="In VDB Grid" portlabel="In VDB Grid" exposetype="single"> </port>
+			<port index="1" portname="FilePath" username="FilePath" basename="FilePath" portlabel="FilePath" exposetype="single"> </port>
+			<port index="1" portname="FileName" username="FileName" basename="FileName" portlabel="FileName" exposetype="single"> </port>
+			<port index="1" portname="GridName" username="ReadingGridName" basename="ReadingGridName" portlabel="ReadingGridName" exposetype="single"> </port>
+			<port index="1" portname="Frame" username="Frame" basename="Frame" portlabel="Frame" exposetype="single"> </port>
+			<port index="1" portname="Mode" username="Mode" basename="Mode" portlabel="Mode" exposetype="single"> </port>
+			<port index="1" portname="OverrideNameOnWriting" username="OverrideNameOnWriting" basename="OverrideNameOnWriting" portlabel="OverrideNameOnWriting" exposetype="single"> </port>
+		</exposed_ports>
+		<connections>
+			<cnx from_node="1" from_port="outVDBGrid" to_node="0" to_port="in"> </cnx>
+		</connections>
+		<layout>
+			<item type="input" name="In_VDB_Grid"> </item>
+			<item type="input" name="FilePath"> </item>
+			<item type="input" name="FileName"> </item>
+			<item type="input" name="ReadingGridName"> </item>
+			<item type="input" name="OverrideNameOnWriting"> </item>
+			<item type="input" name="Frame"> </item>
+			<item type="input" name="Mode" min="0" max="0">
+				<enum value="0"><![CDATA[Bypass]]></enum>
+				<enum value="1"><![CDATA[Read]]></enum>
+				<enum value="2"><![CDATA[Write]]></enum>
+			</item>
+			<item type="output" name="Out"> </item>
+		</layout>
+		<blob_dictionary>
+			<dict_entry index="2" color="2631870">
+				<typename><![CDATA[VDBGridRef]]></typename>
+				<displayname><![CDATA[VDBGridRef]]></displayname>
+				<description><![CDATA[VDBGrid reference]]></description>
+			</dict_entry>
+		</blob_dictionary>
+	</definition>
+</xsi_file>

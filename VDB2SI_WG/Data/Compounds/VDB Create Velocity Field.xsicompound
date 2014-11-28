@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsi_file type="CompoundNode" name="VDB Create Velocity Field" tasks="Open VDB/Processing" formatversion="1.4" compoundversion="1.0" backgroundcolor="13158600">
+	<definition>
+		<nodes>
+			<node type="SubtractNode" index="0">
+				<param name="first.first_x" type="4" value="0.000000"></param>
+				<param name="first.first_y" type="4" value="0.000000"></param>
+				<param name="first.first_z" type="4" value="0.000000"></param>
+				<param name="second.second_x" type="4" value="0.000000"></param>
+				<param name="second.second_y" type="4" value="0.000000"></param>
+				<param name="second.second_z" type="4" value="0.000000"></param>
+				<portdef name="first" type="16" structure="1" group="0" instance="0" port="0"></portdef>
+				<portdef name="second" type="16" structure="1" group="0" instance="0" port="1"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">-929</prop>
+					<prop name="posy">-264</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+			<node type="3DVectorNode" index="1">
+				<param name="value.value_x" type="4" value="0.000000"></param>
+				<param name="value.value_y" type="4" value="0.000000"></param>
+				<param name="value.value_z" type="4" value="0.000000"></param>
+				<portdef name="value" type="16" structure="1" group="0" instance="0" port="0"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">-441</prop>
+					<prop name="posy">-308</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+			<node type="BooleanNode" index="2">
+				<param name="value" type="11" value="true"></param>
+				<portdef name="value" type="1" structure="1" group="0" instance="0" port="0"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">-421</prop>
+					<prop name="posy">-236</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+			<node type="VDB_FillBoxGrid" index="3">
+				<param name="BackgroundValue.BackgroundValue_x" type="4" value="0.000000"></param>
+				<param name="BackgroundValue.BackgroundValue_y" type="4" value="0.000000"></param>
+				<param name="BackgroundValue.BackgroundValue_z" type="4" value="0.000000"></param>
+				<param name="voxelSize" type="4" value="0.100000"></param>
+				<param name="Fillbox" type="11" value="false"></param>
+				<param name="Dense" type="11" value="false"></param>
+				<param name="BoxCorners.BoxCorners_00" type="4" value="1.000000"></param>
+				<param name="BoxCorners.BoxCorners_01" type="4" value="0.000000"></param>
+				<param name="BoxCorners.BoxCorners_02" type="4" value="0.000000"></param>
+				<param name="BoxCorners.BoxCorners_10" type="4" value="0.000000"></param>
+				<param name="BoxCorners.BoxCorners_11" type="4" value="1.000000"></param>
+				<param name="BoxCorners.BoxCorners_12" type="4" value="0.000000"></param>
+				<param name="BoxCorners.BoxCorners_20" type="4" value="0.000000"></param>
+				<param name="BoxCorners.BoxCorners_21" type="4" value="0.000000"></param>
+				<param name="BoxCorners.BoxCorners_22" type="4" value="1.000000"></param>
+				<param name="FillBoxValue.FillBoxValue_x" type="4" value="0.000000"></param>
+				<param name="FillBoxValue.FillBoxValue_y" type="4" value="0.000000"></param>
+				<param name="FillBoxValue.FillBoxValue_z" type="4" value="0.000000"></param>
+				<param name="gridName.gridName_string" type="8" value="velocityGrid"></param>
+				<param name="gridName.gridName_uimode" type="8" value=""></param>
+				<param name="gridName.gridName_filepathseq" type="8" value=""></param>
+				<param name="gridName.gridName_filename" type="8" value=""></param>
+				<portdef name="BackgroundValue" type="16" structure="1" group="0" instance="0" port="0"></portdef>
+				<portdef name="voxelSize" type="4" structure="1" group="0" instance="0" port="1"></portdef>
+				<portdef name="Fillbox" type="1" structure="1" group="0" instance="0" port="2"></portdef>
+				<portdef name="Dense" type="1" structure="1" group="0" instance="0" port="3"></portdef>
+				<portdef name="BoxCorners" type="128" structure="1" group="0" instance="0" port="4"></portdef>
+				<portdef name="FillBoxValue" type="16" structure="1" group="0" instance="0" port="5"></portdef>
+				<portdef name="gridName" type="131072" structure="1" group="0" instance="0" port="6"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">10</prop>
+					<prop name="posy">-407</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+			<node type="VDB_GetGridData" index="4">
+				<portdef name="VDBGrid" type="65536" structure="1" group="0" instance="0" port="0" supportedblob="2"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">-1348</prop>
+					<prop name="posy">-414</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+			<node type="3DVectorToScalarNode" index="5">
+				<param name="vector.vector_x" type="4" value="0.000000"></param>
+				<param name="vector.vector_y" type="4" value="0.000000"></param>
+				<param name="vector.vector_z" type="4" value="0.000000"></param>
+				<portdef name="vector" type="16" structure="1" group="0" instance="0" port="0"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">-457</prop>
+					<prop name="posy">-419</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+			<node type="VectorTo3x3MatrixNode" index="6">
+				<param name="roworcolumn" type="3" value="0"></param>
+				<param name="vector1.vector1_x" type="4" value="1.000000"></param>
+				<param name="vector1.vector1_y" type="4" value="0.000000"></param>
+				<param name="vector1.vector1_z" type="4" value="0.000000"></param>
+				<param name="vector2.vector2_x" type="4" value="0.000000"></param>
+				<param name="vector2.vector2_y" type="4" value="1.000000"></param>
+				<param name="vector2.vector2_z" type="4" value="0.000000"></param>
+				<param name="vector3.vector3_x" type="4" value="0.000000"></param>
+				<param name="vector3.vector3_y" type="4" value="0.000000"></param>
+				<param name="vector3.vector3_z" type="4" value="1.000000"></param>
+				<portdef name="vector1" type="16" structure="1" group="0" instance="0" port="0"></portdef>
+				<portdef name="vector2" type="16" structure="1" group="0" instance="0" port="1"></portdef>
+				<portdef name="vector3" type="16" structure="1" group="0" instance="0" port="2"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">-208</prop>
+					<prop name="posy">-322</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+			<node type="3x3MatrixToVectorNode" index="7">
+				<param name="roworcolumn" type="3" value="0"></param>
+				<param name="matrix.matrix_00" type="4" value="1.000000"></param>
+				<param name="matrix.matrix_01" type="4" value="0.000000"></param>
+				<param name="matrix.matrix_02" type="4" value="0.000000"></param>
+				<param name="matrix.matrix_10" type="4" value="0.000000"></param>
+				<param name="matrix.matrix_11" type="4" value="1.000000"></param>
+				<param name="matrix.matrix_12" type="4" value="0.000000"></param>
+				<param name="matrix.matrix_20" type="4" value="0.000000"></param>
+				<param name="matrix.matrix_21" type="4" value="0.000000"></param>
+				<param name="matrix.matrix_22" type="4" value="1.000000"></param>
+				<portdef name="matrix" type="128" structure="1" group="0" instance="0" port="0"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">-1151</prop>
+					<prop name="posy">-294</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+			<node type="SubtractNode" index="8">
+				<param name="first.first_x" type="4" value="0.000000"></param>
+				<param name="first.first_y" type="4" value="0.000000"></param>
+				<param name="first.first_z" type="4" value="0.000000"></param>
+				<param name="second.second_x" type="4" value="0.000000"></param>
+				<param name="second.second_y" type="4" value="0.000000"></param>
+				<param name="second.second_z" type="4" value="0.000000"></param>
+				<portdef name="first" type="16" structure="1" group="0" instance="0" port="0"></portdef>
+				<portdef name="second" type="16" structure="1" group="0" instance="0" port="1"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">-926</prop>
+					<prop name="posy">-342</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+			<node type="MultiplyByScalarNode" index="9">
+				<param name="value.value_x" type="4" value="0.000000"></param>
+				<param name="value.value_y" type="4" value="0.000000"></param>
+				<param name="value.value_z" type="4" value="0.000000"></param>
+				<param name="factor" type="4" value="1.000000"></param>
+				<portdef name="value" type="16" structure="1" group="0" instance="0" port="0"></portdef>
+				<portdef name="factor" type="4" structure="1" group="0" instance="0" port="1"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">-792</prop>
+					<prop name="posy">-345</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+			<node type="MultiplyByScalarNode" index="10">
+				<param name="value.value_x" type="4" value="0.000000"></param>
+				<param name="value.value_y" type="4" value="0.000000"></param>
+				<param name="value.value_z" type="4" value="0.000000"></param>
+				<param name="factor" type="4" value="1.000000"></param>
+				<portdef name="value" type="16" structure="1" group="0" instance="0" port="0"></portdef>
+				<portdef name="factor" type="4" structure="1" group="0" instance="0" port="1"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">-790</prop>
+					<prop name="posy">-258</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+			<node type="PassThroughNode" index="11">
+				<param name="in" type="4" value="1.500000"></param>
+				<portdef name="in" type="4" structure="1" group="0" instance="0" port="0"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">-1341</prop>
+					<prop name="posy">-484</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+			<node type="AddNode" index="12">
+				<param name="value1.value1_x" type="4" value="0.000000"></param>
+				<param name="value1.value1_y" type="4" value="0.000000"></param>
+				<param name="value1.value1_z" type="4" value="0.000000"></param>
+				<param name="value2.value2_x" type="4" value="0.000000"></param>
+				<param name="value2.value2_y" type="4" value="0.000000"></param>
+				<param name="value2.value2_z" type="4" value="0.000000"></param>
+				<portdef name="value1" type="16" structure="1" group="0" instance="0" port="0"></portdef>
+				<portdef name="value2" type="16" structure="1" group="0" instance="1" port="0"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">-625</prop>
+					<prop name="posy">-362</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+			<node type="AddNode" index="13">
+				<param name="value1.value1_x" type="4" value="0.000000"></param>
+				<param name="value1.value1_y" type="4" value="0.000000"></param>
+				<param name="value1.value1_z" type="4" value="0.000000"></param>
+				<param name="value2.value2_x" type="4" value="0.000000"></param>
+				<param name="value2.value2_y" type="4" value="0.000000"></param>
+				<param name="value2.value2_z" type="4" value="0.000000"></param>
+				<portdef name="value1" type="16" structure="1" group="0" instance="0" port="0"></portdef>
+				<portdef name="value2" type="16" structure="1" group="0" instance="1" port="0"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">-621</prop>
+					<prop name="posy">-271</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+			<node type="MultiplyByScalarNode" index="14">
+				<param name="value" type="4" value="0.000000"></param>
+				<param name="factor" type="4" value="1.000000"></param>
+				<portdef name="value" type="4" structure="1" group="0" instance="0" port="0"></portdef>
+				<portdef name="factor" type="4" structure="1" group="0" instance="0" port="1"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">-234</prop>
+					<prop name="posy">-422</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+		</nodes>
+		<exposed_ports>
+			<port index="3" portname="gridName" username="Grid_Name" basename="Grid Name" portlabel="Grid Name" exposetype="single"> </port>
+			<port index="3" portname="outVDBGrid" username="VDB_Grid" basename="VDB Grid" portlabel="VDB Grid" exposetype="single"> </port>
+			<port index="4" portname="VDBGrid" username="Reference_VDBGrid" basename="Reference VDBGrid" portlabel="Reference VDBGrid" exposetype="single"> </port>
+			<port index="11" portname="in" username="ScaleBBoxRelativeToRefGrid" basename="ScaleBBoxRelativeToRefGrid" portlabel="ScaleBBoxRelativeToRefGrid" exposetype="single"> </port>
+			<port index="14" portname="factor" username="Undersampling" basename="Undersampling" portlabel="Undersampling" exposetype="single"> </port>
+		</exposed_ports>
+		<connections>
+			<cnx from_node="1" from_port="result" to_node="3" to_port="BackgroundValue"> </cnx>
+			<cnx from_node="1" from_port="result" to_node="3" to_port="FillBoxValue"> </cnx>
+			<cnx from_node="2" from_port="result" to_node="3" to_port="Fillbox"> </cnx>
+			<cnx from_node="2" from_port="result" to_node="3" to_port="Dense"> </cnx>
+			<cnx from_node="4" from_port="VoxelSize" to_node="5" to_port="vector"> </cnx>
+			<cnx from_node="4" from_port="BoundingBox" to_node="7" to_port="matrix"> </cnx>
+			<cnx from_node="5" from_port="x" to_node="14" to_port="value"> </cnx>
+			<cnx from_node="6" from_port="matrix" to_node="3" to_port="BoxCorners"> </cnx>
+			<cnx from_node="7" from_port="vector1" to_node="8" to_port="first"> </cnx>
+			<cnx from_node="7" from_port="vector2" to_node="8" to_port="second"> </cnx>
+			<cnx from_node="7" from_port="vector2" to_node="12" to_port="value2"> </cnx>
+			<cnx from_node="7" from_port="vector2" to_node="6" to_port="vector2"> </cnx>
+			<cnx from_node="7" from_port="vector3" to_node="0" to_port="first"> </cnx>
+			<cnx from_node="7" from_port="vector2" to_node="0" to_port="second"> </cnx>
+			<cnx from_node="7" from_port="vector2" to_node="13" to_port="value2"> </cnx>
+			<cnx from_node="8" from_port="result" to_node="9" to_port="value"> </cnx>
+			<cnx from_node="0" from_port="result" to_node="10" to_port="value"> </cnx>
+			<cnx from_node="9" from_port="result" to_node="12" to_port="value1"> </cnx>
+			<cnx from_node="10" from_port="result" to_node="13" to_port="value1"> </cnx>
+			<cnx from_node="11" from_port="out" to_node="9" to_port="factor"> </cnx>
+			<cnx from_node="11" from_port="out" to_node="10" to_port="factor"> </cnx>
+			<cnx from_node="12" from_port="result" to_node="6" to_port="vector1"> </cnx>
+			<cnx from_node="13" from_port="result" to_node="6" to_port="vector3"> </cnx>
+			<cnx from_node="14" from_port="result" to_node="3" to_port="voxelSize"> </cnx>
+		</connections>
+		<layout>
+			<item type="input" name="ScaleBBoxRelativeToRefGrid" min="1" max="5"> </item>
+			<item type="input" name="Reference_VDBGrid"> </item>
+			<item type="input" name="Grid_Name"> </item>
+			<item type="input" name="Undersampling"> </item>
+			<item type="output" name="VDB_Grid"> </item>
+		</layout>
+		<blob_dictionary>
+			<dict_entry index="2" color="2631870">
+				<typename><![CDATA[VDBGridRef]]></typename>
+				<displayname><![CDATA[VDBGridRef]]></displayname>
+				<description><![CDATA[VDBGrid reference]]></description>
+			</dict_entry>
+		</blob_dictionary>
+	</definition>
+</xsi_file>

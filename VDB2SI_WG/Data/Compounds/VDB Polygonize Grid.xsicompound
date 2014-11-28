@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsi_file type="CompoundNode" name="VDB Polygonize Grid" tasks="Open VDB/Conversion" formatversion="1.4" compoundversion="1.0" constructionmode="Current" backgroundcolor="13158600">
+	<definition>
+		<nodes>
+			<node type="Set Topology" version="1.0" index="1">
+				<param name="Reference" type="31" value="Self"></param>
+				<param_ext name="Reference" type="31" value="Self"></param_ext>
+				<portdef name="In_Name" type="8192" structure="1" group="-1" instance="-1" port="-1"></portdef>
+				<portdef name="Topology" type="524288" structure="1" group="-1" instance="-1" port="-1"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">257</prop>
+					<prop name="posy">696</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+			<node type="VDB_GridToMesh" index="3">
+				<param name="IsoVal" type="4" value="0.000000"></param>
+				<param name="Adaptivity" type="4" value="0.000000"></param>
+				<param name="InvertPolygons" type="11" value="true"></param>
+				<portdef name="VDBGrid" type="65536" structure="1" group="0" instance="0" port="0" supportedblob="2"></portdef>
+				<portdef name="IsoVal" type="4" structure="1" group="0" instance="0" port="1"></portdef>
+				<portdef name="Adaptivity" type="4" structure="1" group="0" instance="0" port="2"></portdef>
+				<portdef name="InvertPolygons" type="1" structure="1" group="0" instance="0" port="3"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">-370</prop>
+					<prop name="posy">711</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+			<node type="CreateTopoNode" index="8">
+				<param name="vertexpositionarray.vertexpositionarray_x" type="4" value="0.000000"></param>
+				<param name="vertexpositionarray.vertexpositionarray_y" type="4" value="0.000000"></param>
+				<param name="vertexpositionarray.vertexpositionarray_z" type="4" value="0.000000"></param>
+				<param name="polygonaldescription" type="3" value="0"></param>
+				<portdef name="vertexpositionarray" type="16" structure="2" group="0" instance="0" port="0"></portdef>
+				<portdef name="polygonaldescription" type="2" structure="2" group="0" instance="0" port="1"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">104</prop>
+					<prop name="posy">703</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+		</nodes>
+		<exposed_ports>
+			<port index="1" portname="Execute" username="Perform" basename="Perform" portlabel="Perform" exposetype="single"> </port>
+			<port index="3" portname="VDBGrid" username="VDBGrid" basename="VDBGrid" portlabel="VDBGrid" exposetype="single"> </port>
+			<port index="3" portname="IsoVal" username="IsoVal" basename="IsoVal" portlabel="IsoVal" exposetype="single"> </port>
+			<port index="3" portname="Adaptivity" username="Adaptivity" basename="Adaptivity" portlabel="Adaptivity" exposetype="single"> </port>
+			<port index="3" portname="InvertPolygons" username="InvertPolygons" basename="InvertPolygons" portlabel="InvertPolygons" exposetype="single"> </port>
+		</exposed_ports>
+		<connections>
+			<cnx from_node="3" from_port="PointPosition" to_node="8" to_port="vertexpositionarray"> </cnx>
+			<cnx from_node="3" from_port="PolygonalDesc" to_node="8" to_port="polygonaldescription"> </cnx>
+			<cnx from_node="8" from_port="result" to_node="1" to_port="Topology"> </cnx>
+		</connections>
+		<layout>
+			<item type="input" name="VDBGrid"> </item>
+			<item type="input" name="IsoVal"> </item>
+			<item type="input" name="Adaptivity"> </item>
+			<item type="input" name="InvertPolygons"> </item>
+			<item type="output" name="Perform"> </item>
+		</layout>
+		<blob_dictionary>
+			<dict_entry index="2" color="2631870">
+				<typename><![CDATA[VDBGridRef]]></typename>
+				<displayname><![CDATA[VDBGridRef]]></displayname>
+				<description><![CDATA[VDBGrid reference]]></description>
+			</dict_entry>
+		</blob_dictionary>
+	</definition>
+</xsi_file>

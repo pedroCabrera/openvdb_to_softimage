@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsi_file type="CompoundNode" name="VDB Fogvolume Filter" tasks="Open VDB/Math" formatversion="1.4" compoundversion="1.0" constructionmode="Modeling" backgroundcolor="13158600">
+	<definition>
+		<nodes>
+			<node type="VDB_MorphologicalFilter" index="0">
+				<param name="Op" type="3" value="0"></param>
+				<param name="Radius" type="4" value="1.000000"></param>
+				<param name="RadiusInVoxels" type="11" value="false"></param>
+				<param name="NbInterations" type="3" value="3"></param>
+				<portdef name="inVDBGrid" type="65536" structure="1" group="0" instance="0" port="0" supportedblob="2"></portdef>
+				<portdef name="Op" type="2" structure="1" group="0" instance="0" port="1"></portdef>
+				<portdef name="Radius" type="4" structure="1" group="0" instance="0" port="2"></portdef>
+				<portdef name="RadiusInVoxels" type="1" structure="1" group="0" instance="0" port="3"></portdef>
+				<portdef name="NbInterations" type="2" structure="1" group="0" instance="0" port="4"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">-1266</prop>
+					<prop name="posy">-863</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+		</nodes>
+		<exposed_ports>
+			<port index="0" portname="inVDBGrid" username="In_VDB_Grid" basename="In VDB Grid" portlabel="In VDB Grid" exposetype="single"> </port>
+			<port index="0" portname="outVDBGrid" username="Out_VDB_Grid" basename="Out VDB Grid" portlabel="Out VDB Grid" exposetype="single"> </port>
+			<port index="0" portname="Op" username="Filter" basename="Filter" portlabel="Filter" exposetype="single"> </port>
+			<port index="0" portname="Radius" username="Radius" basename="Radius" portlabel="Radius" exposetype="single"> </port>
+			<port index="0" portname="RadiusInVoxels" username="RadiustInVoxels" basename="RadiustInVoxels" portlabel="RadiustInVoxels" exposetype="single"> </port>
+		</exposed_ports>
+		<connections>
+		</connections>
+		<layout>
+			<item type="input" name="In_VDB_Grid"> </item>
+			<item type="input" name="Filter" min="0" max="0">
+				<enum value="0"><![CDATA[OffsetVoxelValue]]></enum>
+				<enum value="1"><![CDATA[Mean Value]]></enum>
+				<enum value="2"><![CDATA[Gaussian]]></enum>
+				<enum value="3"><![CDATA[Median Value]]></enum>
+			</item>
+			<item type="input" name="Radius"> </item>
+			<item type="input" name="RadiustInVoxels"> </item>
+			<item type="output" name="Out_VDB_Grid"> </item>
+		</layout>
+		<blob_dictionary>
+			<dict_entry index="2" color="2631870">
+				<typename><![CDATA[VDBGridRef]]></typename>
+				<displayname><![CDATA[VDBGridRef]]></displayname>
+				<description><![CDATA[VDBGrid reference]]></description>
+			</dict_entry>
+		</blob_dictionary>
+	</definition>
+</xsi_file>

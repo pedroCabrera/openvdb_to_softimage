@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsi_file type="CompoundNode" name="VDB Voxelize Geometry" tasks="Open VDB/Conversion" formatversion="1.4" compoundversion="1.0" backgroundcolor="13158600">
+	<definition>
+		<nodes>
+			<node type="VDB_MeshToGrid" index="0">
+				<param name="voxelSize" type="4" value="0.500000"></param>
+				<param name="extWidth" type="4" value="1.600000"></param>
+				<param name="intWidth" type="4" value="1.600000"></param>
+				<param name="BandWidthInVoxels" type="11" value="true"></param>
+				<param name="gridName.gridName_string" type="8" value="levelsetgrid"></param>
+				<param name="gridName.gridName_uimode" type="8" value=""></param>
+				<param name="gridName.gridName_filepathseq" type="8" value=""></param>
+				<param name="gridName.gridName_filename" type="8" value=""></param>
+				<param name="UnsignedDistanceField" type="11" value="false"></param>
+				<param name="ConvertToFogvolume" type="11" value="false"></param>
+				<portdef name="geometry" type="1024" structure="1" group="0" instance="0" port="0"></portdef>
+				<portdef name="voxelSize" type="4" structure="1" group="0" instance="0" port="1"></portdef>
+				<portdef name="extWidth" type="4" structure="1" group="0" instance="0" port="2"></portdef>
+				<portdef name="intWidth" type="4" structure="1" group="0" instance="0" port="3"></portdef>
+				<portdef name="BandWidthInVoxels" type="1" structure="1" group="0" instance="0" port="4"></portdef>
+				<portdef name="gridName" type="131072" structure="1" group="0" instance="0" port="5"></portdef>
+				<portdef name="UnsignedDistanceField" type="1" structure="1" group="0" instance="0" port="6"></portdef>
+				<portdef name="ConvertToFogvolume" type="1" structure="1" group="0" instance="0" port="7"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">-735</prop>
+					<prop name="posy">105</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+			<node type="GroupGeometryNode" index="1">
+				<portdef name="geometry1" type="1024" structure="1" group="0" instance="0" port="0"></portdef>
+				<datablob category="ui_infos">
+					<prop name="posx">-949</prop>
+					<prop name="posy">34</prop>
+					<prop name="state">Normal</prop>
+				</datablob>
+			</node>
+			<comment type="node" state="maximized" wordwrap="true" autoresize="false" background="0" background_alpha="0.000000" title="16777215" title_text="0" offsetx="-1125" offsety="356" sizex="1034" sizey="111"><![CDATA[ [VDB][GRIDTOMESH]: UnsigendDistanceField = when enabled, produces densification of mesh
+ where each voxel in band with width specified by the exteriorBandWidth param contain distance to closest point on mesh. When false, produces signed distance with exterion and interior widthes defined by inputs respectivelty. Requires closed mesh for correct result. 
+ ConvertToFogvolume = when enabled, converts DistanceField (only correct for the Signed) to filled volume which interior is 1 and exterior has a falloff with width of exterior width.
+
+NOTE: levelset is not intented to be rendered, you should convert it to volumefog before any render. levelset is only for processing tasks]]></comment>
+		</nodes>
+		<exposed_ports>
+			<port index="0" portname="voxelSize" username="Voxel_Size" basename="Voxel Size" portlabel="Voxel Size" exposetype="single"> </port>
+			<port index="0" portname="extWidth" username="Exterior_Width" basename="Exterior Width" portlabel="Exterior Width" exposetype="single"> </port>
+			<port index="0" portname="intWidth" username="Interior_Width" basename="Interior Width" portlabel="Interior Width" exposetype="single"> </port>
+			<port index="0" portname="BandWidthInVoxels" username="BandWidthInVoxels" basename="BandWidthInVoxels" portlabel="BandWidthInVoxels" exposetype="single"> </port>
+			<port index="0" portname="UnsignedDistanceField" username="UnsignedDistanceField" basename="UnsignedDistanceField" portlabel="UnsignedDistanceField" exposetype="single"> </port>
+			<port index="0" portname="ConvertToFogvolume" username="Levelset_to_Fog" basename="Levelset to Fog" portlabel="Levelset to Fog" exposetype="single"> </port>
+			<port index="0" portname="gridName" username="Grid_Name" basename="Grid Name" portlabel="Grid Name" exposetype="single"> </port>
+			<port index="0" portname="outVDBGrid" username="VDB_Grid" basename="VDB Grid" portlabel="VDB Grid" exposetype="single"> </port>
+			<port index="1" portname="geometry1" username="Geometry" basename="Geometry" portlabel="Geometry" exposetype="all_instances"> </port>
+		</exposed_ports>
+		<connections>
+			<cnx from_node="1" from_port="result" to_node="0" to_port="geometry"> </cnx>
+		</connections>
+		<layout>
+			<item type="input" name="Geometry" min="0" max="0"> </item>
+			<item type="input" name="Voxel_Size"> </item>
+			<item type="input" name="Exterior_Width"> </item>
+			<item type="input" name="Interior_Width"> </item>
+			<item type="input" name="BandWidthInVoxels"> </item>
+			<item type="input" name="UnsignedDistanceField"> </item>
+			<item type="input" name="Levelset_to_Fog"> </item>
+			<item type="input" name="Grid_Name"> </item>
+			<item type="output" name="VDB_Grid"> </item>
+		</layout>
+	</definition>
+</xsi_file>
