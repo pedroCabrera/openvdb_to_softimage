@@ -46,7 +46,6 @@
 *.exe
 *.exp
 *.idb
-*.lib
 *.manifest
 *.unsuccessfulbuild
 Makefile
@@ -61,7 +60,7 @@ obj/
 
 Ankh.NoLoad
 
-
+SoftimageOpenVDB.lib
 SoftimageOpenVDB.dll
 libSoftimageOpenVDB.so
 libSoftimageOpenVDB.so.*
