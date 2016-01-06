@@ -46,6 +46,8 @@
 *.exe
 *.exp
 *.idb
+*.lib
+*.manifest
 *.unsuccessfulbuild
 Makefile
 Makefile.Debug
