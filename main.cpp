@@ -28,7 +28,7 @@ XSI::CStatus VDB_CopyGrid_Register(XSI::PluginRegistrar& reg);
 XSI::CStatus VDB_Morpher_Register(XSI::PluginRegistrar& reg);
 
 
-SICALLBACK XSILoadPlugin( PluginRegistrar& in_reg )
+SICALLBACK dlexport XSILoadPlugin( PluginRegistrar& in_reg )
 {
 
 
@@ -75,7 +75,7 @@ SICALLBACK XSILoadPlugin( PluginRegistrar& in_reg )
 	return CStatus::OK;
 }
 
-SICALLBACK XSIUnloadPlugin( const PluginRegistrar& in_reg )
+SICALLBACK dlexport XSIUnloadPlugin( const PluginRegistrar& in_reg )
 {
 
 

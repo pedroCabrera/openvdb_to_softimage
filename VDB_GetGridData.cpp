@@ -97,13 +97,13 @@ void FilloutActiveVoxelPositions (  openvdb::GridBase::Ptr & in_baseRef, CDataAr
 	if ( nbActVoxels * sizeof(MATH::CVector3f) > xsiSafeDataSizeInBytes )	
 		Application().LogMessage ( L"[VDB][GETGRIDDATA]: Too many voxels to display (>1GB), will clamping voxelcount to avoid XSI crash", siWarningMsg );
 	
-	nbActVoxels = Clamp ( 0ULL, xsiSafeDataSizeInBytes/sizeof(MATH::CVector3f), nbActVoxels );
+    nbActVoxels = Clamp ( LONG(0), LONG(xsiSafeDataSizeInBytes/sizeof(MATH::CVector3f)), nbActVoxels );
 	CDataArray2DVector3f::Accessor outAcc = outData.Resize ( 0, nbActVoxels );
 
-	openvdb::Grid<TreeType>::Ptr castedGridRef= openvdb::gridPtrCast<openvdb::Grid<TreeType>> (in_baseRef);
+typename	openvdb::Grid<TreeType>::Ptr castedGridRef= openvdb::gridPtrCast<openvdb::Grid<TreeType> > (in_baseRef);
 
 	LLONG cnt = 0;
-	for ( openvdb::Grid<TreeType>::ValueOnCIter iter = castedGridRef->cbeginValueOn(); cnt < nbActVoxels; ++ cnt  )
+    for (typename openvdb::Grid<TreeType>::ValueOnCIter iter = castedGridRef->cbeginValueOn(); cnt < nbActVoxels; ++ cnt  )
 	{
         openvdb::v2_3_0::math::Vec3d vdbVec3 = castedGridRef->indexToWorld ( iter.getCoord () );
 		outAcc[cnt].Set ( vdbVec3.x (),vdbVec3.y (),vdbVec3.z () );
@@ -115,7 +115,7 @@ void FilloutActiveVoxelPositions (  openvdb::GridBase::Ptr & in_baseRef, CDataAr
 
 
 
-SICALLBACK VDB_GetGridData_Evaluate( ICENodeContext & in_ctxt)
+SICALLBACK dlexport VDB_GetGridData_Evaluate( ICENodeContext & in_ctxt)
 {
 
 
@@ -269,9 +269,9 @@ SICALLBACK VDB_GetGridData_Evaluate( ICENodeContext & in_ctxt)
 			//grid->baseTreePtr()->getIndexRange ( bbox );
 		
 		bbox =p_inWrapper->m_grid->evalActiveVoxelBoundingBox ();
-			auto minp = p_inWrapper->m_grid->indexToWorld ( bbox.min() );
-			auto maxp = p_inWrapper->m_grid->indexToWorld ( bbox.max() );
-			auto midp =(minp+maxp)*0.5;
+            openvdb::Vec3d minp = p_inWrapper->m_grid->indexToWorld ( bbox.min() );
+            openvdb::Vec3d maxp = p_inWrapper->m_grid->indexToWorld ( bbox.max() );
+            openvdb::Vec3d midp =(minp+maxp)*0.5;
 
 			outData[0].Set ( minp.x(),minp.y(),minp.z(),
 				midp.x(),midp.y(),midp.z(),
@@ -655,7 +655,7 @@ return CStatus::OK;
 };
 
 // lets cache this
-SICALLBACK VDB_GetGridData_Init( CRef& in_ctxt )
+SICALLBACK dlexport VDB_GetGridData_Init( CRef& in_ctxt )
 {
 
   Application().LogMessage ( L"[VDB][GETGRIDDATA]: Grid types: 0=UNKNOWN | 1=LEVEL_SET | 2=FOG_VOLUME | 3= STAGGERED" );

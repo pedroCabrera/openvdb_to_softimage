@@ -59,11 +59,13 @@ x64/
 [Rr]elease*/
 [Rr]elease64*/
 [Rr]elease32*/
+!external/*
 Ankh.NoLoad
 
 
 SoftimageOpenVDB.dll
 libSoftimageOpenVDB.so
+libSoftimageOpenVDB.so.*
 
 #Subversion files
 .svn

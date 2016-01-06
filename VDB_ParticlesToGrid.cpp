@@ -225,7 +225,7 @@ struct VDB_Particles2Mesh_cache_t
 
   
     inline bool IsDirty (std::vector <MATH::CVector3f>&pos, std::vector <MATH::CVector3f>&vels, std::vector <float>&rad,
-         float vxsz, CString& name,  bool fog, float bw, 
+         float vxsz, const CString& name,  bool fog, float bw,
 	//	 float mw, bool useMask,
 		 bool rastvel, float velsp )
 		// CDataArrayFloat  & ascalar, CDataArrayVector3f & avec3, CDataArrayLong & along)
@@ -295,7 +295,7 @@ struct VDB_Particles2Mesh_cache_t
 		if ( m_useFog )
 			{
 			 openvdb::tools::sdfToFogVolume(*rasterizedGrid);
-                rasterizedGrid->setGridClass ( openvdb::v2_3_0::GridClass::GRID_FOG_VOLUME );
+                rasterizedGrid->setGridClass ( openvdb::v2_3_0::GRID_FOG_VOLUME );
 			};
 
 		
@@ -304,7 +304,7 @@ struct VDB_Particles2Mesh_cache_t
 		m_primaryGrid.m_grid = rasterizedGrid;
 		m_primaryGrid.m_grid->setName(m_gridName.GetAsciiString());
 		m_primaryGrid.m_lastEvalTime = clock ();
-		Application().LogMessage(L"[VDB][PARTICLESTOGRID]: Stamped at=" + CString(m_primaryGrid.m_lastEvalTime ) );
+        Application().LogMessage(L"[VDB][PARTICLESTOGRID]: Stamped at=" + CString((LONG)m_primaryGrid.m_lastEvalTime ) );
 		Application().LogMessage(L"[VDB][PARTICLESTOGRID]: Done in=" + CString(timer.GetElapsedTime()) );
 
 		}
@@ -327,7 +327,7 @@ struct VDB_Particles2Mesh_cache_t
 };
   
   
-SICALLBACK VDB_ParticlesToGrid_Evaluate(ICENodeContext& in_ctxt)
+SICALLBACK dlexport VDB_ParticlesToGrid_Evaluate(ICENodeContext& in_ctxt)
 {
       
   
@@ -412,10 +412,7 @@ SICALLBACK VDB_ParticlesToGrid_Evaluate(ICENodeContext& in_ctxt)
             // and recal if that is dirty
 			if  ( p_gridOwner->IsDirty (ppos, vels,radiuses,  voxelSizeSafe, gridName[0],  inToFog[0],
 				inBSInVoxels[0]?inBandwidth[0]*voxelSizeSafe:inBandwidth[0],
-				//inMaskWidth[0],inOutputMaskGrid[0],
-				inRasterVel[0], Clamp(0.001f,FLT_MAX,inVelSpacing[0])
-				//,scalarAttrList,vec3AttrList,longAttrList
-				)== false )
+				inRasterVel[0], Clamp(0.001f,FLT_MAX,inVelSpacing[0]))== false )
             {
                 Application().LogMessage( L"[VDB][PARTICLESTOGRID]: Data is not changed, used prev result" );
                 return CStatus::OK;
@@ -435,7 +432,7 @@ SICALLBACK VDB_ParticlesToGrid_Evaluate(ICENodeContext& in_ctxt)
 };
   
 // lets cache this
-SICALLBACK VDB_ParticlesToGrid_Init( CRef& in_ctxt )
+SICALLBACK dlexport VDB_ParticlesToGrid_Init( CRef& in_ctxt )
 {
    Context ctxt( in_ctxt );
    CValue userData = ctxt.GetUserData();
@@ -456,7 +453,7 @@ SICALLBACK VDB_ParticlesToGrid_Init( CRef& in_ctxt )
   
   
   
-SICALLBACK VDB_ParticlesToGrid_Term( CRef& in_ctxt )
+SICALLBACK dlexport VDB_ParticlesToGrid_Term( CRef& in_ctxt )
 {
     Context ctxt( in_ctxt );
    CValue userData = ctxt.GetUserData();

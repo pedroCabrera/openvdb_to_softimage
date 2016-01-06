@@ -75,12 +75,33 @@ CStatus VDB_CreateGrid_Register(PluginRegistrar& reg)
 
 using namespace openvdb;
 
-template < typename treein, typename gridin, typename Tin >
-gridin * CopyTopo ( Tin & grid  )
-{	
-	treein::Ptr attTree(new treein ( grid->tree(), gridin::ValueType(), openvdb::TopologyCopy()));
-	return new  gridin(attTree);
-};
+//template < typename treein, typename gridin, typename Tin >
+//gridin * CopyTopo ( Tin & grid  )
+//{
+//	treein::Ptr attTree(new treein ( grid->tree(), gridin::ValueType(), openvdb::TopologyCopy()));
+//	return new  gridin(attTree);
+//};
+
+//
+template <typename OUT_GRID_TYPE, typename IN_GRID_TYPE>
+inline void CopyTopo ( openvdb::GridBase::Ptr & out_dstGridPtr , const openvdb::GridBase::Ptr  & in_srcGridPtr)
+{
+
+ typename  IN_GRID_TYPE ::TreePtrType treeptr (new typename IN_GRID_TYPE::TreeType(gridPtrCast<IN_GRID_TYPE> ( in_srcGridPtr)->tree(),
+                    typename  IN_GRID_TYPE ::ValueType(),
+                       TopologyCopy( ) ) );
+
+
+    out_dstGridPtr = typename IN_GRID_TYPE::Ptr(new  IN_GRID_TYPE ( treeptr))   ;
+
+         //  FloatTree::Ptr treeptr (new FloatTree(gridPtrCast<BoolGrid> ( in_srcGridPtr)->tree(),
+         //                    FloatGrid ::ValueType(),
+         //                     TopologyCopy( ) ) );
+
+
+         //  out_dstGridPtr =  FloatGrid::Ptr(new  FloatGrid ( treeptr))   ;
+
+}
 
 
 struct VDB_CreateGrid_cache_t : public VDB_ICENode_cacheBase_t
@@ -134,15 +155,27 @@ struct VDB_CreateGrid_cache_t : public VDB_ICENode_cacheBase_t
 
 				if ( inrefgrid && inrefgrid->m_grid )
 				{
-					if (inrefgrid->m_grid->isType<openvdb::BoolGrid>())m_primaryGrid.m_grid =  FloatGrid::Ptr(CopyTopo <FloatTree, FloatGrid > (gridPtrCast<BoolGrid>  (inrefgrid->m_grid)));
-			else if (inrefgrid->m_grid->isType<openvdb::FloatGrid>()) m_primaryGrid.m_grid =  FloatGrid::Ptr(CopyTopo <FloatTree, FloatGrid > (gridPtrCast<FloatGrid>  (inrefgrid->m_grid)));
-			else if (inrefgrid->m_grid->isType<openvdb::DoubleGrid>())m_primaryGrid.m_grid =  FloatGrid::Ptr(CopyTopo <FloatTree, FloatGrid > (gridPtrCast<DoubleGrid>  (inrefgrid->m_grid)));
-			else if (inrefgrid->m_grid->isType<openvdb::Int32Grid>())m_primaryGrid.m_grid =  FloatGrid::Ptr(CopyTopo <FloatTree, FloatGrid > (gridPtrCast<Int32Grid>  (inrefgrid->m_grid)));
-			else if (inrefgrid->m_grid->isType<openvdb::Int64Grid>())m_primaryGrid.m_grid =  FloatGrid::Ptr(CopyTopo <FloatTree, FloatGrid > (gridPtrCast<Int64Grid>  (inrefgrid->m_grid)));
-			else if (inrefgrid->m_grid->isType<openvdb::Vec3IGrid>()) m_primaryGrid.m_grid =  FloatGrid::Ptr(CopyTopo <FloatTree, FloatGrid > (gridPtrCast<Vec3IGrid>  (inrefgrid->m_grid)));
-			else if (inrefgrid->m_grid->isType<openvdb::Vec3SGrid>())m_primaryGrid.m_grid =  FloatGrid::Ptr(CopyTopo <FloatTree, FloatGrid > (gridPtrCast<Vec3SGrid>  (inrefgrid->m_grid)));
-			else if (inrefgrid->m_grid->isType<openvdb::Vec3DGrid>())m_primaryGrid.m_grid =  FloatGrid::Ptr(CopyTopo <FloatTree, FloatGrid > (gridPtrCast<Vec3DGrid>  (inrefgrid->m_grid)));
-			else if (inrefgrid->m_grid->isType<openvdb::StringGrid>())m_primaryGrid.m_grid =  FloatGrid::Ptr(CopyTopo <FloatTree, FloatGrid > (gridPtrCast<StringGrid>  (inrefgrid->m_grid)));
+                //	if (inrefgrid->m_grid->isType<openvdb::BoolGrid>())m_primaryGrid.m_grid =  FloatGrid::Ptr(CopyTopo <FloatTree, FloatGrid > (gridPtrCast<BoolGrid>  (inrefgrid->m_grid)));
+            //else if (inrefgrid->m_grid->isType<openvdb::FloatGrid>()) m_primaryGrid.m_grid =  FloatGrid::Ptr(CopyTopo <FloatTree, FloatGrid > (gridPtrCast<FloatGrid>  (inrefgrid->m_grid)));
+            //else if (inrefgrid->m_grid->isType<openvdb::DoubleGrid>())m_primaryGrid.m_grid =  FloatGrid::Ptr(CopyTopo <FloatTree, FloatGrid > (gridPtrCast<DoubleGrid>  (inrefgrid->m_grid)));
+            //else if (inrefgrid->m_grid->isType<openvdb::Int32Grid>())m_primaryGrid.m_grid =  FloatGrid::Ptr(CopyTopo <FloatTree, FloatGrid > (gridPtrCast<Int32Grid>  (inrefgrid->m_grid)));
+            //else if (inrefgrid->m_grid->isType<openvdb::Int64Grid>())m_primaryGrid.m_grid =  FloatGrid::Ptr(CopyTopo <FloatTree, FloatGrid > (gridPtrCast<Int64Grid>  (inrefgrid->m_grid)));
+            //else if (inrefgrid->m_grid->isType<openvdb::Vec3IGrid>()) m_primaryGrid.m_grid =  FloatGrid::Ptr(CopyTopo <FloatTree, FloatGrid > (gridPtrCast<Vec3IGrid>  (inrefgrid->m_grid)));
+            //else if (inrefgrid->m_grid->isType<openvdb::Vec3SGrid>())m_primaryGrid.m_grid =  FloatGrid::Ptr(CopyTopo <FloatTree, FloatGrid > (gridPtrCast<Vec3SGrid>  (inrefgrid->m_grid)));
+            //else if (inrefgrid->m_grid->isType<openvdb::Vec3DGrid>())m_primaryGrid.m_grid =  FloatGrid::Ptr(CopyTopo <FloatTree, FloatGrid > (gridPtrCast<Vec3DGrid>  (inrefgrid->m_grid)));
+            //else if (inrefgrid->m_grid->isType<openvdb::StringGrid>())m_primaryGrid.m_grid =  FloatGrid::Ptr(CopyTopo <FloatTree, FloatGrid > (gridPtrCast<StringGrid>  (inrefgrid->m_grid)));
+
+                     if (inrefgrid->m_grid->isType<openvdb::BoolGrid>()) CopyTopo <FloatGrid, BoolGrid>(m_primaryGrid.m_grid, inrefgrid->m_grid);
+                     else if (inrefgrid->m_grid->isType<openvdb::FloatGrid>()) CopyTopo <FloatGrid, FloatGrid>(m_primaryGrid.m_grid, inrefgrid->m_grid);
+                     else if (inrefgrid->m_grid->isType<openvdb::DoubleGrid>()) CopyTopo <FloatGrid, DoubleGrid>(m_primaryGrid.m_grid, inrefgrid->m_grid);
+                     else if (inrefgrid->m_grid->isType<openvdb::Int32Grid>()) CopyTopo <FloatGrid, Int32Grid>(m_primaryGrid.m_grid, inrefgrid->m_grid);
+                    else  if (inrefgrid->m_grid->isType<openvdb::Int64Grid>()) CopyTopo <FloatGrid, Int64Grid>(m_primaryGrid.m_grid, inrefgrid->m_grid);
+                    else  if (inrefgrid->m_grid->isType<openvdb::Vec3IGrid>()) CopyTopo <FloatGrid, Vec3IGrid>(m_primaryGrid.m_grid, inrefgrid->m_grid);
+                    else  if (inrefgrid->m_grid->isType<openvdb::Vec3SGrid>()) CopyTopo <FloatGrid, Vec3SGrid>(m_primaryGrid.m_grid, inrefgrid->m_grid);
+                    else  if (inrefgrid->m_grid->isType<openvdb::Vec3DGrid>()) CopyTopo <FloatGrid, Vec3DGrid>(m_primaryGrid.m_grid, inrefgrid->m_grid);
+                    else  if (inrefgrid->m_grid->isType<openvdb::StringGrid>()) CopyTopo <FloatGrid, StringGrid>(m_primaryGrid.m_grid, inrefgrid->m_grid);
+
+
    // openvdb ::tools::changeBackground  <FloatGrid>  (  *gridPtrCast<FloatGrid> (m_primaryGrid.m_grid),  float(m_BGValue) );
         gridPtrCast<FloatGrid> (m_primaryGrid.m_grid)->setBackground ( float(m_BGValue) );
 			m_primaryGrid.m_grid->setTransform ( inrefgrid->m_grid->transformPtr	());
@@ -157,22 +190,35 @@ struct VDB_CreateGrid_cache_t : public VDB_ICENode_cacheBase_t
 				
 
 			}break;
-		case 1:
+
+    case 1:
 			{
 				
 			
 			
-	if ( inrefgrid && inrefgrid->m_grid )
-				{
-					if (inrefgrid->m_grid->isType<openvdb::BoolGrid>())m_primaryGrid.m_grid =  BoolGrid::Ptr(CopyTopo <BoolTree, BoolGrid > (gridPtrCast<BoolGrid>  (inrefgrid->m_grid)));
-			else if (inrefgrid->m_grid->isType<openvdb::FloatGrid>()) m_primaryGrid.m_grid =  BoolGrid::Ptr(CopyTopo <BoolTree, BoolGrid > (gridPtrCast<FloatGrid>  (inrefgrid->m_grid)));
-			else if (inrefgrid->m_grid->isType<openvdb::DoubleGrid>())m_primaryGrid.m_grid =  BoolGrid::Ptr(CopyTopo <BoolTree, BoolGrid > (gridPtrCast<DoubleGrid>  (inrefgrid->m_grid)));
-			else if (inrefgrid->m_grid->isType<openvdb::Int32Grid>())m_primaryGrid.m_grid =  BoolGrid::Ptr(CopyTopo <BoolTree, BoolGrid > (gridPtrCast<Int32Grid>  (inrefgrid->m_grid)));
-			else if (inrefgrid->m_grid->isType<openvdb::Int64Grid>())m_primaryGrid.m_grid =  BoolGrid::Ptr(CopyTopo <BoolTree, BoolGrid > (gridPtrCast<Int64Grid>  (inrefgrid->m_grid)));
-			else if (inrefgrid->m_grid->isType<openvdb::Vec3IGrid>()) m_primaryGrid.m_grid =  BoolGrid::Ptr(CopyTopo <BoolTree, BoolGrid > (gridPtrCast<Vec3IGrid>  (inrefgrid->m_grid)));
-			else if (inrefgrid->m_grid->isType<openvdb::Vec3SGrid>())m_primaryGrid.m_grid =  BoolGrid::Ptr(CopyTopo <BoolTree, BoolGrid > (gridPtrCast<Vec3SGrid>  (inrefgrid->m_grid)));
-			else if (inrefgrid->m_grid->isType<openvdb::Vec3DGrid>())m_primaryGrid.m_grid =  BoolGrid::Ptr(CopyTopo <BoolTree, BoolGrid > (gridPtrCast<Vec3DGrid>  (inrefgrid->m_grid)));
-			else if (inrefgrid->m_grid->isType<openvdb::StringGrid>())m_primaryGrid.m_grid =  BoolGrid::Ptr(CopyTopo <BoolTree, BoolGrid > (gridPtrCast<StringGrid>  (inrefgrid->m_grid)));
+                       if ( inrefgrid && inrefgrid->m_grid )
+                {
+
+//					if (inrefgrid->m_grid->isType<openvdb::BoolGrid>())m_primaryGrid.m_grid =  BoolGrid::Ptr(CopyTopo <BoolTree, BoolGrid > (gridPtrCast<BoolGrid>  (inrefgrid->m_grid)));
+//			else if (inrefgrid->m_grid->isType<openvdb::FloatGrid>()) m_primaryGrid.m_grid =  BoolGrid::Ptr(CopyTopo <BoolTree, BoolGrid > (gridPtrCast<FloatGrid>  (inrefgrid->m_grid)));
+//			else if (inrefgrid->m_grid->isType<openvdb::DoubleGrid>())m_primaryGrid.m_grid =  BoolGrid::Ptr(CopyTopo <BoolTree, BoolGrid > (gridPtrCast<DoubleGrid>  (inrefgrid->m_grid)));
+//			else if (inrefgrid->m_grid->isType<openvdb::Int32Grid>())m_primaryGrid.m_grid =  BoolGrid::Ptr(CopyTopo <BoolTree, BoolGrid > (gridPtrCast<Int32Grid>  (inrefgrid->m_grid)));
+//			else if (inrefgrid->m_grid->isType<openvdb::Int64Grid>())m_primaryGrid.m_grid =  BoolGrid::Ptr(CopyTopo <BoolTree, BoolGrid > (gridPtrCast<Int64Grid>  (inrefgrid->m_grid)));
+//			else if (inrefgrid->m_grid->isType<openvdb::Vec3IGrid>()) m_primaryGrid.m_grid =  BoolGrid::Ptr(CopyTopo <BoolTree, BoolGrid > (gridPtrCast<Vec3IGrid>  (inrefgrid->m_grid)));
+//			else if (inrefgrid->m_grid->isType<openvdb::Vec3SGrid>())m_primaryGrid.m_grid =  BoolGrid::Ptr(CopyTopo <BoolTree, BoolGrid > (gridPtrCast<Vec3SGrid>  (inrefgrid->m_grid)));
+//			else if (inrefgrid->m_grid->isType<openvdb::Vec3DGrid>())m_primaryGrid.m_grid =  BoolGrid::Ptr(CopyTopo <BoolTree, BoolGrid > (gridPtrCast<Vec3DGrid>  (inrefgrid->m_grid)));
+//			else if (inrefgrid->m_grid->isType<openvdb::StringGrid>())m_primaryGrid.m_grid =  BoolGrid::Ptr(CopyTopo <BoolTree, BoolGrid > (gridPtrCast<StringGrid>  (inrefgrid->m_grid)));
+
+                     if (inrefgrid->m_grid->isType<openvdb::BoolGrid>()) CopyTopo <BoolGrid, BoolGrid>(m_primaryGrid.m_grid, inrefgrid->m_grid);
+                     else if (inrefgrid->m_grid->isType<openvdb::FloatGrid>()) CopyTopo <BoolGrid, FloatGrid>(m_primaryGrid.m_grid, inrefgrid->m_grid);
+                     else if (inrefgrid->m_grid->isType<openvdb::DoubleGrid>()) CopyTopo <BoolGrid, DoubleGrid>(m_primaryGrid.m_grid, inrefgrid->m_grid);
+                     else if (inrefgrid->m_grid->isType<openvdb::Int32Grid>()) CopyTopo <BoolGrid, Int32Grid>(m_primaryGrid.m_grid, inrefgrid->m_grid);
+                    else  if (inrefgrid->m_grid->isType<openvdb::Int64Grid>()) CopyTopo <BoolGrid, Int64Grid>(m_primaryGrid.m_grid, inrefgrid->m_grid);
+                    else  if (inrefgrid->m_grid->isType<openvdb::Vec3IGrid>()) CopyTopo <BoolGrid, Vec3IGrid>(m_primaryGrid.m_grid, inrefgrid->m_grid);
+                    else  if (inrefgrid->m_grid->isType<openvdb::Vec3SGrid>()) CopyTopo <BoolGrid, Vec3SGrid>(m_primaryGrid.m_grid, inrefgrid->m_grid);
+                    else  if (inrefgrid->m_grid->isType<openvdb::Vec3DGrid>()) CopyTopo <BoolGrid, Vec3DGrid>(m_primaryGrid.m_grid, inrefgrid->m_grid);
+                    else  if (inrefgrid->m_grid->isType<openvdb::StringGrid>()) CopyTopo <BoolGrid, StringGrid>(m_primaryGrid.m_grid, inrefgrid->m_grid);
+
           //  openvdb ::tools::changeBackground  <BoolGrid>  (  *gridPtrCast<BoolGrid> (m_primaryGrid.m_grid),  bool(m_BGValue) );
                     gridPtrCast<BoolGrid> (m_primaryGrid.m_grid)->setBackground ( bool(m_BGValue) );
 					m_primaryGrid.m_grid->setTransform ( inrefgrid->m_grid->transformPtr	());
@@ -191,18 +237,32 @@ struct VDB_CreateGrid_cache_t : public VDB_ICENode_cacheBase_t
 			
 			
 			
+                   if ( inrefgrid && inrefgrid->m_grid )
+                {
 
-	if ( inrefgrid && inrefgrid->m_grid )
-				{
-					if (inrefgrid->m_grid->isType<openvdb::BoolGrid>())m_primaryGrid.m_grid =  Vec3SGrid::Ptr(CopyTopo <Vec3STree, Vec3SGrid > (gridPtrCast<BoolGrid>  (inrefgrid->m_grid)));
-			else if (inrefgrid->m_grid->isType<openvdb::FloatGrid>()) m_primaryGrid.m_grid =  Vec3SGrid::Ptr(CopyTopo <Vec3STree, Vec3SGrid > (gridPtrCast<FloatGrid>  (inrefgrid->m_grid)));
-			else if (inrefgrid->m_grid->isType<openvdb::DoubleGrid>())m_primaryGrid.m_grid =  Vec3SGrid::Ptr(CopyTopo <Vec3STree, Vec3SGrid > (gridPtrCast<DoubleGrid>  (inrefgrid->m_grid)));
-			else if (inrefgrid->m_grid->isType<openvdb::Int32Grid>())m_primaryGrid.m_grid =  Vec3SGrid::Ptr(CopyTopo <Vec3STree, Vec3SGrid > (gridPtrCast<Int32Grid>  (inrefgrid->m_grid)));
-			else if (inrefgrid->m_grid->isType<openvdb::Int64Grid>())m_primaryGrid.m_grid =  Vec3SGrid::Ptr(CopyTopo <Vec3STree, Vec3SGrid > (gridPtrCast<Int64Grid>  (inrefgrid->m_grid)));
-			else if (inrefgrid->m_grid->isType<openvdb::Vec3IGrid>()) m_primaryGrid.m_grid =  Vec3SGrid::Ptr(CopyTopo <Vec3STree, Vec3SGrid > (gridPtrCast<Vec3IGrid>  (inrefgrid->m_grid)));
-			else if (inrefgrid->m_grid->isType<openvdb::Vec3SGrid>())m_primaryGrid.m_grid =  Vec3SGrid::Ptr(CopyTopo <Vec3STree, Vec3SGrid > (gridPtrCast<Vec3SGrid>  (inrefgrid->m_grid)));
-			else if (inrefgrid->m_grid->isType<openvdb::Vec3DGrid>())m_primaryGrid.m_grid =  Vec3SGrid::Ptr(CopyTopo <Vec3STree, Vec3SGrid > (gridPtrCast<Vec3DGrid>  (inrefgrid->m_grid)));
-			else if (inrefgrid->m_grid->isType<openvdb::StringGrid>())m_primaryGrid.m_grid =  Vec3SGrid::Ptr(CopyTopo <Vec3STree, Vec3SGrid > (gridPtrCast<StringGrid>  (inrefgrid->m_grid)));
+
+//					if (inrefgrid->m_grid->isType<openvdb::BoolGrid>())m_primaryGrid.m_grid =  Vec3SGrid::Ptr(CopyTopo <Vec3STree, Vec3SGrid > (gridPtrCast<BoolGrid>  (inrefgrid->m_grid)));
+//			else if (inrefgrid->m_grid->isType<openvdb::FloatGrid>()) m_primaryGrid.m_grid =  Vec3SGrid::Ptr(CopyTopo <Vec3STree, Vec3SGrid > (gridPtrCast<FloatGrid>  (inrefgrid->m_grid)));
+//			else if (inrefgrid->m_grid->isType<openvdb::DoubleGrid>())m_primaryGrid.m_grid =  Vec3SGrid::Ptr(CopyTopo <Vec3STree, Vec3SGrid > (gridPtrCast<DoubleGrid>  (inrefgrid->m_grid)));
+//			else if (inrefgrid->m_grid->isType<openvdb::Int32Grid>())m_primaryGrid.m_grid =  Vec3SGrid::Ptr(CopyTopo <Vec3STree, Vec3SGrid > (gridPtrCast<Int32Grid>  (inrefgrid->m_grid)));
+//			else if (inrefgrid->m_grid->isType<openvdb::Int64Grid>())m_primaryGrid.m_grid =  Vec3SGrid::Ptr(CopyTopo <Vec3STree, Vec3SGrid > (gridPtrCast<Int64Grid>  (inrefgrid->m_grid)));
+//			else if (inrefgrid->m_grid->isType<openvdb::Vec3IGrid>()) m_primaryGrid.m_grid =  Vec3SGrid::Ptr(CopyTopo <Vec3STree, Vec3SGrid > (gridPtrCast<Vec3IGrid>  (inrefgrid->m_grid)));
+//			else if (inrefgrid->m_grid->isType<openvdb::Vec3SGrid>())m_primaryGrid.m_grid =  Vec3SGrid::Ptr(CopyTopo <Vec3STree, Vec3SGrid > (gridPtrCast<Vec3SGrid>  (inrefgrid->m_grid)));
+//			else if (inrefgrid->m_grid->isType<openvdb::Vec3DGrid>())m_primaryGrid.m_grid =  Vec3SGrid::Ptr(CopyTopo <Vec3STree, Vec3SGrid > (gridPtrCast<Vec3DGrid>  (inrefgrid->m_grid)));
+//			else if (inrefgrid->m_grid->isType<openvdb::StringGrid>())m_primaryGrid.m_grid =  Vec3SGrid::Ptr(CopyTopo <Vec3STree, Vec3SGrid > (gridPtrCast<StringGrid>  (inrefgrid->m_grid)));
+
+            if (inrefgrid->m_grid->isType<openvdb::BoolGrid>()) CopyTopo <Vec3SGrid, BoolGrid>(m_primaryGrid.m_grid, inrefgrid->m_grid);
+            else if (inrefgrid->m_grid->isType<openvdb::FloatGrid>()) CopyTopo <Vec3SGrid, FloatGrid>(m_primaryGrid.m_grid, inrefgrid->m_grid);
+            else if (inrefgrid->m_grid->isType<openvdb::DoubleGrid>()) CopyTopo <Vec3SGrid, DoubleGrid>(m_primaryGrid.m_grid, inrefgrid->m_grid);
+            else if (inrefgrid->m_grid->isType<openvdb::Int32Grid>()) CopyTopo <Vec3SGrid, Int32Grid>(m_primaryGrid.m_grid, inrefgrid->m_grid);
+           else  if (inrefgrid->m_grid->isType<openvdb::Int64Grid>()) CopyTopo <Vec3SGrid, Int64Grid>(m_primaryGrid.m_grid, inrefgrid->m_grid);
+           else  if (inrefgrid->m_grid->isType<openvdb::Vec3IGrid>()) CopyTopo <Vec3SGrid, Vec3IGrid>(m_primaryGrid.m_grid, inrefgrid->m_grid);
+           else  if (inrefgrid->m_grid->isType<openvdb::Vec3SGrid>()) CopyTopo <Vec3SGrid, Vec3SGrid>(m_primaryGrid.m_grid, inrefgrid->m_grid);
+           else  if (inrefgrid->m_grid->isType<openvdb::Vec3DGrid>()) CopyTopo <Vec3SGrid, Vec3DGrid>(m_primaryGrid.m_grid, inrefgrid->m_grid);
+           else  if (inrefgrid->m_grid->isType<openvdb::StringGrid>()) CopyTopo <Vec3SGrid, StringGrid>(m_primaryGrid.m_grid, inrefgrid->m_grid);
+
+
+
 		MATH::CVector3f vec3xsi = m_BGValue;
          //  openvdb ::tools::changeBackground  <Vec3SGrid>  (  *gridPtrCast<Vec3SGrid> (m_primaryGrid.m_grid), openvdb::Vec3s(vec3xsi[0], vec3xsi[1], vec3xsi[2]) );
                     gridPtrCast<Vec3SGrid> (m_primaryGrid.m_grid)->setBackground (  openvdb::Vec3s(vec3xsi[0], vec3xsi[1], vec3xsi[2]) );
@@ -219,22 +279,37 @@ struct VDB_CreateGrid_cache_t : public VDB_ICENode_cacheBase_t
 
 			}break;
 
-		case 3:
+        case 3://string, remove this maybe?
 			{
 				
 				
 
 					if ( inrefgrid && inrefgrid->m_grid )
 				{
-					if (inrefgrid->m_grid->isType<openvdb::BoolGrid>())m_primaryGrid.m_grid =  StringGrid::Ptr(CopyTopo <StringTree, StringGrid > (gridPtrCast<BoolGrid>  (inrefgrid->m_grid)));
-			else if (inrefgrid->m_grid->isType<openvdb::FloatGrid>()) m_primaryGrid.m_grid =  StringGrid::Ptr(CopyTopo <StringTree, StringGrid > (gridPtrCast<FloatGrid>  (inrefgrid->m_grid)));
-			else if (inrefgrid->m_grid->isType<openvdb::DoubleGrid>())m_primaryGrid.m_grid =  StringGrid::Ptr(CopyTopo <StringTree, StringGrid > (gridPtrCast<DoubleGrid>  (inrefgrid->m_grid)));
-			else if (inrefgrid->m_grid->isType<openvdb::Int32Grid>())m_primaryGrid.m_grid =  StringGrid::Ptr(CopyTopo <StringTree, StringGrid > (gridPtrCast<Int32Grid>  (inrefgrid->m_grid)));
-			else if (inrefgrid->m_grid->isType<openvdb::Int64Grid>())m_primaryGrid.m_grid =  StringGrid::Ptr(CopyTopo <StringTree, StringGrid > (gridPtrCast<Int64Grid>  (inrefgrid->m_grid)));
-			else if (inrefgrid->m_grid->isType<openvdb::Vec3IGrid>()) m_primaryGrid.m_grid =  StringGrid::Ptr(CopyTopo <StringTree, StringGrid > (gridPtrCast<Vec3IGrid>  (inrefgrid->m_grid)));
-			else if (inrefgrid->m_grid->isType<openvdb::Vec3SGrid>())m_primaryGrid.m_grid =  StringGrid::Ptr(CopyTopo <StringTree, StringGrid > (gridPtrCast<Vec3SGrid>  (inrefgrid->m_grid)));
-			else if (inrefgrid->m_grid->isType<openvdb::Vec3DGrid>())m_primaryGrid.m_grid =  StringGrid::Ptr(CopyTopo <StringTree, StringGrid > (gridPtrCast<Vec3DGrid>  (inrefgrid->m_grid)));
-			else if (inrefgrid->m_grid->isType<openvdb::StringGrid>())m_primaryGrid.m_grid =  StringGrid::Ptr(CopyTopo <StringTree, StringGrid > (gridPtrCast<StringGrid>  (inrefgrid->m_grid)));
+
+
+//					if (inrefgrid->m_grid->isType<openvdb::BoolGrid>())m_primaryGrid.m_grid =  StringGrid::Ptr(CopyTopo <StringTree, StringGrid > (gridPtrCast<BoolGrid>  (inrefgrid->m_grid)));
+//			else if (inrefgrid->m_grid->isType<openvdb::FloatGrid>()) m_primaryGrid.m_grid =  StringGrid::Ptr(CopyTopo <StringTree, StringGrid > (gridPtrCast<FloatGrid>  (inrefgrid->m_grid)));
+//			else if (inrefgrid->m_grid->isType<openvdb::DoubleGrid>())m_primaryGrid.m_grid =  StringGrid::Ptr(CopyTopo <StringTree, StringGrid > (gridPtrCast<DoubleGrid>  (inrefgrid->m_grid)));
+//			else if (inrefgrid->m_grid->isType<openvdb::Int32Grid>())m_primaryGrid.m_grid =  StringGrid::Ptr(CopyTopo <StringTree, StringGrid > (gridPtrCast<Int32Grid>  (inrefgrid->m_grid)));
+//			else if (inrefgrid->m_grid->isType<openvdb::Int64Grid>())m_primaryGrid.m_grid =  StringGrid::Ptr(CopyTopo <StringTree, StringGrid > (gridPtrCast<Int64Grid>  (inrefgrid->m_grid)));
+//			else if (inrefgrid->m_grid->isType<openvdb::Vec3IGrid>()) m_primaryGrid.m_grid =  StringGrid::Ptr(CopyTopo <StringTree, StringGrid > (gridPtrCast<Vec3IGrid>  (inrefgrid->m_grid)));
+//			else if (inrefgrid->m_grid->isType<openvdb::Vec3SGrid>())m_primaryGrid.m_grid =  StringGrid::Ptr(CopyTopo <StringTree, StringGrid > (gridPtrCast<Vec3SGrid>  (inrefgrid->m_grid)));
+//			else if (inrefgrid->m_grid->isType<openvdb::Vec3DGrid>())m_primaryGrid.m_grid =  StringGrid::Ptr(CopyTopo <StringTree, StringGrid > (gridPtrCast<Vec3DGrid>  (inrefgrid->m_grid)));
+//			else if (inrefgrid->m_grid->isType<openvdb::StringGrid>())m_primaryGrid.m_grid =  StringGrid::Ptr(CopyTopo <StringTree, StringGrid > (gridPtrCast<StringGrid>  (inrefgrid->m_grid)));
+
+
+                    if (inrefgrid->m_grid->isType<openvdb::BoolGrid>()) CopyTopo <StringGrid, BoolGrid>(m_primaryGrid.m_grid, inrefgrid->m_grid);
+                    else if (inrefgrid->m_grid->isType<openvdb::FloatGrid>()) CopyTopo <StringGrid, FloatGrid>(m_primaryGrid.m_grid, inrefgrid->m_grid);
+                    else if (inrefgrid->m_grid->isType<openvdb::DoubleGrid>()) CopyTopo <StringGrid, DoubleGrid>(m_primaryGrid.m_grid, inrefgrid->m_grid);
+                    else if (inrefgrid->m_grid->isType<openvdb::Int32Grid>()) CopyTopo <StringGrid, Int32Grid>(m_primaryGrid.m_grid, inrefgrid->m_grid);
+                   else  if (inrefgrid->m_grid->isType<openvdb::Int64Grid>()) CopyTopo <StringGrid, Int64Grid>(m_primaryGrid.m_grid, inrefgrid->m_grid);
+                   else  if (inrefgrid->m_grid->isType<openvdb::Vec3IGrid>()) CopyTopo <StringGrid, Vec3IGrid>(m_primaryGrid.m_grid, inrefgrid->m_grid);
+                   else  if (inrefgrid->m_grid->isType<openvdb::Vec3SGrid>()) CopyTopo <StringGrid, Vec3SGrid>(m_primaryGrid.m_grid, inrefgrid->m_grid);
+                   else  if (inrefgrid->m_grid->isType<openvdb::Vec3DGrid>()) CopyTopo <StringGrid, Vec3DGrid>(m_primaryGrid.m_grid, inrefgrid->m_grid);
+                   else  if (inrefgrid->m_grid->isType<openvdb::StringGrid>()) CopyTopo <StringGrid, StringGrid>(m_primaryGrid.m_grid, inrefgrid->m_grid);
+
+
             // openvdb ::tools::changeBackground  <StringGrid>  (  *gridPtrCast<StringGrid> (m_primaryGrid.m_grid),CString(m_BGValue).GetAsciiString());
                 gridPtrCast<StringGrid> (m_primaryGrid.m_grid)->setBackground ( CString(m_BGValue).GetAsciiString() );
 					m_primaryGrid.m_grid->setTransform ( inrefgrid->m_grid->transformPtr	());
@@ -255,16 +330,29 @@ struct VDB_CreateGrid_cache_t : public VDB_ICENode_cacheBase_t
 
 				if ( inrefgrid && inrefgrid->m_grid )
 				{
-					if (inrefgrid->m_grid->isType<openvdb::BoolGrid>())m_primaryGrid.m_grid =  Int32Grid::Ptr(CopyTopo <Int32Tree, Int32Grid > (gridPtrCast<BoolGrid>  (inrefgrid->m_grid)));
-			else if (inrefgrid->m_grid->isType<openvdb::FloatGrid>()) m_primaryGrid.m_grid =  Int32Grid::Ptr(CopyTopo <Int32Tree, Int32Grid > (gridPtrCast<FloatGrid>  (inrefgrid->m_grid)));
-			else if (inrefgrid->m_grid->isType<openvdb::DoubleGrid>())m_primaryGrid.m_grid =  Int32Grid::Ptr(CopyTopo <Int32Tree, Int32Grid > (gridPtrCast<DoubleGrid>  (inrefgrid->m_grid)));
-			else if (inrefgrid->m_grid->isType<openvdb::Int32Grid>())m_primaryGrid.m_grid =  Int32Grid::Ptr(CopyTopo <Int32Tree, Int32Grid > (gridPtrCast<Int32Grid>  (inrefgrid->m_grid)));
-			else if (inrefgrid->m_grid->isType<openvdb::Int64Grid>())m_primaryGrid.m_grid =  Int32Grid::Ptr(CopyTopo <Int32Tree, Int32Grid > (gridPtrCast<Int64Grid>  (inrefgrid->m_grid)));
-			else if (inrefgrid->m_grid->isType<openvdb::Vec3IGrid>()) m_primaryGrid.m_grid =  Int32Grid::Ptr(CopyTopo <Int32Tree, Int32Grid > (gridPtrCast<Vec3IGrid>  (inrefgrid->m_grid)));
-			else if (inrefgrid->m_grid->isType<openvdb::Vec3SGrid>())m_primaryGrid.m_grid =  Int32Grid::Ptr(CopyTopo <Int32Tree, Int32Grid > (gridPtrCast<Vec3SGrid>  (inrefgrid->m_grid)));
-			else if (inrefgrid->m_grid->isType<openvdb::Vec3DGrid>())m_primaryGrid.m_grid =  Int32Grid::Ptr(CopyTopo <Int32Tree, Int32Grid > (gridPtrCast<Vec3DGrid>  (inrefgrid->m_grid)));
-			else if (inrefgrid->m_grid->isType<openvdb::StringGrid>())m_primaryGrid.m_grid =  Int32Grid::Ptr(CopyTopo <Int32Tree, Int32Grid > (gridPtrCast<StringGrid>  (inrefgrid->m_grid)));
+//					if (inrefgrid->m_grid->isType<openvdb::BoolGrid>())m_primaryGrid.m_grid =  Int32Grid::Ptr(CopyTopo <Int32Tree, Int32Grid > (gridPtrCast<BoolGrid>  (inrefgrid->m_grid)));
+//			else if (inrefgrid->m_grid->isType<openvdb::FloatGrid>()) m_primaryGrid.m_grid =  Int32Grid::Ptr(CopyTopo <Int32Tree, Int32Grid > (gridPtrCast<FloatGrid>  (inrefgrid->m_grid)));
+//			else if (inrefgrid->m_grid->isType<openvdb::DoubleGrid>())m_primaryGrid.m_grid =  Int32Grid::Ptr(CopyTopo <Int32Tree, Int32Grid > (gridPtrCast<DoubleGrid>  (inrefgrid->m_grid)));
+//			else if (inrefgrid->m_grid->isType<openvdb::Int32Grid>())m_primaryGrid.m_grid =  Int32Grid::Ptr(CopyTopo <Int32Tree, Int32Grid > (gridPtrCast<Int32Grid>  (inrefgrid->m_grid)));
+//			else if (inrefgrid->m_grid->isType<openvdb::Int64Grid>())m_primaryGrid.m_grid =  Int32Grid::Ptr(CopyTopo <Int32Tree, Int32Grid > (gridPtrCast<Int64Grid>  (inrefgrid->m_grid)));
+//			else if (inrefgrid->m_grid->isType<openvdb::Vec3IGrid>()) m_primaryGrid.m_grid =  Int32Grid::Ptr(CopyTopo <Int32Tree, Int32Grid > (gridPtrCast<Vec3IGrid>  (inrefgrid->m_grid)));
+//			else if (inrefgrid->m_grid->isType<openvdb::Vec3SGrid>())m_primaryGrid.m_grid =  Int32Grid::Ptr(CopyTopo <Int32Tree, Int32Grid > (gridPtrCast<Vec3SGrid>  (inrefgrid->m_grid)));
+//			else if (inrefgrid->m_grid->isType<openvdb::Vec3DGrid>())m_primaryGrid.m_grid =  Int32Grid::Ptr(CopyTopo <Int32Tree, Int32Grid > (gridPtrCast<Vec3DGrid>  (inrefgrid->m_grid)));
+//			else if (inrefgrid->m_grid->isType<openvdb::StringGrid>())m_primaryGrid.m_grid =  Int32Grid::Ptr(CopyTopo <Int32Tree, Int32Grid > (gridPtrCast<StringGrid>  (inrefgrid->m_grid)));
 		
+
+
+                    if (inrefgrid->m_grid->isType<openvdb::BoolGrid>()) CopyTopo <Int32Grid, BoolGrid>(m_primaryGrid.m_grid, inrefgrid->m_grid);
+                    else if (inrefgrid->m_grid->isType<openvdb::FloatGrid>()) CopyTopo <Int32Grid, FloatGrid>(m_primaryGrid.m_grid, inrefgrid->m_grid);
+                    else if (inrefgrid->m_grid->isType<openvdb::DoubleGrid>()) CopyTopo <Int32Grid, DoubleGrid>(m_primaryGrid.m_grid, inrefgrid->m_grid);
+                    else if (inrefgrid->m_grid->isType<openvdb::Int32Grid>()) CopyTopo <Int32Grid, Int32Grid>(m_primaryGrid.m_grid, inrefgrid->m_grid);
+                   else  if (inrefgrid->m_grid->isType<openvdb::Int64Grid>()) CopyTopo <Int32Grid, Int64Grid>(m_primaryGrid.m_grid, inrefgrid->m_grid);
+                   else  if (inrefgrid->m_grid->isType<openvdb::Vec3IGrid>()) CopyTopo <Int32Grid, Vec3IGrid>(m_primaryGrid.m_grid, inrefgrid->m_grid);
+                   else  if (inrefgrid->m_grid->isType<openvdb::Vec3SGrid>()) CopyTopo <Int32Grid, Vec3SGrid>(m_primaryGrid.m_grid, inrefgrid->m_grid);
+                   else  if (inrefgrid->m_grid->isType<openvdb::Vec3DGrid>()) CopyTopo <Int32Grid, Vec3DGrid>(m_primaryGrid.m_grid, inrefgrid->m_grid);
+                   else  if (inrefgrid->m_grid->isType<openvdb::StringGrid>()) CopyTopo <Int32Grid, StringGrid>(m_primaryGrid.m_grid, inrefgrid->m_grid);
+
+
                   //  openvdb ::tools::changeBackground  <Int32Grid>  (  *gridPtrCast<Int32Grid> (m_primaryGrid.m_grid), LONG(m_BGValue));
                    gridPtrCast<Int32Grid> (m_primaryGrid.m_grid)->setBackground ( LONG(m_BGValue) );
 					m_primaryGrid.m_grid->setTransform ( inrefgrid->m_grid->transformPtr	());
@@ -284,10 +372,10 @@ struct VDB_CreateGrid_cache_t : public VDB_ICENode_cacheBase_t
 			break;
 		}
 
-        m_primaryGrid.m_grid->setGridClass ( openvdb::v2_3_0::GridClass::GRID_FOG_VOLUME );
+        m_primaryGrid.m_grid->setGridClass ( openvdb::v2_3_0::GRID_FOG_VOLUME );
 		m_primaryGrid.m_grid->setName ( m_gridName.GetAsciiString() );
 		m_primaryGrid.m_lastEvalTime = clock ();
-		Application().LogMessage(L"[VDB][CREATEGRID]: Stamped at=" + CString(m_primaryGrid.m_lastEvalTime));
+        Application().LogMessage(L"[VDB][CREATEGRID]: Stamped at=" + CString((LONG)m_primaryGrid.m_lastEvalTime));
 		Application().LogMessage(L"[VDB][CREATEGRID]: Done in=" + CString(timer.GetElapsedTime()));
 
 		}
@@ -301,7 +389,7 @@ struct VDB_CreateGrid_cache_t : public VDB_ICENode_cacheBase_t
 };
 
 
-SICALLBACK VDB_CreateGrid_Evaluate(ICENodeContext& in_ctxt)
+SICALLBACK dlexport VDB_CreateGrid_Evaluate(ICENodeContext& in_ctxt)
 {
 
 
@@ -360,7 +448,7 @@ SICALLBACK VDB_CreateGrid_Evaluate(ICENodeContext& in_ctxt)
 
 			switch (portDataType)
 			{
-			case siICENodeDataType::siICENodeDataFloat :
+            case siICENodeDataFloat :
 				{
 					CDataArrayFloat bgval( in_ctxt, ID_IN_BackgroundValue );
 				
@@ -368,7 +456,7 @@ SICALLBACK VDB_CreateGrid_Evaluate(ICENodeContext& in_ctxt)
 				
 					datatype = 0;
 				}break;
-			case siICENodeDataType::siICENodeDataBool :
+            case siICENodeDataBool :
 				{
 					CDataArrayBool bgval( in_ctxt, ID_IN_BackgroundValue );
 				
@@ -376,7 +464,7 @@ SICALLBACK VDB_CreateGrid_Evaluate(ICENodeContext& in_ctxt)
 				
 					datatype = 1;
 				}break;
-			case siICENodeDataType::siICENodeDataVector3 :
+            case siICENodeDataVector3 :
 				{
 					CDataArrayVector3f bgval( in_ctxt, ID_IN_BackgroundValue );
 				
@@ -384,7 +472,7 @@ SICALLBACK VDB_CreateGrid_Evaluate(ICENodeContext& in_ctxt)
 				
 					datatype = 2;
 				}break;
-			case siICENodeDataType::siICENodeDataString :
+            case siICENodeDataString :
 				{
 					CDataArrayString bgval( in_ctxt, ID_IN_BackgroundValue );
 			
@@ -392,7 +480,7 @@ SICALLBACK VDB_CreateGrid_Evaluate(ICENodeContext& in_ctxt)
 				
 					datatype = 3;
 				}break;
-			case siICENodeDataType::siICENodeDataLong :
+            case siICENodeDataLong :
 				{
 					CDataArrayLong bgval( in_ctxt, ID_IN_BackgroundValue );
 				
@@ -426,7 +514,7 @@ SICALLBACK VDB_CreateGrid_Evaluate(ICENodeContext& in_ctxt)
 };
 
 // lets cache this
-SICALLBACK VDB_CreateGrid_Init( CRef& in_ctxt )
+SICALLBACK dlexport VDB_CreateGrid_Init( CRef& in_ctxt )
 {
 	Context ctxt( in_ctxt );
 	CValue userData = ctxt.GetUserData();
@@ -447,7 +535,7 @@ SICALLBACK VDB_CreateGrid_Init( CRef& in_ctxt )
 
 
 
-SICALLBACK VDB_CreateGrid_Term( CRef& in_ctxt )
+SICALLBACK dlexport VDB_CreateGrid_Term( CRef& in_ctxt )
 {
 	Context ctxt( in_ctxt );
 	CValue userData = ctxt.GetUserData();

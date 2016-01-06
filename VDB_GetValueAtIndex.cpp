@@ -79,7 +79,7 @@ CStatus VDB_GetValueAtIndex_Register(PluginRegistrar& reg)
 
 
 
-SICALLBACK VDB_GetValueAtIndex_Evaluate( ICENodeContext & in_ctxt)
+SICALLBACK dlexport VDB_GetValueAtIndex_Evaluate( ICENodeContext & in_ctxt)
 {
 
 

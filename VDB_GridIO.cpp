@@ -34,9 +34,10 @@ using namespace XSI;
 
 // $F = states that we have to consider frame number appending
 // $FN where N is [0...9] and defines digits width, e.g. if frame=1337 and N=6 then res=001337
-inline std::string ParseFileName ( std::string & filename, int frame )
+inline std::string ParseFileName ( const std::string & in_filename, int frame )
 {
 	std::string retVal;
+    std::string filename = in_filename ;
 
 	size_t resPos = filename.find ( "$F" );
 	if ( resPos == std::string::npos  )
@@ -150,7 +151,7 @@ CStatus VDB_GridIO_Register( PluginRegistrar& in_reg )
 
 struct VDB_GridIO_cache_t : public VDB_ICENode_cacheBase_t
 {
-	VDB_GridIO_cache_t ( X3DObject & in_self )
+    VDB_GridIO_cache_t ( const X3DObject & in_self )
 	{
 
 		/*CRef objRef; 
@@ -195,7 +196,7 @@ struct VDB_GridIO_cache_t : public VDB_ICENode_cacheBase_t
 	
 };
 
-SICALLBACK VDB_GridIO_Evaluate( ICENodeContext& in_ctxt )
+SICALLBACK dlexport VDB_GridIO_Evaluate( ICENodeContext& in_ctxt )
 {
 
 	// The current output port being evaluated...
@@ -279,11 +280,14 @@ SICALLBACK VDB_GridIO_Evaluate( ICENodeContext& in_ctxt )
 					try
 					{
 						file.open();
-						p_cacheNodeObject->SetFromBaseGrid( file.readGrid(inGridName[0].GetAsciiString()));
+                      openvdb::GridBase::Ptr gptr =   file.readGrid(std::string (  inGridName[0].GetAsciiString()) );
+                        p_cacheNodeObject->SetFromBaseGrid(
+                                   gptr
+                                    );
 						file.close();
 
 					
-						Application().LogMessage("[VDB][GRIDIO]: Readed at=" + CString(p_cacheNodeObject->GetLastEvalTime()));
+                        Application().LogMessage("[VDB][GRIDIO]: Readed at=" + CString((LONG)p_cacheNodeObject->GetLastEvalTime()));
 						Application().LogMessage("[VDB][GRIDIO]: Done in=" + CString(timer.GetElapsedTime()));
 					}
 					catch (openvdb::Exception& e)
@@ -361,7 +365,7 @@ SICALLBACK VDB_GridIO_Evaluate( ICENodeContext& in_ctxt )
 							file.close();
 
 						
-							Application().LogMessage("[VDB][GRIDIO]: Writed at=" + CString(p_inWrapper->m_lastEvalTime) );
+                            Application().LogMessage("[VDB][GRIDIO]: Writed at=" + CString((LONG)p_inWrapper->m_lastEvalTime) );
 							Application().LogMessage("[VDB][GRIDIO]: Done in=" + CString(timer.GetElapsedTime()) );
 
 
@@ -393,7 +397,7 @@ SICALLBACK VDB_GridIO_Evaluate( ICENodeContext& in_ctxt )
 	return CStatus::OK;
 };
 
-SICALLBACK VDB_GridIO_Init( CRef& in_ctxt )
+SICALLBACK dlexport VDB_GridIO_Init( CRef& in_ctxt )
 {
 
 		// init openvdb stuff
@@ -421,7 +425,7 @@ SICALLBACK VDB_GridIO_Init( CRef& in_ctxt )
 
 
 
-SICALLBACK VDB_GridIO_Term( CRef& in_ctxt )
+SICALLBACK dlexport VDB_GridIO_Term( CRef& in_ctxt )
 {
 	Context ctxt( in_ctxt );
    CValue userData = ctxt.GetUserData();

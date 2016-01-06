@@ -7,6 +7,7 @@
 #include <openvdb/tree/ValueAccessor.h>
 #include <openvdb/tools/LevelSetAdvect.h>
 #include <openvdb/tools/GridOperators.h>
+#include <openvdb/math/FiniteDifference.h>
 
 enum IDs
 {
@@ -186,60 +187,62 @@ struct VDB_AdvectLevelSet_cache_t : public VDB_ICENode_cacheBase_t
 		FieldT field(*velGrid);
 		 openvdb::tools::LevelSetAdvection<openvdb::FloatGrid, FieldT>  advection(*scalarGrid, field);
 
-		 typedef openvdb::v2_3_0::math::TemporalIntegrationScheme  TIS_t ;
-		 typedef openvdb::v2_3_0::math::BiasedGradientScheme  BGS_t ;
+     //   typedef openvdb::v2_3_0::math::TemporalIntegrationScheme  TIS_t ;
+    //   typedef openvdb::v2_3_0::math::BiasedGradientScheme  BGS_t ;
 
-		 TIS_t adv_tis = TIS_t::TVD_RK1;
-		 TIS_t renorm_tis = TIS_t::TVD_RK1;
-		 BGS_t adv_bgs = BGS_t::FIRST_BIAS;
-		 BGS_t renorm_bgs = BGS_t::FIRST_BIAS;
+
+
+         int adv_tis = openvdb::math ::TVD_RK1;
+         int renorm_tis = openvdb::math ::TVD_RK1;
+         int adv_bgs = openvdb::math ::FIRST_BIAS;
+         int renorm_bgs = openvdb::math ::FIRST_BIAS;
 
 
 		 // spatial integration
 		 if ( m_advSpat==0 )
-			 adv_bgs = BGS_t::FIRST_BIAS;
+             adv_bgs = openvdb::math ::FIRST_BIAS;
 		 if ( m_advSpat==1 )
-			 adv_bgs = BGS_t::SECOND_BIAS;
+             adv_bgs = openvdb::math ::SECOND_BIAS;
 		 if ( m_advSpat==2 )
-			 adv_bgs = BGS_t::THIRD_BIAS;
+             adv_bgs = openvdb::math ::THIRD_BIAS;
 		 if ( m_advSpat==3 )
-			 adv_bgs = BGS_t::WENO5_BIAS;
+             adv_bgs = openvdb::math ::WENO5_BIAS;
 		 if ( m_advSpat==4 )
-			 adv_bgs = BGS_t::HJWENO5_BIAS;
+             adv_bgs = openvdb::math ::HJWENO5_BIAS;
 
 
 		 if ( m_renSpat==0 )
-			 renorm_bgs = BGS_t::FIRST_BIAS;
+             renorm_bgs = openvdb::math ::FIRST_BIAS;
 		 if ( m_renSpat==1 )
-			 renorm_bgs = BGS_t::SECOND_BIAS;
+             renorm_bgs = openvdb::math ::SECOND_BIAS;
 		 if ( m_renSpat==2 )
-			 renorm_bgs = BGS_t::THIRD_BIAS;
+             renorm_bgs = openvdb::math ::THIRD_BIAS;
 		 if ( m_renSpat==3 )
-			 renorm_bgs = BGS_t::WENO5_BIAS;
+             renorm_bgs = openvdb::math ::WENO5_BIAS;
 		 if ( m_renSpat==4 )
-			 renorm_bgs = BGS_t::HJWENO5_BIAS;
+             renorm_bgs = openvdb::math ::HJWENO5_BIAS;
 
 		 // temporal integration
 		 if ( m_advTemp==0 )
-			 adv_tis = TIS_t::TVD_RK1;
+             adv_tis = openvdb::math ::TVD_RK1;
 		 if ( m_advTemp==1 )
-			 adv_tis = TIS_t::TVD_RK2;
+             adv_tis = openvdb::math ::TVD_RK2;
 		 if ( m_advTemp==2 )
-			 adv_tis = TIS_t::TVD_RK3;
+             adv_tis = openvdb::math ::TVD_RK3;
 
 		 if ( m_renTemp==0 )
-			 renorm_tis = TIS_t::TVD_RK1;
+             renorm_tis = openvdb::math ::TVD_RK1;
 		 if ( m_renTemp==1 )
-			 renorm_tis = TIS_t::TVD_RK2;
+             renorm_tis = openvdb::math ::TVD_RK2;
 		 if ( m_renTemp==2 )
-			 renorm_tis = TIS_t::TVD_RK3;
+             renorm_tis = openvdb::math ::TVD_RK3;
 
 
 		 // setup advector
-		 advection.setSpatialScheme(adv_bgs);
-		 advection.setTemporalScheme(adv_tis);
-		 advection.setTrackerSpatialScheme(renorm_bgs);
-		 advection.setTrackerTemporalScheme(renorm_tis);
+         advection.setSpatialScheme((openvdb::math ::BiasedGradientScheme) adv_bgs);
+         advection.setTemporalScheme((openvdb::math ::TemporalIntegrationScheme) adv_tis);
+         advection.setTrackerSpatialScheme((openvdb::math ::BiasedGradientScheme) renorm_bgs);
+         advection.setTrackerTemporalScheme((openvdb::math ::TemporalIntegrationScheme) renorm_tis);
 		 advection.setNormCount(m_renSteps);
 
 		 if  ( m_multithreaded == false )
@@ -250,7 +253,7 @@ struct VDB_AdvectLevelSet_cache_t : public VDB_ICENode_cacheBase_t
 		 m_primaryGrid.m_grid  = scalarGrid;
 		 m_primaryGrid.m_grid->setName ( in_grid->m_grid->getName ( ) );
 		 m_primaryGrid.m_lastEvalTime = clock();	
-		 Application().LogMessage(L"[VDB][ADVECTLS]: Stamped at=" + CString ( m_primaryGrid.m_lastEvalTime ) );
+         Application().LogMessage(L"[VDB][ADVECTLS]: Stamped at=" + CString ((LONG) m_primaryGrid.m_lastEvalTime ) );
 		 Application().LogMessage(L"[VDB][ADVECTLS]: Done in=" + CString (  timer.GetElapsedTime ( ) ));
 
 		 }
@@ -262,7 +265,7 @@ struct VDB_AdvectLevelSet_cache_t : public VDB_ICENode_cacheBase_t
 
 };
 
-SICALLBACK VDB_AdvectLevelSet_Evaluate( ICENodeContext& in_ctxt )
+SICALLBACK dlexport VDB_AdvectLevelSet_Evaluate( ICENodeContext& in_ctxt )
 {
 
 	// The current output port being evaluated...
@@ -341,7 +344,7 @@ SICALLBACK VDB_AdvectLevelSet_Evaluate( ICENodeContext& in_ctxt )
 	return CStatus::OK;
 };
 
-SICALLBACK VDB_AdvectLevelSet_Init( CRef& in_ctxt )
+SICALLBACK dlexport VDB_AdvectLevelSet_Init( CRef& in_ctxt )
 {
 
 		// init openvdb stuff
@@ -366,7 +369,7 @@ SICALLBACK VDB_AdvectLevelSet_Init( CRef& in_ctxt )
 
 
 
-SICALLBACK VDB_AdvectLevelSet_Term( CRef& in_ctxt )
+SICALLBACK dlexport VDB_AdvectLevelSet_Term( CRef& in_ctxt )
 {
 	Context ctxt( in_ctxt );
    CValue userData = ctxt.GetUserData();

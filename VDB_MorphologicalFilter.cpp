@@ -201,7 +201,7 @@ struct VDB_Filter_cache_t : public VDB_ICENode_cacheBase_t
 		m_primaryGrid.m_grid = grid;
 		m_primaryGrid.m_grid->setName ( in_grid->m_grid->getName ( ) );
 		m_primaryGrid.m_lastEvalTime = clock();
-		Application().LogMessage(L"[VDB][MORPHOLOGY]: Stamped at=" + CString ( m_primaryGrid.m_lastEvalTime));
+        Application().LogMessage(L"[VDB][MORPHOLOGY]: Stamped at=" + CString ( (LONG)m_primaryGrid.m_lastEvalTime));
 		Application().LogMessage(L"[VDB][MORPHOLOGY]: Done in=" + CString (timer.GetElapsedTime ()));
 
 		}
@@ -214,7 +214,7 @@ struct VDB_Filter_cache_t : public VDB_ICENode_cacheBase_t
 
 };
 
-SICALLBACK VDB_MorphologicalFilter_Evaluate( ICENodeContext& in_ctxt )
+SICALLBACK dlexport VDB_MorphologicalFilter_Evaluate( ICENodeContext& in_ctxt )
 {
 
 	// The current output port being evaluated...
@@ -289,7 +289,7 @@ SICALLBACK VDB_MorphologicalFilter_Evaluate( ICENodeContext& in_ctxt )
 	return CStatus::OK;
 };
 
-SICALLBACK VDB_MorphologicalFilter_Init( CRef& in_ctxt )
+SICALLBACK dlexport VDB_MorphologicalFilter_Init( CRef& in_ctxt )
 {
 
 		// init openvdb stuff
@@ -318,7 +318,7 @@ SICALLBACK VDB_MorphologicalFilter_Init( CRef& in_ctxt )
 
 
 
-SICALLBACK VDB_MorphologicalFilter_Term( CRef& in_ctxt )
+SICALLBACK dlexport VDB_MorphologicalFilter_Term( CRef& in_ctxt )
 {
 	Context ctxt( in_ctxt );
    CValue userData = ctxt.GetUserData();

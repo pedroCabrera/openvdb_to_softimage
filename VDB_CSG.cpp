@@ -1,6 +1,6 @@
 #include "Main.h"
 #include "vdbHelpers.h"
-#include <openvdb/tools/composite.h>
+#include <openvdb/tools/Composite.h>
 #include <openvdb/util/NullInterrupter.h>
 #include <openvdb/tools/LevelSetRebuild.h>
 
@@ -130,7 +130,7 @@ struct VDB_CSG_cache_t : public VDB_ICENode_cacheBase_t
 			if ( in_gridA->m_grid->constTransform () != in_gridB->m_grid->constTransform () )
 			{
 		
-				auto tempPtr = openvdb::gridPtrCast<openvdb::FloatGrid> ( in_gridB->m_grid );
+                openvdb::FloatGrid ::Ptr tempPtr = openvdb::gridPtrCast<openvdb::FloatGrid> ( in_gridB->m_grid );
 
 				float iso = 0.f;
 				float bw = openvdb::LEVEL_SET_HALF_WIDTH;
@@ -159,7 +159,7 @@ struct VDB_CSG_cache_t : public VDB_ICENode_cacheBase_t
 			m_primaryGrid.m_grid->setGridClass ( openvdb::GRID_LEVEL_SET );
 			m_primaryGrid.m_grid->setName ( "csgResultGrid" );
 			m_primaryGrid.m_lastEvalTime = clock();	
-			Application().LogMessage(L"[VDB][CSG]: Stamped at=" + CString ( m_primaryGrid.m_lastEvalTime ) );
+            Application().LogMessage(L"[VDB][CSG]: Stamped at=" + CString ( (LONG)m_primaryGrid.m_lastEvalTime ) );
 			Application().LogMessage(L"[VDB][CSG]: Done in=" + CString (  timer.GetElapsedTime ( ) ));
 
 		}
@@ -171,7 +171,7 @@ struct VDB_CSG_cache_t : public VDB_ICENode_cacheBase_t
 
 };
 
-SICALLBACK VDB_CSG_Evaluate( ICENodeContext& in_ctxt )
+SICALLBACK dlexport VDB_CSG_Evaluate( ICENodeContext& in_ctxt )
 {
 
 	// The current output port being evaluated...
@@ -251,7 +251,7 @@ SICALLBACK VDB_CSG_Evaluate( ICENodeContext& in_ctxt )
 	return CStatus::OK;
 };
 
-SICALLBACK VDB_CSG_Init( CRef& in_ctxt )
+SICALLBACK dlexport VDB_CSG_Init( CRef& in_ctxt )
 {
 
 		// init openvdb stuff
@@ -276,7 +276,7 @@ SICALLBACK VDB_CSG_Init( CRef& in_ctxt )
 
 
 
-SICALLBACK VDB_CSG_Term( CRef& in_ctxt )
+SICALLBACK dlexport VDB_CSG_Term( CRef& in_ctxt )
 {
 	Context ctxt( in_ctxt );
    CValue userData = ctxt.GetUserData();

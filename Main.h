@@ -41,4 +41,10 @@
 #define VDB_STREAM_COLOR 190,40,40 
 #define VDB_DATA_NAME L"VDBGridRef"
 
+#if defined ( linux )
+#define dlexport __attribute__ ((visibility("default")))
+#else if
+#define dlexport
+#endif
+
 using namespace XSI; 

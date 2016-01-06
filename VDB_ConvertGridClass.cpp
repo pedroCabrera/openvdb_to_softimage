@@ -98,7 +98,7 @@ struct VDB_ChangeGridClass_cache_t : public VDB_ICENode_cacheBase_t
 
 		if ( m_order ) // sdf to fog
 		{
-            if ( in_grid->m_grid->getGridClass() == openvdb::v2_3_0::GridClass::GRID_FOG_VOLUME )
+            if ( in_grid->m_grid->getGridClass() == openvdb::v2_3_0::GRID_FOG_VOLUME )
 			{
 				m_primaryGrid.m_grid = in_grid->m_grid->deepCopyGrid ();
 				Application().LogMessage(L"[VDB][CHANGEGRIDCLASS]: Input grid  is already FOG_VOLUME class", siWarningMsg );
@@ -109,14 +109,14 @@ struct VDB_ChangeGridClass_cache_t : public VDB_ICENode_cacheBase_t
 				openvdb::GridBase::Ptr tempBaseGrid  = in_grid->m_grid->deepCopyGrid ();
 				openvdb::FloatGrid::Ptr grid =  openvdb::gridPtrCast<openvdb::FloatGrid>(tempBaseGrid);
 				openvdb::tools::sdfToFogVolume ( *grid );
-                grid->setGridClass ( openvdb::v2_3_0::GridClass::GRID_FOG_VOLUME );
+                grid->setGridClass ( openvdb::v2_3_0::GRID_FOG_VOLUME );
 				m_primaryGrid.m_grid  = grid;
 			};
 			
 		}
 		else // fog to sdf
 		{
-            if ( in_grid->m_grid->getGridClass() == openvdb::v2_3_0::GridClass::GRID_LEVEL_SET )
+            if ( in_grid->m_grid->getGridClass() == openvdb::v2_3_0::GRID_LEVEL_SET )
 			{
 				m_primaryGrid.m_grid = in_grid->m_grid->deepCopyGrid ();
 				m_primaryGrid.m_grid->setName ( in_grid->m_grid->getName ( ) );
@@ -173,12 +173,12 @@ struct VDB_ChangeGridClass_cache_t : public VDB_ICENode_cacheBase_t
 			openvdb::tools::MeshToVolume<openvdb::FloatGrid> vol(transform);
 			vol.convertToLevelSet(points, primitives, 1.0, 1.0);
 			m_primaryGrid.m_grid =vol.distGridPtr ();
-            m_primaryGrid.m_grid->setGridClass (  openvdb::v2_3_0::GridClass::GRID_LEVEL_SET );
+            m_primaryGrid.m_grid->setGridClass (  openvdb::v2_3_0::GRID_LEVEL_SET );
 		};
 
 		m_primaryGrid.m_grid->setName ( in_grid->m_grid->getName ( ) );
 			m_primaryGrid.m_lastEvalTime = clock();
-			Application().LogMessage(L"[VDB][CHANGEGRIDCLASS]: Stamped at=" + CString ( m_primaryGrid.m_lastEvalTime));
+            Application().LogMessage(L"[VDB][CHANGEGRIDCLASS]: Stamped at=" + CString ( (LONG)m_primaryGrid.m_lastEvalTime));
 			Application().LogMessage(L"[VDB][CHANGEGRIDCLASS]: Done in=" + CString (timer.GetElapsedTime ()));
 
 		}
@@ -191,7 +191,7 @@ struct VDB_ChangeGridClass_cache_t : public VDB_ICENode_cacheBase_t
 
 };
 
-SICALLBACK VDB_ChangeGridClass_Evaluate( ICENodeContext& in_ctxt )
+SICALLBACK dlexport VDB_ChangeGridClass_Evaluate( ICENodeContext& in_ctxt )
 {
 
 	// The current output port being evaluated...
@@ -255,7 +255,7 @@ SICALLBACK VDB_ChangeGridClass_Evaluate( ICENodeContext& in_ctxt )
 	return CStatus::OK;
 };
 
-SICALLBACK VDB_ChangeGridClass_Init( CRef& in_ctxt )
+SICALLBACK dlexport VDB_ChangeGridClass_Init( CRef& in_ctxt )
 {
 
 		// init openvdb stuff
@@ -280,7 +280,7 @@ SICALLBACK VDB_ChangeGridClass_Init( CRef& in_ctxt )
 
 
 
-SICALLBACK VDB_ChangeGridClass_Term( CRef& in_ctxt )
+SICALLBACK dlexport VDB_ChangeGridClass_Term( CRef& in_ctxt )
 {
 	Context ctxt( in_ctxt );
    CValue userData = ctxt.GetUserData();

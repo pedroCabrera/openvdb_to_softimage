@@ -108,11 +108,11 @@ struct VDB_Platonic_cache_t : public VDB_ICENode_cacheBase_t
 			if ( m_toFog )
 			{
 				openvdb::tools::sdfToFogVolume(*tempPtr);
-                tempPtr->setGridClass ( openvdb::v2_3_0::GridClass::GRID_FOG_VOLUME );
+                tempPtr->setGridClass ( openvdb::v2_3_0::GRID_FOG_VOLUME );
 			}
 			else
 			{
-                tempPtr->setGridClass ( openvdb::v2_3_0::GridClass::GRID_LEVEL_SET );
+                tempPtr->setGridClass ( openvdb::v2_3_0::GRID_LEVEL_SET );
 			};
 
 
@@ -124,7 +124,7 @@ struct VDB_Platonic_cache_t : public VDB_ICENode_cacheBase_t
 
 			// mark time of creation for dirty-stating
 			m_primaryGrid.m_lastEvalTime = clock();
-			Application().LogMessage(L"[VDB][PLATONIC]: Stamped at=" + CString(m_primaryGrid.m_lastEvalTime));
+            Application().LogMessage(L"[VDB][PLATONIC]: Stamped at=" + CString((LONG)m_primaryGrid.m_lastEvalTime));
 			Application().LogMessage(L"[VDB][PLATONIC]: Done in=" + CString(timer.GetElapsedTime()));
 
 		}
@@ -140,7 +140,7 @@ struct VDB_Platonic_cache_t : public VDB_ICENode_cacheBase_t
 };
 
 
-SICALLBACK VDB_Platonic_Evaluate(ICENodeContext& in_ctxt)
+SICALLBACK dlexport VDB_Platonic_Evaluate(ICENodeContext& in_ctxt)
 {
 	
 
@@ -206,7 +206,7 @@ SICALLBACK VDB_Platonic_Evaluate(ICENodeContext& in_ctxt)
 };
 
 // lets cache this
-SICALLBACK VDB_Platonic_Init( CRef& in_ctxt )
+SICALLBACK dlexport VDB_Platonic_Init( CRef& in_ctxt )
 {
    Context ctxt( in_ctxt );
    CValue userData = ctxt.GetUserData();
@@ -230,7 +230,7 @@ SICALLBACK VDB_Platonic_Init( CRef& in_ctxt )
 
 
 
-SICALLBACK VDB_Platonic_Term( CRef& in_ctxt )
+SICALLBACK dlexport VDB_Platonic_Term( CRef& in_ctxt )
 {
 	Context ctxt( in_ctxt );
    CValue userData = ctxt.GetUserData();

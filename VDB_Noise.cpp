@@ -236,14 +236,14 @@ struct VDB_Noise_cache_t : public VDB_ICENode_cacheBase_t
 			
 	m_primaryGrid.m_lastEvalTime = clock();
 		m_primaryGrid.m_grid->setName ( in_grid->m_grid->getName ( ) );
-		Application().LogMessage(L"[VDB][NOISE]: Stamped at=" + CString(m_primaryGrid.m_lastEvalTime));
+        Application().LogMessage(L"[VDB][NOISE]: Stamped at=" + CString( (LONG)m_primaryGrid.m_lastEvalTime));
 		Application().LogMessage(L"[VDB][NOISE]: Done in=" + CString(timer.GetElapsedTime()));
 	};
 
 
 };
 
-SICALLBACK VDB_Noise_Evaluate( ICENodeContext& in_ctxt )
+SICALLBACK dlexport VDB_Noise_Evaluate( ICENodeContext& in_ctxt )
 {
 
 	// The current output port being evaluated...
@@ -314,7 +314,7 @@ SICALLBACK VDB_Noise_Evaluate( ICENodeContext& in_ctxt )
 	return CStatus::OK;
 };
 
-SICALLBACK VDB_Noise_Init( CRef& in_ctxt )
+SICALLBACK dlexport VDB_Noise_Init( CRef& in_ctxt )
 {
 
 		// init openvdb stuff
@@ -339,7 +339,7 @@ SICALLBACK VDB_Noise_Init( CRef& in_ctxt )
 
 
 
-SICALLBACK VDB_Noise_Term( CRef& in_ctxt )
+SICALLBACK dlexport VDB_Noise_Term( CRef& in_ctxt )
 {
 	Context ctxt( in_ctxt );
    CValue userData = ctxt.GetUserData();

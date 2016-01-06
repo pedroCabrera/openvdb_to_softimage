@@ -98,7 +98,7 @@ struct VDB_Grid2Mesh_cache_t : public VDB_ICENode_cacheBase_t
 	bool m_toFog;
 
 	inline bool IsDirty ( CDoubleArray& v, CLongArray& i, MATH::CMatrix4f& srt, 
-		float extr, float intr,/* bool fill,*/ float vxsz, LONG gType, CString& name,/*float  in_BGVal,*/ bool in_DFType, bool in_toFog)
+        float extr, float intr,float vxsz, LONG gType, const CString& name, bool in_DFType, bool in_toFog)
 	{
 		bool isClean = ( v==m_vertices && i==m_indices && srt==m_srt 
 			&& extr==m_extW && intr==m_intW /*&& fill==m_fillInt*/ && vxsz==m_voxelSize && gType==m_gridType &&
@@ -180,11 +180,11 @@ struct VDB_Grid2Mesh_cache_t : public VDB_ICENode_cacheBase_t
 		if ( m_toFog )
 		{
 			openvdb::tools::sdfToFogVolume(*tempPtr);
-			tempPtr->setGridClass ( openvdb::v2_3_0::GridClass::GRID_FOG_VOLUME );
+            tempPtr->setGridClass ( openvdb::v2_3_0::GRID_FOG_VOLUME );
 		}
 		else
 		{
-			tempPtr->setGridClass ( openvdb::v2_3_0::GridClass::GRID_LEVEL_SET );
+            tempPtr->setGridClass ( openvdb::v2_3_0::GRID_LEVEL_SET );
 		};
 
 
@@ -197,7 +197,7 @@ struct VDB_Grid2Mesh_cache_t : public VDB_ICENode_cacheBase_t
 
 		// mark time of creation for dirty-stating
 		m_primaryGrid.m_lastEvalTime = clock();
-		Application().LogMessage(L"[VDB][MESHTOGRID]: Stamped at=" + CString(m_primaryGrid.m_lastEvalTime));
+        Application().LogMessage(L"[VDB][MESHTOGRID]: Stamped at=" + CString((LONG)m_primaryGrid.m_lastEvalTime));
 		Application().LogMessage(L"[VDB][MESHTOGRID]: Done in=" + CString(timer.GetElapsedTime()));
 
 		}
@@ -209,7 +209,7 @@ struct VDB_Grid2Mesh_cache_t : public VDB_ICENode_cacheBase_t
 };
 
 
-SICALLBACK VDB_MeshToGrid_Evaluate(ICENodeContext& in_ctxt)
+SICALLBACK dlexport VDB_MeshToGrid_Evaluate(ICENodeContext& in_ctxt)
 {
 	
 
@@ -313,7 +313,7 @@ SICALLBACK VDB_MeshToGrid_Evaluate(ICENodeContext& in_ctxt)
 };
 
 // lets cache this
-SICALLBACK VDB_MeshToGrid_Init( CRef& in_ctxt )
+SICALLBACK dlexport VDB_MeshToGrid_Init( CRef& in_ctxt )
 {
    Context ctxt( in_ctxt );
    CValue userData = ctxt.GetUserData();
@@ -340,7 +340,7 @@ SICALLBACK VDB_MeshToGrid_Init( CRef& in_ctxt )
 
 
 
-SICALLBACK VDB_MeshToGrid_Term( CRef& in_ctxt )
+SICALLBACK dlexport VDB_MeshToGrid_Term( CRef& in_ctxt )
 {
 	Context ctxt( in_ctxt );
    CValue userData = ctxt.GetUserData();

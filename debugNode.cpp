@@ -90,7 +90,7 @@ CStatus VDB_Debug_Register(PluginRegistrar& reg)
 }
 
 
-SICALLBACK VDB_Debug_Evaluate( ICENodeContext & in_ctxt)
+SICALLBACK dlexport VDB_Debug_Evaluate( ICENodeContext & in_ctxt)
 {
 
 

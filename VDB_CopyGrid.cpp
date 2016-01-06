@@ -83,11 +83,11 @@ struct VDB_CopyGrid_cache_t : public VDB_ICENode_cacheBase_t
 		{
 
 			m_primaryGrid.m_grid = in_grid->m_grid->deepCopyGrid ();
-			m_primaryGrid.m_grid->setGridClass (  openvdb::v2_3_0::GridClass::GRID_LEVEL_SET );
+            m_primaryGrid.m_grid->setGridClass (  openvdb::v2_3_0::GRID_LEVEL_SET );
 
 			m_primaryGrid.m_grid->setName ( in_grid->m_grid->getName ( ) );
 			m_primaryGrid.m_lastEvalTime = clock();
-			Application().LogMessage(L"[VDB][COPYGRID]: Stamped at=" + CString ( m_primaryGrid.m_lastEvalTime));
+            Application().LogMessage(L"[VDB][COPYGRID]: Stamped at=" + CString ( (LONG)m_primaryGrid.m_lastEvalTime));
 			Application().LogMessage(L"[VDB][COPYGRID]: Done in=" + CString (timer.GetElapsedTime ()));
 
 		}
@@ -100,7 +100,7 @@ struct VDB_CopyGrid_cache_t : public VDB_ICENode_cacheBase_t
 
 };
 
-SICALLBACK VDB_CopyGrid_Evaluate( ICENodeContext& in_ctxt )
+SICALLBACK dlexport VDB_CopyGrid_Evaluate( ICENodeContext& in_ctxt )
 {
 
 	// The current output port being evaluated...
@@ -154,7 +154,7 @@ SICALLBACK VDB_CopyGrid_Evaluate( ICENodeContext& in_ctxt )
 	return CStatus::OK;
 };
 
-SICALLBACK VDB_CopyGrid_Init( CRef& in_ctxt )
+SICALLBACK dlexport VDB_CopyGrid_Init( CRef& in_ctxt )
 {
 
 		// init openvdb stuff
@@ -179,7 +179,7 @@ SICALLBACK VDB_CopyGrid_Init( CRef& in_ctxt )
 
 
 
-SICALLBACK VDB_CopyGrid_Term( CRef& in_ctxt )
+SICALLBACK dlexport VDB_CopyGrid_Term( CRef& in_ctxt )
 {
 	Context ctxt( in_ctxt );
    CValue userData = ctxt.GetUserData();

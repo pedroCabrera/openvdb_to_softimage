@@ -1,6 +1,6 @@
 #include "Main.h"
 #include "vdbHelpers.h"
-#include <openvdb/tools/composite.h>
+#include <openvdb/tools/Composite.h>
 #include <openvdb/util/NullInterrupter.h>
 #include <openvdb/tools/LevelSetRebuild.h>
 #include <openvdb/tools/LevelSetMorph.h>
@@ -143,7 +143,7 @@ struct VDB_Morpher_cache_t : public VDB_ICENode_cacheBase_t
 			if ( in_gridA->m_grid->constTransform () != in_gridB->m_grid->constTransform () )
 			{
 		
-				auto tempPtr = openvdb::gridPtrCast<openvdb::FloatGrid> ( in_gridB->m_grid );
+                openvdb::FloatGrid::Ptr tempPtr = openvdb::gridPtrCast<openvdb::FloatGrid> ( in_gridB->m_grid );
 
 				float iso = 0.f;
 				float bw = openvdb::LEVEL_SET_HALF_WIDTH;
@@ -159,61 +159,63 @@ struct VDB_Morpher_cache_t : public VDB_ICENode_cacheBase_t
 				openvdb::tools::LevelSetMorphing <openvdb::FloatGrid> morpher (* floatCopyA.get(),* floatCopyB.get() );
 
 			// set advction parameters
-					 typedef openvdb::v2_3_0::math::TemporalIntegrationScheme  TIS_t ;
-		 typedef openvdb::v2_3_0::math::BiasedGradientScheme  BGS_t ;
+            //		 typedef openvdb::v2_3_0::math::TemporalIntegrationScheme  TIS_t ;
+        // typedef openvdb::v2_3_0::math::BiasedGradientScheme  BGS_t ;
 
-		 TIS_t adv_tis = TIS_t::TVD_RK1;
-		 TIS_t renorm_tis = TIS_t::TVD_RK1;
-		 BGS_t adv_bgs = BGS_t::FIRST_BIAS;
-		 BGS_t renorm_bgs = BGS_t::FIRST_BIAS;
-
-
-		 // spatial integration
-		 if ( m_advSpat==0 )
-			 adv_bgs = BGS_t::FIRST_BIAS;
-		 if ( m_advSpat==1 )
-			 adv_bgs = BGS_t::SECOND_BIAS;
-		 if ( m_advSpat==2 )
-			 adv_bgs = BGS_t::THIRD_BIAS;
-		 if ( m_advSpat==3 )
-			 adv_bgs = BGS_t::WENO5_BIAS;
-		 if ( m_advSpat==4 )
-			 adv_bgs = BGS_t::HJWENO5_BIAS;
+                int adv_tis = openvdb::math ::TVD_RK1;
+                int renorm_tis = openvdb::math ::TVD_RK1;
+                int adv_bgs = openvdb::math ::FIRST_BIAS;
+                int renorm_bgs = openvdb::math ::FIRST_BIAS;
 
 
-		 if ( m_renSpat==0 )
-			 renorm_bgs = BGS_t::FIRST_BIAS;
-		 if ( m_renSpat==1 )
-			 renorm_bgs = BGS_t::SECOND_BIAS;
-		 if ( m_renSpat==2 )
-			 renorm_bgs = BGS_t::THIRD_BIAS;
-		 if ( m_renSpat==3 )
-			 renorm_bgs = BGS_t::WENO5_BIAS;
-		 if ( m_renSpat==4 )
-			 renorm_bgs = BGS_t::HJWENO5_BIAS;
+                // spatial integration
+                if ( m_advSpat==0 )
+                    adv_bgs = openvdb::math ::FIRST_BIAS;
+                if ( m_advSpat==1 )
+                    adv_bgs = openvdb::math ::SECOND_BIAS;
+                if ( m_advSpat==2 )
+                    adv_bgs = openvdb::math ::THIRD_BIAS;
+                if ( m_advSpat==3 )
+                    adv_bgs = openvdb::math ::WENO5_BIAS;
+                if ( m_advSpat==4 )
+                    adv_bgs = openvdb::math ::HJWENO5_BIAS;
 
-		 // temporal integration
-		 if ( m_advTemp==0 )
-			 adv_tis = TIS_t::TVD_RK1;
-		 if ( m_advTemp==1 )
-			 adv_tis = TIS_t::TVD_RK2;
-		 if ( m_advTemp==2 )
-			 adv_tis = TIS_t::TVD_RK3;
 
-		 if ( m_renTemp==0 )
-			 renorm_tis = TIS_t::TVD_RK1;
-		 if ( m_renTemp==1 )
-			 renorm_tis = TIS_t::TVD_RK2;
-		 if ( m_renTemp==2 )
-			 renorm_tis = TIS_t::TVD_RK3;
+                if ( m_renSpat==0 )
+                    renorm_bgs = openvdb::math ::FIRST_BIAS;
+                if ( m_renSpat==1 )
+                    renorm_bgs = openvdb::math ::SECOND_BIAS;
+                if ( m_renSpat==2 )
+                    renorm_bgs = openvdb::math ::THIRD_BIAS;
+                if ( m_renSpat==3 )
+                    renorm_bgs = openvdb::math ::WENO5_BIAS;
+                if ( m_renSpat==4 )
+                    renorm_bgs = openvdb::math ::HJWENO5_BIAS;
+
+                // temporal integration
+                if ( m_advTemp==0 )
+                    adv_tis = openvdb::math ::TVD_RK1;
+                if ( m_advTemp==1 )
+                    adv_tis = openvdb::math ::TVD_RK2;
+                if ( m_advTemp==2 )
+                    adv_tis = openvdb::math ::TVD_RK3;
+
+                if ( m_renTemp==0 )
+                    renorm_tis = openvdb::math ::TVD_RK1;
+                if ( m_renTemp==1 )
+                    renorm_tis = openvdb::math ::TVD_RK2;
+                if ( m_renTemp==2 )
+                    renorm_tis = openvdb::math ::TVD_RK3;
 
 
 		 // setup advector
-		 morpher.setSpatialScheme(adv_bgs);
-		 morpher.setTemporalScheme(adv_tis);
-		 morpher.setTrackerSpatialScheme(renorm_bgs);
-		 morpher.setTrackerTemporalScheme(renorm_tis);
+                morpher.setSpatialScheme((openvdb::math ::BiasedGradientScheme) adv_bgs);
+                morpher.setTemporalScheme((openvdb::math ::TemporalIntegrationScheme) adv_tis);
+                morpher.setTrackerSpatialScheme((openvdb::math ::BiasedGradientScheme) renorm_bgs);
+                morpher.setTrackerTemporalScheme((openvdb::math ::TemporalIntegrationScheme) renorm_tis);
 		 morpher.setNormCount(m_renSteps);
+
+
 
 		 // blend
 			morpher.advect ( 0.f, m_advTime );
@@ -224,7 +226,7 @@ struct VDB_Morpher_cache_t : public VDB_ICENode_cacheBase_t
 			m_primaryGrid.m_grid->setGridClass ( openvdb::GRID_LEVEL_SET );
 			m_primaryGrid.m_grid->setName ( "morpherResult" );
 			m_primaryGrid.m_lastEvalTime = clock();	
-			Application().LogMessage(L"[VDB][Morpher]: Stamped at=" + CString ( m_primaryGrid.m_lastEvalTime ) );
+            Application().LogMessage(L"[VDB][Morpher]: Stamped at=" + CString ((LONG) m_primaryGrid.m_lastEvalTime ) );
 			Application().LogMessage(L"[VDB][Morpher]: Done in=" + CString (  timer.GetElapsedTime ( ) ));
 
 		}
@@ -236,7 +238,7 @@ struct VDB_Morpher_cache_t : public VDB_ICENode_cacheBase_t
 
 };
 
-SICALLBACK VDB_Morpher_Evaluate( ICENodeContext& in_ctxt )
+SICALLBACK dlexport VDB_Morpher_Evaluate( ICENodeContext& in_ctxt )
 {
 
 	// The current output port being evaluated...
@@ -322,7 +324,7 @@ SICALLBACK VDB_Morpher_Evaluate( ICENodeContext& in_ctxt )
 	return CStatus::OK;
 };
 
-SICALLBACK VDB_Morpher_Init( CRef& in_ctxt )
+SICALLBACK dlexport VDB_Morpher_Init( CRef& in_ctxt )
 {
 
 		// init openvdb stuff
@@ -347,7 +349,7 @@ SICALLBACK VDB_Morpher_Init( CRef& in_ctxt )
 
 
 
-SICALLBACK VDB_Morpher_Term( CRef& in_ctxt )
+SICALLBACK dlexport VDB_Morpher_Term( CRef& in_ctxt )
 {
 	Context ctxt( in_ctxt );
    CValue userData = ctxt.GetUserData();

@@ -112,7 +112,7 @@ struct VDB_RebuildLevelSet_cache_t : public VDB_ICENode_cacheBase_t
 			m_primaryGrid.m_grid = openvdb::tools::levelSetRebuild( *grid, m_iso, m_ext, m_int);
 			m_primaryGrid.m_grid->setName ( in_grid->m_grid->getName ( ) );
 			m_primaryGrid.m_lastEvalTime = clock();
-			Application().LogMessage(L"[VDB][REBUILDLS]: Stamped at=" + CString ( m_primaryGrid.m_lastEvalTime));
+            Application().LogMessage(L"[VDB][REBUILDLS]: Stamped at=" + CString ( (LONG)m_primaryGrid.m_lastEvalTime));
 			Application().LogMessage(L"[VDB][REBUILDLS]: Done in=" + CString (timer.GetElapsedTime ()));
 		}
 		catch ( openvdb::Exception & e )
@@ -126,7 +126,7 @@ struct VDB_RebuildLevelSet_cache_t : public VDB_ICENode_cacheBase_t
 
 };
 
-SICALLBACK VDB_RebuildLevelSet_Evaluate( ICENodeContext& in_ctxt )
+SICALLBACK dlexport VDB_RebuildLevelSet_Evaluate( ICENodeContext& in_ctxt )
 {
 
 	// The current output port being evaluated...
@@ -196,7 +196,7 @@ SICALLBACK VDB_RebuildLevelSet_Evaluate( ICENodeContext& in_ctxt )
 	return CStatus::OK;
 };
 
-SICALLBACK VDB_RebuildLevelSet_Init( CRef& in_ctxt )
+SICALLBACK dlexport VDB_RebuildLevelSet_Init( CRef& in_ctxt )
 {
 
 		// init openvdb stuff
@@ -221,7 +221,7 @@ SICALLBACK VDB_RebuildLevelSet_Init( CRef& in_ctxt )
 
 
 
-SICALLBACK VDB_RebuildLevelSet_Term( CRef& in_ctxt )
+SICALLBACK dlexport VDB_RebuildLevelSet_Term( CRef& in_ctxt )
 {
 	Context ctxt( in_ctxt );
    CValue userData = ctxt.GetUserData();

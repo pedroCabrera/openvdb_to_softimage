@@ -125,7 +125,7 @@ struct VDB_SetValueAtCoordinate_cache_t : public VDB_ICENode_cacheBase_t
 			{
 				openvdb::FloatGrid::Ptr grid = openvdb::gridPtrCast<openvdb::FloatGrid> ( tempBaseGrid );
 				LONG nbVals = m_vals.size ();
-				auto gridAcc = 	grid->getAccessor ( );
+                openvdb::FloatGrid::Accessor gridAcc = 	grid->getAccessor ( );
 				if ( m_indexSpace )				
 					for ( LONG it=0; it<nbVals; ++ it )
 					{
@@ -152,7 +152,7 @@ struct VDB_SetValueAtCoordinate_cache_t : public VDB_ICENode_cacheBase_t
 			{
 					openvdb::BoolGrid::Ptr grid = openvdb::gridPtrCast<openvdb::BoolGrid> ( tempBaseGrid );
 					LONG nbVals = m_vals.size ();
-						auto gridAcc = 	grid->getAccessor ( );
+                    openvdb::BoolGrid::Accessor  gridAcc = 	grid->getAccessor ( );
 				if ( m_indexSpace )				
 					for ( LONG it=0; it<nbVals; ++ it )
 					{
@@ -177,7 +177,7 @@ struct VDB_SetValueAtCoordinate_cache_t : public VDB_ICENode_cacheBase_t
 			{
 					openvdb::Vec3SGrid::Ptr grid = openvdb::gridPtrCast<openvdb::Vec3SGrid> ( tempBaseGrid );
 					LONG nbVals = m_vals.size ();
-						auto gridAcc = 	grid->getAccessor ( );
+                            openvdb::Vec3SGrid::Accessor gridAcc = 	grid->getAccessor ( );
 				if ( m_indexSpace )				
 					for ( LONG it=0; it<nbVals; ++ it )
 					{
@@ -204,7 +204,7 @@ struct VDB_SetValueAtCoordinate_cache_t : public VDB_ICENode_cacheBase_t
 			{	
 				openvdb::StringGrid::Ptr grid = openvdb::gridPtrCast<openvdb::StringGrid> ( tempBaseGrid );
 				LONG nbVals = m_vals.size ();
-					auto gridAcc = 	grid->getAccessor ( );
+                    openvdb::StringGrid::Accessor  gridAcc = 	grid->getAccessor ( );
 				if ( m_indexSpace )				
 					for ( LONG it=0; it<nbVals; ++ it )
 					{
@@ -230,7 +230,7 @@ struct VDB_SetValueAtCoordinate_cache_t : public VDB_ICENode_cacheBase_t
 			{
 					openvdb::Int32Grid::Ptr grid = openvdb::gridPtrCast<openvdb::Int32Grid> ( tempBaseGrid );
 					LONG nbVals = m_vals.size ();
-						auto gridAcc = 	grid->getAccessor ( );
+                            openvdb::Int32Grid::Accessor gridAcc = 	grid->getAccessor ( );
 				if ( m_indexSpace )				
 					for ( LONG it=0; it<nbVals; ++ it )
 					{
@@ -259,7 +259,7 @@ struct VDB_SetValueAtCoordinate_cache_t : public VDB_ICENode_cacheBase_t
 
 
 				m_primaryGrid.m_lastEvalTime = clock();
-		Application().LogMessage(L"[VDB][SETVALAT]: Stamped at=" + CString(m_primaryGrid.m_lastEvalTime));
+        Application().LogMessage(L"[VDB][SETVALAT]: Stamped at=" + CString((LONG)m_primaryGrid.m_lastEvalTime));
 		Application().LogMessage(L"[VDB][SETVALAT]: Done in=" + CString(timer.GetElapsedTime()));
 	};
 
@@ -267,7 +267,7 @@ struct VDB_SetValueAtCoordinate_cache_t : public VDB_ICENode_cacheBase_t
 };
 
 
-SICALLBACK VDB_SetValueAtCoordinate_Evaluate(ICENodeContext& in_ctxt)
+SICALLBACK dlexport VDB_SetValueAtCoordinate_Evaluate(ICENodeContext& in_ctxt)
 {
 
 
@@ -325,14 +325,14 @@ SICALLBACK VDB_SetValueAtCoordinate_Evaluate(ICENodeContext& in_ctxt)
 			std::vector<MATH::CVector3f> pos;
 			short icedatatype=-1;
 
-			if ( posPortDataStruct == XSI::siICENodeStructureType::siICENodeStructureArray )
+            if ( posPortDataStruct == XSI::siICENodeStructureArray )
 			{
 				CIndexSet indexSet ( in_ctxt, ID_IN_Positions );
 				CDataArray2DVector3f inPos (in_ctxt, ID_IN_Positions );
 				switch (valPortDataType)
 				{
 
-				case siICENodeDataType::siICENodeDataFloat :
+                case siICENodeDataFloat :
 					{
 
 						if ( p_inWrapper->m_grid->isType<openvdb::FloatGrid> () == false )
@@ -343,8 +343,8 @@ SICALLBACK VDB_SetValueAtCoordinate_Evaluate(ICENodeContext& in_ctxt)
 						}
 
 						CDataArray2DFloat inVal( in_ctxt, ID_IN_Value );
-						pos.reserve ( inPos.GetCount()*std::max(1UL,inPos[0].GetCount()) );
-						vals.reserve ( inPos.GetCount()*std::max(1UL,inPos[0].GetCount()) );
+                        pos.reserve ( inPos.GetCount()*Maxv(1UL,inPos[0].GetCount()) );
+                        vals.reserve ( inPos.GetCount()*Maxv(1UL,inPos[0].GetCount()) );
 						for ( CIndexSet::Iterator it=indexSet.Begin(); it.HasNext(); it.Next() )
 						{
 							CDataArray2DVector3f::Accessor posAcc = inPos[it];
@@ -362,7 +362,7 @@ SICALLBACK VDB_SetValueAtCoordinate_Evaluate(ICENodeContext& in_ctxt)
 
 						icedatatype = 0;
 					}break;
-				case siICENodeDataType::siICENodeDataBool :
+                case siICENodeDataBool :
 					{
 
 						if ( p_inWrapper->m_grid->isType<openvdb::BoolGrid> () == false )
@@ -373,8 +373,8 @@ SICALLBACK VDB_SetValueAtCoordinate_Evaluate(ICENodeContext& in_ctxt)
 						}
 
 						CDataArray2DBool  inVal( in_ctxt, ID_IN_Value );
-									pos.reserve ( inPos.GetCount()*std::max(1UL,inPos[0].GetCount()) );
-						vals.reserve ( inPos.GetCount()*std::max(1UL,inPos[0].GetCount()) );
+                                    pos.reserve ( inPos.GetCount()*Maxv(1UL,inPos[0].GetCount()) );
+                        vals.reserve ( inPos.GetCount()*Maxv(1UL,inPos[0].GetCount()) );
 						for ( CIndexSet::Iterator it=indexSet.Begin(); it.HasNext(); it.Next() )
 						{
 							CDataArray2DVector3f::Accessor posAcc = inPos[it];
@@ -391,7 +391,7 @@ SICALLBACK VDB_SetValueAtCoordinate_Evaluate(ICENodeContext& in_ctxt)
 						}
 						icedatatype =1;
 					}break;
-				case siICENodeDataType::siICENodeDataVector3 :
+                case siICENodeDataVector3 :
 					{
 
 						if ( p_inWrapper->m_grid->isType<openvdb::Vec3SGrid> () == false )
@@ -402,8 +402,8 @@ SICALLBACK VDB_SetValueAtCoordinate_Evaluate(ICENodeContext& in_ctxt)
 						}
 
 						CDataArray2DVector3f  inVal( in_ctxt, ID_IN_Value );
-									pos.reserve ( inPos.GetCount()*std::max(1UL,inPos[0].GetCount()) );
-						vals.reserve ( inPos.GetCount()*std::max(1UL,inPos[0].GetCount()) );
+                                    pos.reserve ( inPos.GetCount()*Maxv(1UL,inPos[0].GetCount()) );
+                        vals.reserve ( inPos.GetCount()*Maxv(1UL,inPos[0].GetCount()) );
 						for ( CIndexSet::Iterator it=indexSet.Begin(); it.HasNext(); it.Next() )
 						{
 							CDataArray2DVector3f::Accessor posAcc = inPos[it];
@@ -420,7 +420,7 @@ SICALLBACK VDB_SetValueAtCoordinate_Evaluate(ICENodeContext& in_ctxt)
 						}
 						icedatatype =2;
 					}break;
-				case siICENodeDataType::siICENodeDataString :
+                case siICENodeDataString :
 					{
 
 						if ( p_inWrapper->m_grid->isType<openvdb::StringGrid> () == false )
@@ -431,8 +431,8 @@ SICALLBACK VDB_SetValueAtCoordinate_Evaluate(ICENodeContext& in_ctxt)
 						}
 
 						CDataArray2DString  inVal( in_ctxt, ID_IN_Value );
-										pos.reserve ( inPos.GetCount()*std::max(1UL,inPos[0].GetCount()) );
-						vals.reserve ( inPos.GetCount()*std::max(1UL,inPos[0].GetCount()) );
+                                        pos.reserve ( inPos.GetCount()*Maxv(1UL,inPos[0].GetCount()) );
+                        vals.reserve ( inPos.GetCount()*Maxv(1UL,inPos[0].GetCount()) );
 						for ( CIndexSet::Iterator it=indexSet.Begin(); it.HasNext(); it.Next() )
 						{
 							CDataArray2DVector3f::Accessor posAcc = inPos[it];
@@ -449,7 +449,7 @@ SICALLBACK VDB_SetValueAtCoordinate_Evaluate(ICENodeContext& in_ctxt)
 						}
 						icedatatype =3;
 					}break;
-				case siICENodeDataType::siICENodeDataLong :
+                case siICENodeDataLong :
 					{
 						if ( p_inWrapper->m_grid->isType<openvdb::Int32Grid> () == false )
 						{
@@ -460,8 +460,8 @@ SICALLBACK VDB_SetValueAtCoordinate_Evaluate(ICENodeContext& in_ctxt)
 
 
 						CDataArray2DLong  inVal( in_ctxt, ID_IN_Value );
-										pos.reserve ( inPos.GetCount()*std::max(1UL,inPos[0].GetCount()) );
-						vals.reserve ( inPos.GetCount()*std::max(1UL,inPos[0].GetCount()) );
+                                        pos.reserve ( inPos.GetCount()*Maxv(1UL,inPos[0].GetCount()) );
+                        vals.reserve ( inPos.GetCount()*Maxv(1UL,inPos[0].GetCount()) );
 						for ( CIndexSet::Iterator it=indexSet.Begin(); it.HasNext(); it.Next() )
 						{
 							CDataArray2DVector3f::Accessor posAcc = inPos[it];
@@ -491,7 +491,7 @@ SICALLBACK VDB_SetValueAtCoordinate_Evaluate(ICENodeContext& in_ctxt)
 
 				switch (valPortDataType)
 				{
-				case siICENodeDataType::siICENodeDataFloat :
+                case siICENodeDataFloat :
 					{
 						if ( p_inWrapper->m_grid->isType<openvdb::FloatGrid> () == false )
 						{
@@ -510,7 +510,7 @@ SICALLBACK VDB_SetValueAtCoordinate_Evaluate(ICENodeContext& in_ctxt)
 
 						icedatatype = 0;
 					}break;
-				case siICENodeDataType::siICENodeDataBool :
+                case siICENodeDataBool :
 					{
 
 						if ( p_inWrapper->m_grid->isType<openvdb::BoolGrid> () == false )
@@ -528,7 +528,7 @@ SICALLBACK VDB_SetValueAtCoordinate_Evaluate(ICENodeContext& in_ctxt)
 						}
 						icedatatype =1;
 					}break;
-				case siICENodeDataType::siICENodeDataVector3 :
+                case siICENodeDataVector3 :
 					{
 
 						if ( p_inWrapper->m_grid->isType<openvdb::Vec3SGrid> () == false )
@@ -546,7 +546,7 @@ SICALLBACK VDB_SetValueAtCoordinate_Evaluate(ICENodeContext& in_ctxt)
 						}
 						icedatatype =2;
 					}break;
-				case siICENodeDataType::siICENodeDataString :
+                case siICENodeDataString :
 					{
 
 						if ( p_inWrapper->m_grid->isType<openvdb::StringGrid> () == false )
@@ -564,7 +564,7 @@ SICALLBACK VDB_SetValueAtCoordinate_Evaluate(ICENodeContext& in_ctxt)
 						}
 						icedatatype =3;
 					}break;
-				case siICENodeDataType::siICENodeDataLong :
+                case siICENodeDataLong :
 					{
 						if ( p_inWrapper->m_grid->isType<openvdb::Int32Grid> () == false )
 						{
@@ -607,7 +607,7 @@ SICALLBACK VDB_SetValueAtCoordinate_Evaluate(ICENodeContext& in_ctxt)
 };
 
 // lets cache this
-SICALLBACK VDB_SetValueAtCoordinate_Init( CRef& in_ctxt )
+SICALLBACK dlexport VDB_SetValueAtCoordinate_Init( CRef& in_ctxt )
 {
 	Context ctxt( in_ctxt );
 	CValue userData = ctxt.GetUserData();
@@ -628,7 +628,7 @@ SICALLBACK VDB_SetValueAtCoordinate_Init( CRef& in_ctxt )
 
 
 
-SICALLBACK VDB_SetValueAtCoordinate_Term( CRef& in_ctxt )
+SICALLBACK dlexport VDB_SetValueAtCoordinate_Term( CRef& in_ctxt )
 {
 	Context ctxt( in_ctxt );
 	CValue userData = ctxt.GetUserData();

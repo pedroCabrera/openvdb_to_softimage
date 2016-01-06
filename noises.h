@@ -2,6 +2,7 @@
 #include "MathUtils.h"
 #include <vector>
 #include <algorithm>
+#include <cstring>
 
 #undef min
 #undef max

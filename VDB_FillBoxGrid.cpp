@@ -144,8 +144,8 @@ struct VDB_FillBoxGrid_cache_t : public VDB_ICENode_cacheBase_t
 
 					if ( m_dense )
 					{
-						auto val = float(m_boxValue);
-						auto acc = ref->getAccessor();
+                        float val = float(m_boxValue);
+                        openvdb::FloatGrid::Accessor acc = ref->getAccessor();
 						LONG nbZ = bbox.max().z ();
 						LONG nbY = bbox.max().y ();
 						LONG nbX = bbox.max().x ();
@@ -162,7 +162,7 @@ struct VDB_FillBoxGrid_cache_t : public VDB_ICENode_cacheBase_t
 				};
 
 				m_primaryGrid.m_grid = ref;
-                m_primaryGrid.m_grid->setGridClass ( openvdb::v2_3_0::GridClass::GRID_FOG_VOLUME );
+                m_primaryGrid.m_grid->setGridClass ( openvdb::v2_3_0::GRID_FOG_VOLUME );
 
 			}break;
 		case 1:
@@ -184,8 +184,8 @@ struct VDB_FillBoxGrid_cache_t : public VDB_ICENode_cacheBase_t
 
 					if ( m_dense )
 					{
-						auto val = bool(m_boxValue);
-						auto acc = ref->getAccessor();
+                        bool val = bool(m_boxValue);
+                        openvdb::BoolGrid::Accessor acc = ref->getAccessor();
 						LONG nbZ = bbox.max().z ();
 						LONG nbY = bbox.max().y ();
 						LONG nbX = bbox.max().x ();
@@ -203,7 +203,7 @@ struct VDB_FillBoxGrid_cache_t : public VDB_ICENode_cacheBase_t
 				};
 
 				m_primaryGrid.m_grid = ref;
-                m_primaryGrid.m_grid->setGridClass ( openvdb::v2_3_0::GridClass::GRID_FOG_VOLUME );
+                m_primaryGrid.m_grid->setGridClass ( openvdb::v2_3_0::GRID_FOG_VOLUME );
 
 			}break;
 
@@ -229,8 +229,8 @@ struct VDB_FillBoxGrid_cache_t : public VDB_ICENode_cacheBase_t
 
 					if ( m_dense )
 					{
-						auto val = openvdb::Vec3s(vec3xsi[0], vec3xsi[1], vec3xsi[2]);
-						auto acc = ref->getAccessor();
+                        openvdb::Vec3s val = openvdb::Vec3s(vec3xsi[0], vec3xsi[1], vec3xsi[2]);
+                        openvdb::Vec3SGrid::Accessor acc = ref->getAccessor();
 						LONG nbZ = bbox.max().z ();
 						LONG nbY = bbox.max().y ();
 						LONG nbX = bbox.max().x ();
@@ -248,7 +248,7 @@ struct VDB_FillBoxGrid_cache_t : public VDB_ICENode_cacheBase_t
 
 
 				m_primaryGrid.m_grid = ref;
-                m_primaryGrid.m_grid->setGridClass ( openvdb::v2_3_0::GridClass::GRID_FOG_VOLUME );
+                m_primaryGrid.m_grid->setGridClass ( openvdb::v2_3_0::GRID_FOG_VOLUME );
 
 			}break;
 
@@ -272,8 +272,8 @@ struct VDB_FillBoxGrid_cache_t : public VDB_ICENode_cacheBase_t
 
 					if ( m_dense )
 					{
-						auto val = CString(m_boxValue).GetAsciiString();
-						auto acc = ref->getAccessor();
+                        const char* val = CString(m_boxValue).GetAsciiString();
+                        openvdb::StringGrid::Accessor acc = ref->getAccessor();
 						LONG nbZ = bbox.max().z ();
 						LONG nbY = bbox.max().y ();
 						LONG nbX = bbox.max().x ();
@@ -292,7 +292,7 @@ struct VDB_FillBoxGrid_cache_t : public VDB_ICENode_cacheBase_t
 				};
 
 				m_primaryGrid.m_grid = ref;
-                m_primaryGrid.m_grid->setGridClass ( openvdb::v2_3_0::GridClass::GRID_FOG_VOLUME );
+                m_primaryGrid.m_grid->setGridClass ( openvdb::v2_3_0::GRID_FOG_VOLUME );
 
 			}break;
 
@@ -316,8 +316,8 @@ struct VDB_FillBoxGrid_cache_t : public VDB_ICENode_cacheBase_t
 
 					if ( m_dense )
 					{
-						auto val = LONG(m_boxValue);
-						auto acc = ref->getAccessor();
+                        LONG val = LONG(m_boxValue);
+                        openvdb::Int32Grid::Accessor acc = ref->getAccessor();
 						LONG nbZ = bbox.max().z ();
 						LONG nbY = bbox.max().y ();
 						LONG nbX = bbox.max().x ();
@@ -335,7 +335,7 @@ struct VDB_FillBoxGrid_cache_t : public VDB_ICENode_cacheBase_t
 				};
 
 				m_primaryGrid.m_grid = ref;
-                m_primaryGrid.m_grid->setGridClass ( openvdb::v2_3_0::GridClass::GRID_FOG_VOLUME );
+                m_primaryGrid.m_grid->setGridClass ( openvdb::v2_3_0::GRID_FOG_VOLUME );
 			} break;
 
 
@@ -345,7 +345,7 @@ struct VDB_FillBoxGrid_cache_t : public VDB_ICENode_cacheBase_t
 		}
 
 		m_primaryGrid.m_lastEvalTime = clock ();
-		Application().LogMessage(L"[VDB][FILLBOX]: Stamped at=" + CString(m_primaryGrid.m_lastEvalTime));
+        Application().LogMessage(L"[VDB][FILLBOX]: Stamped at=" + CString((LONG)m_primaryGrid.m_lastEvalTime));
 		Application().LogMessage(L"[VDB][FILLBOX]: Done in=" + CString(timer.GetElapsedTime()));
 	};
 
@@ -353,7 +353,7 @@ struct VDB_FillBoxGrid_cache_t : public VDB_ICENode_cacheBase_t
 };
 
 
-SICALLBACK VDB_FillBoxGrid_Evaluate(ICENodeContext& in_ctxt)
+SICALLBACK dlexport VDB_FillBoxGrid_Evaluate(ICENodeContext& in_ctxt)
 {
 
 
@@ -423,7 +423,7 @@ SICALLBACK VDB_FillBoxGrid_Evaluate(ICENodeContext& in_ctxt)
 
 			switch (portDataType)
 			{
-			case siICENodeDataType::siICENodeDataFloat :
+            case siICENodeDataFloat :
 				{
 					CDataArrayFloat bgval( in_ctxt, ID_IN_BackgroundValue );
 					CDataArrayFloat boxval( in_ctxt, ID_IN_Fillboxvalue );
@@ -431,7 +431,7 @@ SICALLBACK VDB_FillBoxGrid_Evaluate(ICENodeContext& in_ctxt)
 					BoxVal = boxval[0];
 					datatype = 0;
 				}break;
-			case siICENodeDataType::siICENodeDataBool :
+            case siICENodeDataBool :
 				{
 					CDataArrayBool bgval( in_ctxt, ID_IN_BackgroundValue );
 					CDataArrayBool boxval( in_ctxt, ID_IN_Fillboxvalue );
@@ -439,15 +439,15 @@ SICALLBACK VDB_FillBoxGrid_Evaluate(ICENodeContext& in_ctxt)
 					BoxVal = boxval[0];
 					datatype = 1;
 				}break;
-			case siICENodeDataType::siICENodeDataVector3 :
+            case siICENodeDataVector3 :
 				{
-					CDataArrayVector3f bgval( in_ctxt, ID_IN_BackgroundValue );
+                    CDataArrayVector3f bgval( in_ctxt, ID_IN_BackgroundValue);
 					CDataArrayVector3f boxval( in_ctxt, ID_IN_Fillboxvalue );
 					BGval = bgval[0];
 					BoxVal = boxval[0];
 					datatype = 2;
 				}break;
-			case siICENodeDataType::siICENodeDataString :
+            case siICENodeDataString :
 				{
 					CDataArrayString bgval( in_ctxt, ID_IN_BackgroundValue );
 					CDataArrayString boxval( in_ctxt, ID_IN_Fillboxvalue );
@@ -455,7 +455,7 @@ SICALLBACK VDB_FillBoxGrid_Evaluate(ICENodeContext& in_ctxt)
 					BoxVal = boxval[0];
 					datatype = 3;
 				}break;
-			case siICENodeDataType::siICENodeDataLong :
+            case siICENodeDataLong :
 				{
 					CDataArrayLong bgval( in_ctxt, ID_IN_BackgroundValue );
 					CDataArrayLong boxval( in_ctxt, ID_IN_Fillboxvalue );
@@ -489,7 +489,7 @@ SICALLBACK VDB_FillBoxGrid_Evaluate(ICENodeContext& in_ctxt)
 };
 
 // lets cache this
-SICALLBACK VDB_FillBoxGrid_Init( CRef& in_ctxt )
+SICALLBACK dlexport VDB_FillBoxGrid_Init( CRef& in_ctxt )
 {
 	Context ctxt( in_ctxt );
 	CValue userData = ctxt.GetUserData();
@@ -510,7 +510,7 @@ SICALLBACK VDB_FillBoxGrid_Init( CRef& in_ctxt )
 
 
 
-SICALLBACK VDB_FillBoxGrid_Term( CRef& in_ctxt )
+SICALLBACK dlexport VDB_FillBoxGrid_Term( CRef& in_ctxt )
 {
 	Context ctxt( in_ctxt );
 	CValue userData = ctxt.GetUserData();

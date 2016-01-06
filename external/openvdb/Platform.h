@@ -144,25 +144,16 @@
 
 /// Visual C++ does not have stdint.h which defines types like uint64_t.
 /// So for portability we instead include boost/cstdint.hpp.
-//#include <boost/cstdint.hpp>
-//using boost::int8_t;
-//using boost::int16_t;
-//using boost::int32_t;
-//using boost::int64_t;
-//using boost::uint8_t;
-//using boost::uint16_t;
-//using boost::uint32_t;
-//using boost::uint64_t;
+#include <boost/cstdint.hpp>
+using boost::int8_t;
+using boost::int16_t;
+using boost::int32_t;
+using boost::int64_t;
+using boost::uint8_t;
+using boost::uint16_t;
+using boost::uint32_t;
+using boost::uint64_t;
 
- // EDITED: what the fucking problem to manually define these 8 ints ? why the heck we have to include the entire boost header with a tonn of config crap?
-    typedef signed char        int8_t;
-    typedef short              int16_t;
-    typedef int                int32_t;
-    typedef long long          int64_t;
-    typedef unsigned char      uint8_t;
-    typedef unsigned short     uint16_t;
-    typedef unsigned int       uint32_t;
-    typedef unsigned long long uint64_t;
 
 /// Helper macros for defining library symbol visibility
 #ifdef OPENVDB_EXPORT
@@ -172,8 +163,10 @@
 #undef OPENVDB_IMPORT
 #endif
 #ifdef __GNUC__
-    #define OPENVDB_EXPORT __attribute__((visibility("default")))
-    #define OPENVDB_IMPORT __attribute__((visibility("default")))
+   // #define OPENVDB_EXPORT __attribute__((visibility("default")))
+   // #define OPENVDB_IMPORT __attribute__((visibility("default")))
+    #define OPENVDB_EXPORT
+    #define OPENVDB_IMPORT
 #endif
 #ifdef _WIN32
     #ifdef OPENVDB_DLL

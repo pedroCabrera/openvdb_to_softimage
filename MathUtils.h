@@ -39,13 +39,13 @@ inline T Cuberp(  T y0,T y1, T y2,T y3, float mix)
 };
 
 template < typename T1,typename T2 >
-inline T1 GetMax ( T1 _a, T2 _b )
+inline T1 Maxv ( T1 _a, T2 _b )
 {
 	return _a > _b ? _a : _b; 
 };
 
 template < typename T >
-inline T GetMin ( T _a, T _b )
+inline T Minv ( T _a, T _b )
 {
 	return _a < _b ? _a : _b; 
 };
@@ -62,8 +62,8 @@ inline bool IsInRangeExcl ( T1 _DownTresh, T1 _UpTresh, T _Value )
 	return _Value > _DownTresh ? ( _Value < _UpTresh ? true : false ) : false;
 };
 
-template < typename T, typename T1 >
-inline T Clamp (   T1 _DownTresh, T1 _UpTresh,  T _Value )
+template < typename T, typename T1 , typename T2 >
+inline T Clamp (   T1 _DownTresh, T2 _UpTresh,  T _Value )
 {
 	return _Value >= _DownTresh ? ( _Value <= _UpTresh ? _Value : _UpTresh ) : _DownTresh;
 };

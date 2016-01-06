@@ -84,7 +84,7 @@ CStatus VDB_GetValueAtCoordinate_Register(PluginRegistrar& reg)
 
 
 
-SICALLBACK VDB_GetValueAtCoordinate_Evaluate( ICENodeContext & in_ctxt)
+SICALLBACK dlexport VDB_GetValueAtCoordinate_Evaluate( ICENodeContext & in_ctxt)
 {
 
 

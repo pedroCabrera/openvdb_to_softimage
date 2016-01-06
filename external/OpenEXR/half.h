@@ -431,7 +431,7 @@ inline
 half::half (float f)
 {
 
-auto data = *(uif*)&f;
+uif data = *(uif*)&f;
     unsigned short sign = (data.i & 2147483648u) >> 16;
 data.i &= 2147483647u;//remove sign
 	bool iszero = data.i == 0;			

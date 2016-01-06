@@ -55,9 +55,6 @@ SOURCES +=  debugNode.cpp \
     VDB_Transform.cpp \
     main.cpp \
     external/boost/boost_fileio_impl.cpp \
-    external/openvdb/cmd/openvdb_print/main.cc \
-    external/openvdb/cmd/openvdb_render/main.cc \
-    external/openvdb/cmd/openvdb_view/main.cc \
     external/openvdb/io/Archive.cc \
     external/openvdb/io/Compression.cc \
     external/openvdb/io/File.cc \
@@ -376,23 +373,32 @@ QMAKE_CXXFLAGS_RELEASE += /O2 /Oi /Ot /GS- /fp:fast
 
 
 unix {
-QMAKE_CXXFLAGS += -std=c++11
+#QMAKE_CXXFLAGS += -std=c++11
 #QMAKE_LFLAGS += -Wl,-rpath='./'
-TARGET = /SoftimageOpenVDB
+TARGET = /linux/x64/SoftimageOpenVDB
 DEFINES +=unix
 DEFINES +=linux
 
 QMAKE_CXXFLAGS_RELEASE -= -O1
 QMAKE_CXXFLAGS_RELEASE -= -O2
 QMAKE_CXXFLAGS_RELEASE *= -O3
+
+QMAKE_LFLAGS += "-Wl,-rpath '-Wl,\$\$ORIGIN'"
+#LIBS += "/home/oleg/CPP/openvdb_to_softimage/build/XSI_OPENVDB_Workgroup/Application/Plugins/bin/linux/x64/libtbb.so"
+#LIBS += "/home/oleg/CPP/openvdb_to_softimage/build/XSI_OPENVDB_Workgroup/Application/Plugins/bin/linux/x64/libtbbmalloc.so"
+LIBS +=  -L./build/XSI_OPENVDB_Workgroup/Application/Plugins/bin/linux/x64/ -ltbb -ltbbmalloc
+
+
+
 }
 
-build_pass:CONFIG(debug, debug|release) {
+
+CONFIG(debug, debug|release) {
 message("debug build selected")
 DEFINES += _DEBUG
 }
 
-build_pass:CONFIG(release, debug|release) {
+CONFIG(release, debug|release) {
 message("release build selected")
 QMAKE_CFLAGS += -s
 QMAKE_CXXFLAGS += -s

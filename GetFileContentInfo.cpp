@@ -5,7 +5,7 @@
 #include "vdbHelpers.h"
 
 
-SICALLBACK VDBGetFileInfo_Init( CRef& in_ctxt )
+SICALLBACK dlexport VDBGetFileInfo_Init( CRef& in_ctxt )
 {
         Context ctxt( in_ctxt );
         Command oCmd;
@@ -25,7 +25,7 @@ SICALLBACK VDBGetFileInfo_Init( CRef& in_ctxt )
 
 
 
-SICALLBACK VDBGetFileInfo_Execute( CRef& in_ctxt )
+SICALLBACK dlexport VDBGetFileInfo_Execute( CRef& in_ctxt )
 {
         
    Context ctxt( in_ctxt );
@@ -61,7 +61,7 @@ SICALLBACK VDBGetFileInfo_Execute( CRef& in_ctxt )
 	   return CStatus::OK;
    }
 
-    Application().LogMessage(L"[VDB][GETFILEINFO]: Total nbGrids in file=" + CString (grids->size ()) );;
+    Application().LogMessage(L"[VDB][GETFILEINFO]: Total nbGrids in file=" + CString ((LONG)grids->size ()) );;
    LONG cnt = 0;
    for (openvdb::GridPtrVec::const_iterator it = grids->begin(); it != grids->end(); ++it, ++cnt)
    {
@@ -77,7 +77,7 @@ SICALLBACK VDBGetFileInfo_Execute( CRef& in_ctxt )
 	   // grid name and data type
 	   Application().LogMessage(L"[VDB][GETFILEINFO]: Name=" + CString(grid->getName().c_str()));
 	   Application().LogMessage(L"[VDB][GETFILEINFO]: DataType=" + CString(grid->valueType().c_str()));
-	   Application().LogMessage(L"[VDB][GETFILEINFO]: NbActiveVoxels=" + CString(grid->activeVoxelCount()));
+       Application().LogMessage(L"[VDB][GETFILEINFO]: NbActiveVoxels=" + CString((LONG)grid->activeVoxelCount()));
 	   LLONG nbbytes = grid->memUsage();
 	   Application().LogMessage(L"[VDB][GETFILEINFO]: NbAllocatedBytes=" + CString(nbbytes) + L"| in MB=" + CString(nbbytes/1024LL*1024LL) + L"| in GB=" + CString(nbbytes/1024LL*1024LL*1024LL));
 	   
@@ -89,7 +89,7 @@ SICALLBACK VDBGetFileInfo_Execute( CRef& in_ctxt )
 	   if (grid->isType<openvdb::BoolGrid>()) 
 	   {
 		   bool min,max;
-		   auto castedgrid = openvdb::gridPtrCast<openvdb::BoolGrid>(grid);
+        openvdb::BoolGrid::Ptr  castedgrid = openvdb::gridPtrCast<openvdb::BoolGrid>(grid);
 		   castedgrid->evalMinMax(min,max);
 		   Application().LogMessage(L"[VDB][GETFILEINFO]: MinVal=" + CString (min) ); 
 		    Application().LogMessage(L"[VDB][GETFILEINFO]: MaxVal=" + CString (max) );
@@ -97,7 +97,7 @@ SICALLBACK VDBGetFileInfo_Execute( CRef& in_ctxt )
 	   else if (grid->isType<openvdb::FloatGrid>())		
 	   {
 		   		   float min,max;
-		   auto castedgrid = openvdb::gridPtrCast<openvdb::FloatGrid>(grid);
+           openvdb::FloatGrid::Ptr  castedgrid = openvdb::gridPtrCast<openvdb::FloatGrid>(grid);
 		   castedgrid->evalMinMax(min,max);
 		   Application().LogMessage(L"[VDB][GETFILEINFO]: MinVal=" + CString (min) ); 
 		    Application().LogMessage(L"[VDB][GETFILEINFO]: MaxVal=" + CString (max) );
@@ -105,7 +105,7 @@ SICALLBACK VDBGetFileInfo_Execute( CRef& in_ctxt )
 	   else if (grid->isType<openvdb::DoubleGrid>())
 	   {
 		      double min,max;
-		   auto castedgrid = openvdb::gridPtrCast<openvdb::DoubleGrid>(grid);
+           openvdb::DoubleGrid::Ptr  castedgrid = openvdb::gridPtrCast<openvdb::DoubleGrid>(grid);
 		   castedgrid->evalMinMax(min,max);
 		   Application().LogMessage("[VDB][GETFILEINFO]: MinVal=" + CString (min) ); 
 		    Application().LogMessage("[VDB][GETFILEINFO]: MaxVal=" + CString (max) );
@@ -113,23 +113,23 @@ SICALLBACK VDBGetFileInfo_Execute( CRef& in_ctxt )
 	   else if (grid->isType<openvdb::Int32Grid>())
 	   {
 		     int min,max;
-		   auto castedgrid = openvdb::gridPtrCast<openvdb::Int32Grid>(grid);
+           openvdb::Int32Grid::Ptr  castedgrid = openvdb::gridPtrCast<openvdb::Int32Grid>(grid);
 		   castedgrid->evalMinMax(min,max);
 		   Application().LogMessage(L"[VDB][GETFILEINFO]: MinVal=" + CString (min) ); 
 		    Application().LogMessage(L"[VDB][GETFILEINFO]: MaxVal=" + CString (max) );
 	   }
 	   else if (grid->isType<openvdb::Int64Grid>())
 	   {
-		        LLONG min,max;
-		   auto castedgrid = openvdb::gridPtrCast<openvdb::Int64Grid>(grid);
+                int64_t min,max;
+           openvdb::Int64Grid::Ptr  castedgrid = openvdb::gridPtrCast<openvdb::Int64Grid>(grid);
 		   castedgrid->evalMinMax(min,max);
-		   Application().LogMessage(L"[VDB][GETFILEINFO]: MinVal=" + CString (min) ); 
-		    Application().LogMessage(L"[VDB][GETFILEINFO]: MaxVal=" + CString (max) );
+           Application().LogMessage(L"[VDB][GETFILEINFO]: MinVal=" + CString ((LONG)min) );
+            Application().LogMessage(L"[VDB][GETFILEINFO]: MaxVal=" + CString ((LONG)max) );
 	   }
 	   else if (grid->isType<openvdb::Vec3IGrid>())
 	   {
 		   openvdb::Vec3i min,max;
-		   auto castedgrid = openvdb::gridPtrCast<openvdb::Vec3IGrid>(grid);
+           openvdb::Vec3IGrid::Ptr  castedgrid = openvdb::gridPtrCast<openvdb::Vec3IGrid>(grid);
 		   castedgrid->evalMinMax(min,max);
 		   Application().LogMessage(L"[VDB][GETFILEINFO]: MinVal(length)=" + CString (min.length()) ); 
 		    Application().LogMessage(L"[VDB][GETFILEINFO]: MaxVal(length)=" + CString (max.length()) );
@@ -139,7 +139,7 @@ SICALLBACK VDBGetFileInfo_Execute( CRef& in_ctxt )
 	   else if (grid->isType<openvdb::Vec3SGrid>())
 	   {
 		      openvdb::Vec3s min,max;
-		   auto castedgrid = openvdb::gridPtrCast<openvdb::Vec3SGrid>(grid);
+           openvdb::Vec3SGrid::Ptr  castedgrid = openvdb::gridPtrCast<openvdb::Vec3SGrid>(grid);
 		   castedgrid->evalMinMax(min,max);
 		   Application().LogMessage(L"[VDB][GETFILEINFO]: MinVal(length)=" + CString (min.length()) ); 
 		    Application().LogMessage(L"[VDB][GETFILEINFO]: MaxVal(length)=" + CString (max.length()) );
@@ -149,7 +149,7 @@ SICALLBACK VDBGetFileInfo_Execute( CRef& in_ctxt )
 	   else if (grid->isType<openvdb::Vec3DGrid>())
 	   {
 		   openvdb::Vec3d min,max;
-		   auto castedgrid = openvdb::gridPtrCast<openvdb::Vec3DGrid>(grid);
+           openvdb::Vec3DGrid::Ptr  castedgrid = openvdb::gridPtrCast<openvdb::Vec3DGrid>(grid);
 		   castedgrid->evalMinMax(min,max);
 		   Application().LogMessage(L"[VDB][GETFILEINFO]: MinVal(length)=" + CString (min.length()) ); 
 		    Application().LogMessage(L"[VDB][GETFILEINFO]: MaxVal(length)=" + CString (max.length()) );

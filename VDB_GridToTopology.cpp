@@ -164,7 +164,7 @@ struct VDB_GridToMesh_cache_t : public VDB_ICENode_cacheBase_t
 
 			for ( LLONG triIt = 0; triIt < nbTriangles; ++triIt )
 			{
-				auto currTri = currentPool.triangle(triIt);
+                openvdb::Vec3I currTri = currentPool.triangle(triIt);
 				m_indices.push_back ( currTri.x() );
 				m_indices.push_back ( currTri.y() );
 				m_indices.push_back ( currTri.z() );
@@ -174,7 +174,7 @@ struct VDB_GridToMesh_cache_t : public VDB_ICENode_cacheBase_t
 
 			for ( LLONG quadIt = 0; quadIt < nbQuads; ++quadIt )
 			{
-				auto currQuad = currentPool.quad(quadIt);
+                openvdb::Vec4I currQuad = currentPool.quad(quadIt);
 				m_indices.push_back ( currQuad.x() );
 				m_indices.push_back ( currQuad.y() );
 				m_indices.push_back ( currQuad.z() );
@@ -193,7 +193,7 @@ struct VDB_GridToMesh_cache_t : public VDB_ICENode_cacheBase_t
 
 		};
 
-		Application().LogMessage(L"[VDB][MESHER]: Stamped by=" + CString(m_inputTime) );
+        Application().LogMessage(L"[VDB][MESHER]: Stamped by=" + CString((LONG)m_inputTime) );
 		Application().LogMessage(L"[VDB][MESHER]: Done in=" + CString(timer.GetElapsedTime()) );
 	};
 
@@ -222,7 +222,7 @@ struct VDB_GridToMesh_cache_t : public VDB_ICENode_cacheBase_t
 
 
 
-SICALLBACK VDB_GridToMesh_Evaluate( ICENodeContext & in_ctxt)
+SICALLBACK dlexport VDB_GridToMesh_Evaluate( ICENodeContext & in_ctxt)
 {
 
 
@@ -340,7 +340,7 @@ return CStatus::OK;
 
 
 
-SICALLBACK VDB_GridToMesh_Init( CRef& in_ctxt )
+SICALLBACK dlexport VDB_GridToMesh_Init( CRef& in_ctxt )
 {
    Context ctxt( in_ctxt );
    CValue userData = ctxt.GetUserData();
@@ -361,7 +361,7 @@ SICALLBACK VDB_GridToMesh_Init( CRef& in_ctxt )
 
 
 
-SICALLBACK VDB_GridToMesh_Term( CRef& in_ctxt )
+SICALLBACK dlexport VDB_GridToMesh_Term( CRef& in_ctxt )
 {
 	Context ctxt( in_ctxt );
    CValue userData = ctxt.GetUserData();

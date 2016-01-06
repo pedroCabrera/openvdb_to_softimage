@@ -131,7 +131,7 @@ private:
 		openvdb::math::Transform::Ptr xform = openvdb::math::Transform::createLinearTransform(m_voxelsize);
 		outGridBase->setTransform(xform);
 
-		GridT::Ptr outGridCasted = openvdb::gridPtrCast<GridT>(outGridBase);
+typename		GridT::Ptr outGridCasted = openvdb::gridPtrCast<GridT>(outGridBase);
 		openvdb::util::NullInterrupter interrupter;
 		openvdb::tools::resampleToMatch<Sampler>(inGrid, *outGridCasted, interrupter);
 	};
@@ -206,7 +206,7 @@ public:
 			m_primaryGrid.m_grid = outGrid;
 			m_primaryGrid.m_grid->setName ( in_grid->m_grid->getName ( ) );
 			m_primaryGrid.m_lastEvalTime = clock();
-			Application().LogMessage(L"[VDB][RESAMPLE]: Stamped at=" + CString ( m_primaryGrid.m_lastEvalTime));
+            Application().LogMessage(L"[VDB][RESAMPLE]: Stamped at=" + CString ((LONG) m_primaryGrid.m_lastEvalTime));
 			Application().LogMessage(L"[VDB][RESAMPLE]: Done in=" + CString (timer.GetElapsedTime ()));
 
 		}
@@ -227,7 +227,7 @@ public:
 
 };
 
-SICALLBACK VDB_ResampleGrid_Evaluate( ICENodeContext& in_ctxt )
+SICALLBACK dlexport VDB_ResampleGrid_Evaluate( ICENodeContext& in_ctxt )
 {
 
 	// The current output port being evaluated...
@@ -287,7 +287,7 @@ SICALLBACK VDB_ResampleGrid_Evaluate( ICENodeContext& in_ctxt )
 	return CStatus::OK;
 };
 
-SICALLBACK VDB_ResampleGrid_Init( CRef& in_ctxt )
+SICALLBACK dlexport VDB_ResampleGrid_Init( CRef& in_ctxt )
 {
 
 	// init openvdb stuff
@@ -312,7 +312,7 @@ SICALLBACK VDB_ResampleGrid_Init( CRef& in_ctxt )
 
 
 
-SICALLBACK VDB_ResampleGrid_Term( CRef& in_ctxt )
+SICALLBACK dlexport VDB_ResampleGrid_Term( CRef& in_ctxt )
 {
 	Context ctxt( in_ctxt );
 	CValue userData = ctxt.GetUserData();
