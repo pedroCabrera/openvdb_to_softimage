@@ -10,3 +10,6 @@ C:\Program Files\Autodesk\Softimage 2013 SP1\XSISDK
 Clone the repo and open openvdb_to_softimage.pro in qtcreator, configure your toolchain and build.
 To connect the plugin in softimage, open the plug-in manager and connect "repofolder/build/XSI_OPENVDB_Workgroup" as workgroup.
 Restart Softimage.
+
+
+Check out the binaries in the downloads section.
