@@ -12,4 +12,4 @@ To connect the plugin in softimage, open the plug-in manager and connect "repofo
 Restart Softimage.
 
 
-Check out the binaries in the downloads section ( and do not forget to install the [vs2015 redistr](https://www.microsoft.com/en-us/download/details.aspx?id=48145) on windows )
+Check out the binaries in the downloads section ( and do not forget to install [vs2015 redistr](https://www.microsoft.com/en-us/download/details.aspx?id=48145) on windows )
