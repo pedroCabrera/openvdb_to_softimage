@@ -57,7 +57,7 @@ obj/
 [Rr]elease*/
 [Rr]elease64*/
 [Rr]elease32*/
-!external/*
+!external/
 Ankh.NoLoad
 
 
