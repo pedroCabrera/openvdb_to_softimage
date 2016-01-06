@@ -52,13 +52,16 @@ Makefile.Debug
 Makefile.Release
 ipch/
 obj/
+
+!external/
+
 [Dd]ebug*/
 [Dd]ebug32*/
 [Dd]ebug64*/
 [Rr]elease*/
 [Rr]elease64*/
 [Rr]elease32*/
-!external/
+
 Ankh.NoLoad
 
 
