@@ -47,6 +47,7 @@
 *.exp
 *.idb
 *.unsuccessfulbuild
+Makefile
 Makefile.Debug
 Makefile.Release
 ipch/
