@@ -51,7 +51,6 @@ Makefile.Debug
 Makefile.Release
 ipch/
 obj/
-x64/
 [Dd]ebug*/
 [Dd]ebug32*/
 [Dd]ebug64*/
