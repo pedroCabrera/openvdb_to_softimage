@@ -54,13 +54,8 @@ ipch/
 obj/
 
 !external/
-
-[Dd]ebug*/
-[Dd]ebug32*/
-[Dd]ebug64*/
-[Rr]elease*/
-[Rr]elease64*/
-[Rr]elease32*/
+./debug/
+./release/
 
 Ankh.NoLoad
 
