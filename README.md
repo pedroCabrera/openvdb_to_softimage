@@ -1,4 +1,4 @@
-Basic OpenVDB connector for Autodesk Softimage
+### Basic OpenVDB connector for Autodesk Softimage ###
 
 In order to build you have to install Visual studio (2010-2015) on Windows or GCC if you are on linux. 
 Next, install qtcreator IDE (make sure it is compatible with your vs/gcc version).
