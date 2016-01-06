@@ -1,6 +1,7 @@
 #include "Main.h"
 #include "vdbHelpers.h"
 
+#include <openvdb/openvdb.h>
  #include <openvdb/util/Util.h>
  #include <openvdb/Types.h>
 #include <openvdb/Grid.h>
@@ -142,8 +143,8 @@ struct VDB_CreateGrid_cache_t : public VDB_ICENode_cacheBase_t
 			else if (inrefgrid->m_grid->isType<openvdb::Vec3SGrid>())m_primaryGrid.m_grid =  FloatGrid::Ptr(CopyTopo <FloatTree, FloatGrid > (gridPtrCast<Vec3SGrid>  (inrefgrid->m_grid)));
 			else if (inrefgrid->m_grid->isType<openvdb::Vec3DGrid>())m_primaryGrid.m_grid =  FloatGrid::Ptr(CopyTopo <FloatTree, FloatGrid > (gridPtrCast<Vec3DGrid>  (inrefgrid->m_grid)));
 			else if (inrefgrid->m_grid->isType<openvdb::StringGrid>())m_primaryGrid.m_grid =  FloatGrid::Ptr(CopyTopo <FloatTree, FloatGrid > (gridPtrCast<StringGrid>  (inrefgrid->m_grid)));
-
-			gridPtrCast<FloatGrid> (m_primaryGrid.m_grid)->setBackground ( float(m_BGValue) );
+   // openvdb ::tools::changeBackground  <FloatGrid>  (  *gridPtrCast<FloatGrid> (m_primaryGrid.m_grid),  float(m_BGValue) );
+        gridPtrCast<FloatGrid> (m_primaryGrid.m_grid)->setBackground ( float(m_BGValue) );
 			m_primaryGrid.m_grid->setTransform ( inrefgrid->m_grid->transformPtr	());
 				}
 				else
@@ -172,8 +173,8 @@ struct VDB_CreateGrid_cache_t : public VDB_ICENode_cacheBase_t
 			else if (inrefgrid->m_grid->isType<openvdb::Vec3SGrid>())m_primaryGrid.m_grid =  BoolGrid::Ptr(CopyTopo <BoolTree, BoolGrid > (gridPtrCast<Vec3SGrid>  (inrefgrid->m_grid)));
 			else if (inrefgrid->m_grid->isType<openvdb::Vec3DGrid>())m_primaryGrid.m_grid =  BoolGrid::Ptr(CopyTopo <BoolTree, BoolGrid > (gridPtrCast<Vec3DGrid>  (inrefgrid->m_grid)));
 			else if (inrefgrid->m_grid->isType<openvdb::StringGrid>())m_primaryGrid.m_grid =  BoolGrid::Ptr(CopyTopo <BoolTree, BoolGrid > (gridPtrCast<StringGrid>  (inrefgrid->m_grid)));
-		
-					gridPtrCast<BoolGrid> (m_primaryGrid.m_grid)->setBackground ( bool(m_BGValue) );
+          //  openvdb ::tools::changeBackground  <BoolGrid>  (  *gridPtrCast<BoolGrid> (m_primaryGrid.m_grid),  bool(m_BGValue) );
+                    gridPtrCast<BoolGrid> (m_primaryGrid.m_grid)->setBackground ( bool(m_BGValue) );
 					m_primaryGrid.m_grid->setTransform ( inrefgrid->m_grid->transformPtr	());
 				}
 				else
@@ -203,7 +204,8 @@ struct VDB_CreateGrid_cache_t : public VDB_ICENode_cacheBase_t
 			else if (inrefgrid->m_grid->isType<openvdb::Vec3DGrid>())m_primaryGrid.m_grid =  Vec3SGrid::Ptr(CopyTopo <Vec3STree, Vec3SGrid > (gridPtrCast<Vec3DGrid>  (inrefgrid->m_grid)));
 			else if (inrefgrid->m_grid->isType<openvdb::StringGrid>())m_primaryGrid.m_grid =  Vec3SGrid::Ptr(CopyTopo <Vec3STree, Vec3SGrid > (gridPtrCast<StringGrid>  (inrefgrid->m_grid)));
 		MATH::CVector3f vec3xsi = m_BGValue;
-					gridPtrCast<Vec3SGrid> (m_primaryGrid.m_grid)->setBackground (  openvdb::Vec3s(vec3xsi[0], vec3xsi[1], vec3xsi[2]) );
+         //  openvdb ::tools::changeBackground  <Vec3SGrid>  (  *gridPtrCast<Vec3SGrid> (m_primaryGrid.m_grid), openvdb::Vec3s(vec3xsi[0], vec3xsi[1], vec3xsi[2]) );
+                    gridPtrCast<Vec3SGrid> (m_primaryGrid.m_grid)->setBackground (  openvdb::Vec3s(vec3xsi[0], vec3xsi[1], vec3xsi[2]) );
 					m_primaryGrid.m_grid->setTransform ( inrefgrid->m_grid->transformPtr	());
 				}
 				else
@@ -233,8 +235,8 @@ struct VDB_CreateGrid_cache_t : public VDB_ICENode_cacheBase_t
 			else if (inrefgrid->m_grid->isType<openvdb::Vec3SGrid>())m_primaryGrid.m_grid =  StringGrid::Ptr(CopyTopo <StringTree, StringGrid > (gridPtrCast<Vec3SGrid>  (inrefgrid->m_grid)));
 			else if (inrefgrid->m_grid->isType<openvdb::Vec3DGrid>())m_primaryGrid.m_grid =  StringGrid::Ptr(CopyTopo <StringTree, StringGrid > (gridPtrCast<Vec3DGrid>  (inrefgrid->m_grid)));
 			else if (inrefgrid->m_grid->isType<openvdb::StringGrid>())m_primaryGrid.m_grid =  StringGrid::Ptr(CopyTopo <StringTree, StringGrid > (gridPtrCast<StringGrid>  (inrefgrid->m_grid)));
-		
-					gridPtrCast<StringGrid> (m_primaryGrid.m_grid)->setBackground ( CString(m_BGValue).GetAsciiString() );
+            // openvdb ::tools::changeBackground  <StringGrid>  (  *gridPtrCast<StringGrid> (m_primaryGrid.m_grid),CString(m_BGValue).GetAsciiString());
+                gridPtrCast<StringGrid> (m_primaryGrid.m_grid)->setBackground ( CString(m_BGValue).GetAsciiString() );
 					m_primaryGrid.m_grid->setTransform ( inrefgrid->m_grid->transformPtr	());
 				}
 				else
@@ -263,7 +265,8 @@ struct VDB_CreateGrid_cache_t : public VDB_ICENode_cacheBase_t
 			else if (inrefgrid->m_grid->isType<openvdb::Vec3DGrid>())m_primaryGrid.m_grid =  Int32Grid::Ptr(CopyTopo <Int32Tree, Int32Grid > (gridPtrCast<Vec3DGrid>  (inrefgrid->m_grid)));
 			else if (inrefgrid->m_grid->isType<openvdb::StringGrid>())m_primaryGrid.m_grid =  Int32Grid::Ptr(CopyTopo <Int32Tree, Int32Grid > (gridPtrCast<StringGrid>  (inrefgrid->m_grid)));
 		
-					gridPtrCast<Int32Grid> (m_primaryGrid.m_grid)->setBackground ( LONG(m_BGValue) );
+                  //  openvdb ::tools::changeBackground  <Int32Grid>  (  *gridPtrCast<Int32Grid> (m_primaryGrid.m_grid), LONG(m_BGValue));
+                   gridPtrCast<Int32Grid> (m_primaryGrid.m_grid)->setBackground ( LONG(m_BGValue) );
 					m_primaryGrid.m_grid->setTransform ( inrefgrid->m_grid->transformPtr	());
 				}
 				else
@@ -281,7 +284,7 @@ struct VDB_CreateGrid_cache_t : public VDB_ICENode_cacheBase_t
 			break;
 		}
 
-		m_primaryGrid.m_grid->setGridClass ( openvdb::v2_1_0::GridClass::GRID_FOG_VOLUME );
+        m_primaryGrid.m_grid->setGridClass ( openvdb::v2_3_0::GridClass::GRID_FOG_VOLUME );
 		m_primaryGrid.m_grid->setName ( m_gridName.GetAsciiString() );
 		m_primaryGrid.m_lastEvalTime = clock ();
 		Application().LogMessage(L"[VDB][CREATEGRID]: Stamped at=" + CString(m_primaryGrid.m_lastEvalTime));

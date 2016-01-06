@@ -295,7 +295,7 @@ struct VDB_Particles2Mesh_cache_t
 		if ( m_useFog )
 			{
 			 openvdb::tools::sdfToFogVolume(*rasterizedGrid);
-				rasterizedGrid->setGridClass ( openvdb::v2_1_0::GridClass::GRID_FOG_VOLUME );
+                rasterizedGrid->setGridClass ( openvdb::v2_3_0::GridClass::GRID_FOG_VOLUME );
 			};
 
 		

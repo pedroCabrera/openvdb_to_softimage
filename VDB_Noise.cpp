@@ -148,7 +148,7 @@ struct VDB_Noise_cache_t : public VDB_ICENode_cacheBase_t
 			if ( m_nsType )
 				for ( openvdb::FloatGrid::ValueOnIter iter = grid->beginValueOn();iter; ++ iter  )
 				{
-					openvdb::v2_1_0::math::Vec3d vdbVec3 = grid->indexToWorld ( iter.getCoord () );
+                    openvdb::v2_3_0::math::Vec3d vdbVec3 = grid->indexToWorld ( iter.getCoord () );
 
 					iter.setValue ( iter.getValue() + m_turbNoiser.GetSpectralSimplexNoise4D( m_time, 
 						vdbVec3.x() * m_scale.GetX(), vdbVec3.y() * m_scale.GetY(), vdbVec3.z() * m_scale.GetZ(),
@@ -157,7 +157,7 @@ struct VDB_Noise_cache_t : public VDB_ICENode_cacheBase_t
 			else
 				for ( openvdb::FloatGrid::ValueOnIter iter = grid->beginValueOn();iter; ++ iter  )
 				{
-					openvdb::v2_1_0::math::Vec3d vdbVec3 = grid->indexToWorld ( iter.getCoord () );
+                    openvdb::v2_3_0::math::Vec3d vdbVec3 = grid->indexToWorld ( iter.getCoord () );
 
 					iter.setValue ( iter.getValue() + m_cellNoiser.GetSpectralWorleyNoise4D( m_time, 
 						vdbVec3.x() * m_scale.GetX(), vdbVec3.y() * m_scale.GetY(), vdbVec3.z() * m_scale.GetZ(),
@@ -175,8 +175,8 @@ struct VDB_Noise_cache_t : public VDB_ICENode_cacheBase_t
 			if ( m_nsType )
 				for ( openvdb::Vec3SGrid::ValueOnIter iter = grid->beginValueOn();iter; ++ iter  )
 				{
-					openvdb::v2_1_0::math::Vec3s vdbVec3 = grid->indexToWorld ( iter.getCoord () );
-					openvdb::v2_1_0::math::Vec3s gradient;
+                    openvdb::v2_3_0::math::Vec3s vdbVec3 = grid->indexToWorld ( iter.getCoord () );
+                    openvdb::v2_3_0::math::Vec3s gradient;
 
 					gradient.x () = 	m_turbNoiser.GetSpectralSimplexNoise4D ( m_time, 
 						(vdbVec3.x()+dX_simplex) * m_scale.GetX()   , vdbVec3.y() * m_scale.GetY(), vdbVec3.z() * m_scale.GetZ(),
@@ -202,8 +202,8 @@ struct VDB_Noise_cache_t : public VDB_ICENode_cacheBase_t
 			else
 				for ( openvdb::Vec3SGrid::ValueOnIter iter = grid->beginValueOn();iter; ++ iter  )
 				{
-					openvdb::v2_1_0::math::Vec3s vdbVec3 = grid->indexToWorld ( iter.getCoord () );
-					openvdb::v2_1_0::math::Vec3s gradient;
+                    openvdb::v2_3_0::math::Vec3s vdbVec3 = grid->indexToWorld ( iter.getCoord () );
+                    openvdb::v2_3_0::math::Vec3s gradient;
 
 					gradient.x () = 	m_cellNoiser.GetSpectralWorleyNoise4D ( m_time, 
 						(vdbVec3.x()+dX_worley) * m_scale.GetX()   , vdbVec3.y() * m_scale.GetY(), vdbVec3.z() * m_scale.GetZ(),

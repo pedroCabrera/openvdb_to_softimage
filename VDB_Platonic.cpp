@@ -108,11 +108,11 @@ struct VDB_Platonic_cache_t : public VDB_ICENode_cacheBase_t
 			if ( m_toFog )
 			{
 				openvdb::tools::sdfToFogVolume(*tempPtr);
-				tempPtr->setGridClass ( openvdb::v2_1_0::GridClass::GRID_FOG_VOLUME );
+                tempPtr->setGridClass ( openvdb::v2_3_0::GridClass::GRID_FOG_VOLUME );
 			}
 			else
 			{
-				tempPtr->setGridClass ( openvdb::v2_1_0::GridClass::GRID_LEVEL_SET );
+                tempPtr->setGridClass ( openvdb::v2_3_0::GridClass::GRID_LEVEL_SET );
 			};
 
 

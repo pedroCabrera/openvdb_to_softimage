@@ -98,7 +98,7 @@ struct VDB_ChangeGridClass_cache_t : public VDB_ICENode_cacheBase_t
 
 		if ( m_order ) // sdf to fog
 		{
-			if ( in_grid->m_grid->getGridClass() == openvdb::v2_1_0::GridClass::GRID_FOG_VOLUME )
+            if ( in_grid->m_grid->getGridClass() == openvdb::v2_3_0::GridClass::GRID_FOG_VOLUME )
 			{
 				m_primaryGrid.m_grid = in_grid->m_grid->deepCopyGrid ();
 				Application().LogMessage(L"[VDB][CHANGEGRIDCLASS]: Input grid  is already FOG_VOLUME class", siWarningMsg );
@@ -109,14 +109,14 @@ struct VDB_ChangeGridClass_cache_t : public VDB_ICENode_cacheBase_t
 				openvdb::GridBase::Ptr tempBaseGrid  = in_grid->m_grid->deepCopyGrid ();
 				openvdb::FloatGrid::Ptr grid =  openvdb::gridPtrCast<openvdb::FloatGrid>(tempBaseGrid);
 				openvdb::tools::sdfToFogVolume ( *grid );
-				grid->setGridClass ( openvdb::v2_1_0::GridClass::GRID_FOG_VOLUME );
+                grid->setGridClass ( openvdb::v2_3_0::GridClass::GRID_FOG_VOLUME );
 				m_primaryGrid.m_grid  = grid;
 			};
 			
 		}
 		else // fog to sdf
 		{
-			if ( in_grid->m_grid->getGridClass() == openvdb::v2_1_0::GridClass::GRID_LEVEL_SET )
+            if ( in_grid->m_grid->getGridClass() == openvdb::v2_3_0::GridClass::GRID_LEVEL_SET )
 			{
 				m_primaryGrid.m_grid = in_grid->m_grid->deepCopyGrid ();
 				m_primaryGrid.m_grid->setName ( in_grid->m_grid->getName ( ) );
@@ -138,7 +138,7 @@ struct VDB_ChangeGridClass_cache_t : public VDB_ICENode_cacheBase_t
 
 			openvdb::tools::PolygonPoolList& polygonPoolList = mesher.polygonPoolList();
 
-			std::vector<openvdb::v2_1_0::Vec4I> primitives;
+            std::vector<openvdb::v2_3_0::Vec4I> primitives;
 			size_t numPrimitives = 0;
 			for (size_t n = 0, N = mesher.polygonPoolListSize(); n < N; ++n) {
 				const openvdb::tools::PolygonPool& polygons = polygonPoolList[n];
@@ -173,7 +173,7 @@ struct VDB_ChangeGridClass_cache_t : public VDB_ICENode_cacheBase_t
 			openvdb::tools::MeshToVolume<openvdb::FloatGrid> vol(transform);
 			vol.convertToLevelSet(points, primitives, 1.0, 1.0);
 			m_primaryGrid.m_grid =vol.distGridPtr ();
-			m_primaryGrid.m_grid->setGridClass (  openvdb::v2_1_0::GridClass::GRID_LEVEL_SET );
+            m_primaryGrid.m_grid->setGridClass (  openvdb::v2_3_0::GridClass::GRID_LEVEL_SET );
 		};
 
 		m_primaryGrid.m_grid->setName ( in_grid->m_grid->getName ( ) );

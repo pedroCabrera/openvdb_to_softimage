@@ -140,7 +140,7 @@ SICALLBACK VDB_GetValueAtIndex_Evaluate( ICENodeContext & in_ctxt)
 
 						// loop over all particle's indices
 						for ( LLONG i=0;i<nbIndices; ++i )				
-							outAcc[i] = acc.getValue (openvdb::v2_0_0::math::Coord (inAccX[i],inAccY[i],inAccZ[i]));
+                            outAcc[i] = acc.getValue (openvdb::v2_3_0::math::Coord (inAccX[i],inAccY[i],inAccZ[i]));
 					}
 
 
@@ -176,7 +176,7 @@ SICALLBACK VDB_GetValueAtIndex_Evaluate( ICENodeContext & in_ctxt)
 
 						// loop over all particle's indices
 						for ( LLONG i=0;i<nbIndices; ++i )				
-							outAcc[i] = acc.getValue (openvdb::v2_0_0::math::Coord (inAccX[i],inAccY[i],inAccZ[i]));
+                            outAcc[i] = acc.getValue (openvdb::v2_3_0::math::Coord (inAccX[i],inAccY[i],inAccZ[i]));
 					}
 
 
@@ -201,7 +201,7 @@ SICALLBACK VDB_GetValueAtIndex_Evaluate( ICENodeContext & in_ctxt)
 
 					// loop over all particles
 					for ( CIndexSet::Iterator it=indexSet.Begin(); it.HasNext(); it.Next() )							
-						outData[it] = acc.getValue (openvdb::v2_0_0::math::Coord (inX[it],inY[it],inZ[it]));
+                        outData[it] = acc.getValue (openvdb::v2_3_0::math::Coord (inX[it],inY[it],inZ[it]));
 
 				}
 				else if ( p_inWrapper->m_grid->isType<openvdb::DoubleGrid>() )
@@ -220,7 +220,7 @@ SICALLBACK VDB_GetValueAtIndex_Evaluate( ICENodeContext & in_ctxt)
 
 					// loop over all particles
 					for ( CIndexSet::Iterator it=indexSet.Begin(); it.HasNext(); it.Next() )							
-						outData[it] = acc.getValue (openvdb::v2_0_0::math::Coord (inX[it],inY[it],inZ[it]));
+                        outData[it] = acc.getValue (openvdb::math::Coord (inX[it],inY[it],inZ[it]));
 					
 				}
 			};

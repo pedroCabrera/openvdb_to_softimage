@@ -105,7 +105,7 @@ void FilloutActiveVoxelPositions (  openvdb::GridBase::Ptr & in_baseRef, CDataAr
 	LLONG cnt = 0;
 	for ( openvdb::Grid<TreeType>::ValueOnCIter iter = castedGridRef->cbeginValueOn(); cnt < nbActVoxels; ++ cnt  )
 	{
-		openvdb::v2_1_0::math::Vec3d vdbVec3 = castedGridRef->indexToWorld ( iter.getCoord () );
+        openvdb::v2_3_0::math::Vec3d vdbVec3 = castedGridRef->indexToWorld ( iter.getCoord () );
 		outAcc[cnt].Set ( vdbVec3.x (),vdbVec3.y (),vdbVec3.z () );
 		++iter;
 	};
@@ -265,7 +265,7 @@ SICALLBACK VDB_GetGridData_Evaluate( ICENodeContext & in_ctxt)
 				return CStatus::OK;
 			};
 
-			openvdb::v2_1_0::CoordBBox bbox;		
+            openvdb::v2_3_0::CoordBBox bbox;
 			//grid->baseTreePtr()->getIndexRange ( bbox );
 		
 		bbox =p_inWrapper->m_grid->evalActiveVoxelBoundingBox ();

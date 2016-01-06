@@ -83,7 +83,7 @@ struct VDB_CopyGrid_cache_t : public VDB_ICENode_cacheBase_t
 		{
 
 			m_primaryGrid.m_grid = in_grid->m_grid->deepCopyGrid ();
-			m_primaryGrid.m_grid->setGridClass (  openvdb::v2_1_0::GridClass::GRID_LEVEL_SET );
+			m_primaryGrid.m_grid->setGridClass (  openvdb::v2_3_0::GridClass::GRID_LEVEL_SET );
 
 			m_primaryGrid.m_grid->setName ( in_grid->m_grid->getName ( ) );
 			m_primaryGrid.m_lastEvalTime = clock();

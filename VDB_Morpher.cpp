@@ -159,8 +159,8 @@ struct VDB_Morpher_cache_t : public VDB_ICENode_cacheBase_t
 				openvdb::tools::LevelSetMorphing <openvdb::FloatGrid> morpher (* floatCopyA.get(),* floatCopyB.get() );
 
 			// set advction parameters
-					 typedef openvdb::v2_1_0::math::TemporalIntegrationScheme  TIS_t ;
-		 typedef openvdb::v2_1_0::math::BiasedGradientScheme  BGS_t ;
+					 typedef openvdb::v2_3_0::math::TemporalIntegrationScheme  TIS_t ;
+		 typedef openvdb::v2_3_0::math::BiasedGradientScheme  BGS_t ;
 
 		 TIS_t adv_tis = TIS_t::TVD_RK1;
 		 TIS_t renorm_tis = TIS_t::TVD_RK1;

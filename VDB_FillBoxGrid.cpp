@@ -162,7 +162,7 @@ struct VDB_FillBoxGrid_cache_t : public VDB_ICENode_cacheBase_t
 				};
 
 				m_primaryGrid.m_grid = ref;
-				m_primaryGrid.m_grid->setGridClass ( openvdb::v2_1_0::GridClass::GRID_FOG_VOLUME );
+                m_primaryGrid.m_grid->setGridClass ( openvdb::v2_3_0::GridClass::GRID_FOG_VOLUME );
 
 			}break;
 		case 1:
@@ -203,7 +203,7 @@ struct VDB_FillBoxGrid_cache_t : public VDB_ICENode_cacheBase_t
 				};
 
 				m_primaryGrid.m_grid = ref;
-				m_primaryGrid.m_grid->setGridClass ( openvdb::v2_1_0::GridClass::GRID_FOG_VOLUME );
+                m_primaryGrid.m_grid->setGridClass ( openvdb::v2_3_0::GridClass::GRID_FOG_VOLUME );
 
 			}break;
 
@@ -248,7 +248,7 @@ struct VDB_FillBoxGrid_cache_t : public VDB_ICENode_cacheBase_t
 
 
 				m_primaryGrid.m_grid = ref;
-				m_primaryGrid.m_grid->setGridClass ( openvdb::v2_1_0::GridClass::GRID_FOG_VOLUME );
+                m_primaryGrid.m_grid->setGridClass ( openvdb::v2_3_0::GridClass::GRID_FOG_VOLUME );
 
 			}break;
 
@@ -292,7 +292,7 @@ struct VDB_FillBoxGrid_cache_t : public VDB_ICENode_cacheBase_t
 				};
 
 				m_primaryGrid.m_grid = ref;
-				m_primaryGrid.m_grid->setGridClass ( openvdb::v2_1_0::GridClass::GRID_FOG_VOLUME );
+                m_primaryGrid.m_grid->setGridClass ( openvdb::v2_3_0::GridClass::GRID_FOG_VOLUME );
 
 			}break;
 
@@ -335,7 +335,7 @@ struct VDB_FillBoxGrid_cache_t : public VDB_ICENode_cacheBase_t
 				};
 
 				m_primaryGrid.m_grid = ref;
-				m_primaryGrid.m_grid->setGridClass ( openvdb::v2_1_0::GridClass::GRID_FOG_VOLUME );
+                m_primaryGrid.m_grid->setGridClass ( openvdb::v2_3_0::GridClass::GRID_FOG_VOLUME );
 			} break;
 
 

@@ -186,8 +186,8 @@ struct VDB_AdvectLevelSet_cache_t : public VDB_ICENode_cacheBase_t
 		FieldT field(*velGrid);
 		 openvdb::tools::LevelSetAdvection<openvdb::FloatGrid, FieldT>  advection(*scalarGrid, field);
 
-		 typedef openvdb::v2_1_0::math::TemporalIntegrationScheme  TIS_t ;
-		 typedef openvdb::v2_1_0::math::BiasedGradientScheme  BGS_t ;
+		 typedef openvdb::v2_3_0::math::TemporalIntegrationScheme  TIS_t ;
+		 typedef openvdb::v2_3_0::math::BiasedGradientScheme  BGS_t ;
 
 		 TIS_t adv_tis = TIS_t::TVD_RK1;
 		 TIS_t renorm_tis = TIS_t::TVD_RK1;

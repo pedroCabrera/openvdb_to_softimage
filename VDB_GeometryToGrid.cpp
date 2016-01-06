@@ -158,7 +158,7 @@ struct VDB_Grid2Mesh_cache_t : public VDB_ICENode_cacheBase_t
 		}
 
 
-		openvdb::tools::MeshToVolume<openvdb::FloatGrid> converter(transf);
+        openvdb::v2_3_0::tools::MeshToVolume<openvdb::FloatGrid> converter(transf);
 
 		openvdb::FloatGrid::Ptr tempPtr;
 
@@ -180,11 +180,11 @@ struct VDB_Grid2Mesh_cache_t : public VDB_ICENode_cacheBase_t
 		if ( m_toFog )
 		{
 			openvdb::tools::sdfToFogVolume(*tempPtr);
-			tempPtr->setGridClass ( openvdb::v2_1_0::GridClass::GRID_FOG_VOLUME );
+			tempPtr->setGridClass ( openvdb::v2_3_0::GridClass::GRID_FOG_VOLUME );
 		}
 		else
 		{
-			tempPtr->setGridClass ( openvdb::v2_1_0::GridClass::GRID_LEVEL_SET );
+			tempPtr->setGridClass ( openvdb::v2_3_0::GridClass::GRID_LEVEL_SET );
 		};
 
 
