@@ -1,3 +1,4 @@
+Backup Github for the Oleg Bliznuk original: https://bitbucket.org/OlegBliznuk/openvdb_to_softimage/src/master/
 ### Basic OpenVDB connector for Autodesk Softimage ###
 
 In order to build you have to install Visual studio (2010-2015) on Windows or GCC if you are on linux. 
